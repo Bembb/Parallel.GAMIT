@@ -1,0 +1,164 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Parallel.GAMIT}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}pgamit package}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Subpackages}{3}{subsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.1}pgamit.classes package}{3}{subsubsection.2.1.1.1}%
+\contentsline {paragraph}{Submodules}{3}{paragraph*.3}%
+\contentsline {paragraph}{pgamit.classes.NetClusters module}{3}{paragraph*.4}%
+\contentsline {paragraph}{pgamit.classes.Utils module}{5}{paragraph*.7}%
+\contentsline {paragraph}{pgamit.classes.WeeklyCombination module}{7}{paragraph*.53}%
+\contentsline {subparagraph}{WeeklyCombination.py \sphinxhyphen {} CLI interface}{7}{subparagraph*.63}%
+\contentsline {subparagraph}{WeeklyCombination.py positional arguments}{7}{subparagraph*.64}%
+\contentsline {subparagraph}{WeeklyCombination.py options}{8}{subparagraph*.65}%
+\contentsline {paragraph}{pgamit.classes.dbConnection module}{8}{paragraph*.66}%
+\contentsline {paragraph}{pgamit.classes.pyArchiveStruct module}{8}{paragraph*.72}%
+\contentsline {paragraph}{pgamit.classes.pyBrdc module}{9}{paragraph*.81}%
+\contentsline {paragraph}{pgamit.classes.pyBunch module}{9}{paragraph*.85}%
+\contentsline {paragraph}{pgamit.classes.pyClk module}{12}{paragraph*.92}%
+\contentsline {paragraph}{pgamit.classes.pyCompress module}{12}{paragraph*.96}%
+\contentsline {paragraph}{pgamit.classes.pyDate module}{12}{paragraph*.98}%
+\contentsline {paragraph}{pgamit.classes.pyEOP module}{13}{paragraph*.121}%
+\contentsline {paragraph}{pgamit.classes.pyETM module}{13}{paragraph*.124}%
+\contentsline {paragraph}{pgamit.classes.pyEvents module}{17}{paragraph*.201}%
+\contentsline {paragraph}{pgamit.classes.pyGamitConfig module}{17}{paragraph*.204}%
+\contentsline {paragraph}{pgamit.classes.pyGamitSession module}{17}{paragraph*.208}%
+\contentsline {paragraph}{pgamit.classes.pyGamitTask module}{18}{paragraph*.221}%
+\contentsline {paragraph}{pgamit.classes.pyGlobkTask module}{19}{paragraph*.237}%
+\contentsline {paragraph}{pgamit.classes.pyJobServer module}{19}{paragraph*.244}%
+\contentsline {paragraph}{pgamit.classes.pyLeastSquares module}{19}{paragraph*.256}%
+\contentsline {paragraph}{pgamit.classes.pyNEQStack module}{20}{paragraph*.259}%
+\contentsline {subparagraph}{pyNEQStack.py \sphinxhyphen {} CLI interface}{20}{subparagraph*.266}%
+\contentsline {subparagraph}{pyNEQStack.py positional arguments}{20}{subparagraph*.267}%
+\contentsline {subparagraph}{pyNEQStack.py options}{20}{subparagraph*.268}%
+\contentsline {paragraph}{pgamit.classes.pyNetwork module}{20}{paragraph*.269}%
+\contentsline {paragraph}{pgamit.classes.pyOTL module}{21}{paragraph*.279}%
+\contentsline {paragraph}{pgamit.classes.pyOkada module}{21}{paragraph*.283}%
+\contentsline {subparagraph}{Okada code Translated from Matlab to Python. Original by Michael Bevis based on Okada 1985}{21}{subparagraph*.284}%
+\contentsline {paragraph}{pgamit.classes.pyOptions module}{23}{paragraph*.298}%
+\contentsline {paragraph}{pgamit.classes.pyPPP module}{23}{paragraph*.300}%
+\contentsline {paragraph}{pgamit.classes.pyParseAntex module}{24}{paragraph*.328}%
+\contentsline {paragraph}{pgamit.classes.pyParseZTD module}{24}{paragraph*.330}%
+\contentsline {paragraph}{pgamit.classes.pyProducts module}{24}{paragraph*.333}%
+\contentsline {paragraph}{pgamit.classes.pyRinex module}{25}{paragraph*.337}%
+\contentsline {paragraph}{pgamit.classes.pyRinexName module}{26}{paragraph*.378}%
+\contentsline {paragraph}{pgamit.classes.pyRunWithRetry module}{27}{paragraph*.387}%
+\contentsline {paragraph}{pgamit.classes.pySp3 module}{27}{paragraph*.394}%
+\contentsline {paragraph}{pgamit.classes.pyStack module}{27}{paragraph*.398}%
+\contentsline {paragraph}{pgamit.classes.pyStatic1d module}{28}{paragraph*.418}%
+\contentsline {paragraph}{pgamit.classes.pyStation module}{29}{paragraph*.420}%
+\contentsline {paragraph}{pgamit.classes.pyStationInfo module}{30}{paragraph*.440}%
+\contentsline {paragraph}{pgamit.classes.pyTerminal module}{31}{paragraph*.462}%
+\contentsline {paragraph}{pgamit.classes.pyTrimbleT0x module}{33}{paragraph*.505}%
+\contentsline {paragraph}{pgamit.classes.pyVoronoi module}{33}{paragraph*.507}%
+\contentsline {paragraph}{pgamit.classes.pyZTD module}{35}{paragraph*.521}%
+\contentsline {paragraph}{pgamit.classes.snxParse module}{35}{paragraph*.528}%
+\contentsline {paragraph}{Module contents}{36}{paragraph*.547}%
+\contentsline {subsubsection}{\numberline {2.1.1.2}pgamit.com package}{36}{subsubsection.2.1.1.2}%
+\contentsline {paragraph}{Submodules}{36}{paragraph*.548}%
+\contentsline {paragraph}{pgamit.com.AlterETM module}{36}{paragraph*.549}%
+\contentsline {subparagraph}{AlterETM.py \sphinxhyphen {} CLI interface}{36}{subparagraph*.555}%
+\contentsline {subparagraph}{AlterETM.py positional arguments}{36}{subparagraph*.556}%
+\contentsline {subparagraph}{AlterETM.py options}{36}{subparagraph*.557}%
+\contentsline {paragraph}{pgamit.com.ApplyCountryCode module}{37}{paragraph*.558}%
+\contentsline {paragraph}{pgamit.com.ArchiveService module}{37}{paragraph*.560}%
+\contentsline {subparagraph}{ArchiveService}{37}{subparagraph*.561}%
+\contentsline {subparagraph}{ArchiveService.py \sphinxhyphen {} CLI interface}{38}{subparagraph*.573}%
+\contentsline {subparagraph}{ArchiveService.py options}{38}{subparagraph*.574}%
+\contentsline {paragraph}{pgamit.com.CloseStationInfo module}{38}{paragraph*.575}%
+\contentsline {subparagraph}{CloseStationInfo.py \sphinxhyphen {} CLI interface}{38}{subparagraph*.577}%
+\contentsline {subparagraph}{CloseStationInfo.py positional arguments}{38}{subparagraph*.578}%
+\contentsline {subparagraph}{CloseStationInfo.py options}{38}{subparagraph*.579}%
+\contentsline {paragraph}{pgamit.com.CompareDBs module}{38}{paragraph*.580}%
+\contentsline {paragraph}{pgamit.com.ConvertDate module}{39}{paragraph*.582}%
+\contentsline {subparagraph}{ConvertDate.py \sphinxhyphen {} CLI interface}{39}{subparagraph*.584}%
+\contentsline {subparagraph}{ConvertDate.py positional arguments}{39}{subparagraph*.585}%
+\contentsline {subparagraph}{ConvertDate.py options}{39}{subparagraph*.586}%
+\contentsline {paragraph}{pgamit.com.ConvertTrimble module}{39}{paragraph*.587}%
+\contentsline {subparagraph}{ConvertTrimble.py \sphinxhyphen {} CLI interface}{39}{subparagraph*.589}%
+\contentsline {subparagraph}{ConvertTrimble.py positional arguments}{39}{subparagraph*.590}%
+\contentsline {subparagraph}{ConvertTrimble.py options}{39}{subparagraph*.591}%
+\contentsline {paragraph}{pgamit.com.DRA module}{40}{paragraph*.592}%
+\contentsline {subparagraph}{DRA.py \sphinxhyphen {} CLI interface}{40}{subparagraph*.601}%
+\contentsline {subparagraph}{DRA.py positional arguments}{40}{subparagraph*.602}%
+\contentsline {subparagraph}{DRA.py options}{40}{subparagraph*.603}%
+\contentsline {paragraph}{pgamit.com.DownloadSources module}{40}{paragraph*.604}%
+\contentsline {subparagraph}{DownloadSources.py \sphinxhyphen {} CLI interface}{46}{subparagraph*.726}%
+\contentsline {subparagraph}{DownloadSources.py positional arguments}{46}{subparagraph*.727}%
+\contentsline {subparagraph}{DownloadSources.py options}{46}{subparagraph*.728}%
+\contentsline {paragraph}{pgamit.com.DownloadSourcesFill module}{46}{paragraph*.729}%
+\contentsline {subparagraph}{DownloadSourcesFill.py \sphinxhyphen {} CLI interface}{47}{subparagraph*.734}%
+\contentsline {subparagraph}{DownloadSourcesFill.py positional arguments}{47}{subparagraph*.735}%
+\contentsline {subparagraph}{DownloadSourcesFill.py options}{47}{subparagraph*.736}%
+\contentsline {paragraph}{pgamit.com.FixPlate module}{48}{paragraph*.737}%
+\contentsline {subparagraph}{FixPlate.py \sphinxhyphen {} CLI interface}{48}{subparagraph*.742}%
+\contentsline {subparagraph}{FixPlate.py positional arguments}{48}{subparagraph*.743}%
+\contentsline {subparagraph}{FixPlate.py options}{48}{subparagraph*.744}%
+\contentsline {paragraph}{pgamit.com.GenerateKml module}{48}{paragraph*.745}%
+\contentsline {subparagraph}{GenerateKml.py \sphinxhyphen {} CLI interface}{49}{subparagraph*.753}%
+\contentsline {subparagraph}{GenerateKml.py positional arguments}{49}{subparagraph*.754}%
+\contentsline {subparagraph}{GenerateKml.py options}{49}{subparagraph*.755}%
+\contentsline {paragraph}{pgamit.com.GenerateSinex module}{49}{paragraph*.756}%
+\contentsline {subparagraph}{GenerateSinex.py \sphinxhyphen {} CLI interface}{50}{subparagraph*.761}%
+\contentsline {subparagraph}{GenerateSinex.py positional arguments}{50}{subparagraph*.762}%
+\contentsline {subparagraph}{GenerateSinex.py options}{50}{subparagraph*.763}%
+\contentsline {paragraph}{pgamit.com.IntegrityCheck module}{50}{paragraph*.764}%
+\contentsline {subparagraph}{IntegrityCheck.py \sphinxhyphen {} CLI interface}{51}{subparagraph*.782}%
+\contentsline {subparagraph}{IntegrityCheck.py positional arguments}{51}{subparagraph*.783}%
+\contentsline {subparagraph}{IntegrityCheck.py options}{51}{subparagraph*.784}%
+\contentsline {paragraph}{pgamit.com.LocateRinex module}{52}{paragraph*.785}%
+\contentsline {subparagraph}{LocateRinex.py \sphinxhyphen {} CLI interface}{52}{subparagraph*.788}%
+\contentsline {subparagraph}{LocateRinex.py positional arguments}{53}{subparagraph*.789}%
+\contentsline {subparagraph}{LocateRinex.py options}{53}{subparagraph*.790}%
+\contentsline {paragraph}{pgamit.com.OTL\_FES2014b module}{54}{paragraph*.791}%
+\contentsline {paragraph}{pgamit.com.ParallelGamit module}{54}{paragraph*.798}%
+\contentsline {subparagraph}{ParallelGamit.py \sphinxhyphen {} CLI interface}{55}{subparagraph*.822}%
+\contentsline {subparagraph}{ParallelGamit.py positional arguments}{55}{subparagraph*.823}%
+\contentsline {subparagraph}{ParallelGamit.py options}{55}{subparagraph*.824}%
+\contentsline {paragraph}{pgamit.com.PlotETM module}{56}{paragraph*.825}%
+\contentsline {subparagraph}{PlotETM.py \sphinxhyphen {} CLI interface}{56}{subparagraph*.828}%
+\contentsline {subparagraph}{PlotETM.py positional arguments}{56}{subparagraph*.829}%
+\contentsline {subparagraph}{PlotETM.py options}{56}{subparagraph*.830}%
+\contentsline {paragraph}{pgamit.com.PlotMapView module}{57}{paragraph*.831}%
+\contentsline {subparagraph}{PlotMapView.py \sphinxhyphen {} CLI interface}{57}{subparagraph*.835}%
+\contentsline {subparagraph}{PlotMapView.py positional arguments}{57}{subparagraph*.836}%
+\contentsline {subparagraph}{PlotMapView.py options}{58}{subparagraph*.837}%
+\contentsline {paragraph}{pgamit.com.QueryETM module}{58}{paragraph*.838}%
+\contentsline {subparagraph}{QueryETM.py \sphinxhyphen {} CLI interface}{58}{subparagraph*.841}%
+\contentsline {subparagraph}{QueryETM.py positional arguments}{58}{subparagraph*.842}%
+\contentsline {subparagraph}{QueryETM.py options}{59}{subparagraph*.843}%
+\contentsline {paragraph}{pgamit.com.ReadPackage module}{59}{paragraph*.844}%
+\contentsline {subparagraph}{ReadPackage.py \sphinxhyphen {} CLI interface}{59}{subparagraph*.849}%
+\contentsline {subparagraph}{ReadPackage.py positional arguments}{59}{subparagraph*.850}%
+\contentsline {subparagraph}{ReadPackage.py options}{59}{subparagraph*.851}%
+\contentsline {paragraph}{pgamit.com.Read\_Mfile module}{59}{paragraph*.852}%
+\contentsline {paragraph}{pgamit.com.ScanArchive module}{59}{paragraph*.853}%
+\contentsline {subparagraph}{ScanArchive.py \sphinxhyphen {} CLI interface}{61}{subparagraph*.879}%
+\contentsline {subparagraph}{ScanArchive.py positional arguments}{62}{subparagraph*.880}%
+\contentsline {subparagraph}{ScanArchive.py options}{62}{subparagraph*.881}%
+\contentsline {paragraph}{pgamit.com.Stacker module}{63}{paragraph*.882}%
+\contentsline {subparagraph}{Stacker.py \sphinxhyphen {} CLI interface}{63}{subparagraph*.890}%
+\contentsline {subparagraph}{Stacker.py positional arguments}{63}{subparagraph*.891}%
+\contentsline {subparagraph}{Stacker.py options}{64}{subparagraph*.892}%
+\contentsline {paragraph}{pgamit.com.StationInfoEdit module}{64}{paragraph*.893}%
+\contentsline {paragraph}{pgamit.com.StationList module}{65}{paragraph*.907}%
+\contentsline {paragraph}{pgamit.com.SyncOrbits module}{65}{paragraph*.912}%
+\contentsline {subparagraph}{SyncOrbits.py \sphinxhyphen {} CLI interface}{65}{subparagraph*.914}%
+\contentsline {subparagraph}{SyncOrbits.py options}{65}{subparagraph*.915}%
+\contentsline {paragraph}{pgamit.com.TrajectoryFit module}{65}{paragraph*.916}%
+\contentsline {subparagraph}{TrajectoryFit.py \sphinxhyphen {} CLI interface}{66}{subparagraph*.922}%
+\contentsline {subparagraph}{TrajectoryFit.py positional arguments}{66}{subparagraph*.923}%
+\contentsline {subparagraph}{TrajectoryFit.py options}{66}{subparagraph*.924}%
+\contentsline {paragraph}{pgamit.com.UpdateEarthquakes module}{67}{paragraph*.925}%
+\contentsline {paragraph}{pgamit.com.Ztd2trp module}{67}{paragraph*.929}%
+\contentsline {subparagraph}{Ztd2trp.py \sphinxhyphen {} CLI interface}{67}{subparagraph*.931}%
+\contentsline {subparagraph}{Ztd2trp.py positional arguments}{67}{subparagraph*.932}%
+\contentsline {subparagraph}{Ztd2trp.py options}{67}{subparagraph*.933}%
+\contentsline {paragraph}{pgamit.com.amend module}{68}{paragraph*.934}%
+\contentsline {paragraph}{pgamit.com.gamit\_stats module}{68}{paragraph*.941}%
+\contentsline {paragraph}{pgamit.com.load\_g2\_aprs module}{68}{paragraph*.944}%
+\contentsline {paragraph}{pgamit.com.test\_proc module}{68}{paragraph*.946}%
+\contentsline {paragraph}{Module contents}{68}{paragraph*.952}%
+\contentsline {subsection}{\numberline {2.1.2}Module contents}{68}{subsection.2.1.2}%
+\contentsline {chapter}{Python Module Index}{69}{section*.953}%
+\contentsline {chapter}{Index}{71}{section*.954}%

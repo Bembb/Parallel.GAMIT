@@ -1,0 +1,1391 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{abspath\_down\_file}\spxextra{pgamit.com.DownloadSources.Client.NextDownload attribute}, 
+		\hyperpage{41}
+  \item \spxentry{abspath\_down\_file}\spxextra{pgamit.com.DownloadSources.File attribute}, 
+		\hyperpage{41}
+  \item \spxentry{abspath\_station\_dir}\spxextra{pgamit.com.DownloadSources.Station attribute}, 
+		\hyperpage{45}
+  \item \spxentry{acosd()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{add\_domes()}\spxextra{in module pgamit.classes.WeeklyCombination}, \hyperpage{7}
+  \item \spxentry{add\_domes()}\spxextra{in module pgamit.com.GenerateSinex}, \hyperpage{49}
+  \item \spxentry{add\_missing\_station()}\spxextra{pgamit.classes.pyNetwork.Network method}, 
+		\hyperpage{21}
+  \item \spxentry{AddEarthquakes}\spxextra{class in pgamit.com.UpdateEarthquakes}, \hyperpage{67}
+  \item \spxentry{addStation()}\spxextra{pgamit.classes.snxParse.snxStationMerger method}, 
+		\hyperpage{35}
+  \item \spxentry{addStation()}\spxextra{pgamit.com.StationList.StationList method}, \hyperpage{65}
+  \item \spxentry{addStationsFromSinexObject()}\spxextra{pgamit.classes.snxParse.snxStationMerger method}, 
+		\hyperpage{35}
+  \item \spxentry{adjust\_lsq()}\spxextra{in module pgamit.classes.pyLeastSquares}, \hyperpage{19}
+  \item \spxentry{adjust\_lsq()}\spxextra{in module pgamit.classes.pyNEQStack}, \hyperpage{20}
+  \item \spxentry{adjust\_lsq()}\spxextra{in module pgamit.classes.pyStack}, \hyperpage{28}
+  \item \spxentry{adjust\_lsq()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{adjust\_lsq()}\spxextra{pgamit.classes.pyZTD.Ztd method}, \hyperpage{35}
+  \item \spxentry{align()}\spxextra{pgamit.classes.pyStack.Polyhedron method}, \hyperpage{28}
+  \item \spxentry{align\_spaces()}\spxextra{pgamit.classes.pyStack.Stack method}, \hyperpage{28}
+  \item \spxentry{antenna\_check()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{append()}\spxextra{pgamit.classes.pyStation.StationCollection method}, 
+		\hyperpage{29}
+  \item \spxentry{apply\_change()}\spxextra{in module pgamit.com.AlterETM}, \hyperpage{36}
+  \item \spxentry{apply\_file\_naming\_convention()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{apply\_postseismic\_model()}\spxextra{pgamit.classes.pyETM.ETM method}, 
+		\hyperpage{14}
+  \item \spxentry{asind()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{atand()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{auto\_coord()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{auto\_coord\_sh\_rx2apr()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{autoscale\_y()}\spxextra{pgamit.classes.pyETM.ETM static method}, \hyperpage{14}
+  \item \spxentry{autoscale\_y()}\spxextra{pgamit.classes.pyZTD.Ztd static method}, \hyperpage{35}
+  \item \spxentry{ax()}\spxextra{pgamit.classes.pyStack.Polyhedron method}, \hyperpage{28}
+  \item \spxentry{ay()}\spxextra{pgamit.classes.pyStack.Polyhedron method}, \hyperpage{28}
+  \item \spxentry{az()}\spxextra{pgamit.classes.pyStack.Polyhedron method}, \hyperpage{28}
+
+  \indexspace
+  \bigletter B
+  \item \spxentry{backbone\_delauney()}\spxextra{pgamit.classes.pyNetwork.Network static method}, 
+		\hyperpage{21}
+  \item \spxentry{BAR}\spxextra{pgamit.classes.pyTerminal.ProgressBar attribute}, \hyperpage{31}
+  \item \spxentry{BG\_BLACK}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BG\_BLUE}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BG\_CYAN}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BG\_GREEN}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BG\_MAGENTA}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BG\_RED}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BG\_WHITE}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BG\_YELLOW}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BLACK}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BLINK}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BLUE}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BOL}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{BOLD}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{build\_design()}\spxextra{in module pgamit.com.FixPlate}, \hyperpage{48}
+  \item \spxentry{build\_design()}\spxextra{pgamit.classes.pyStack.Stack method}, \hyperpage{28}
+  \item \spxentry{build\_design\_href()}\spxextra{in module pgamit.com.FixPlate}, \hyperpage{48}
+  \item \spxentry{build\_design\_vref()}\spxextra{in module pgamit.com.FixPlate}, \hyperpage{48}
+  \item \spxentry{build\_rinex\_path()}\spxextra{pgamit.classes.pyArchiveStruct.RinexStruct method}, 
+		\hyperpage{8}
+  \item \spxentry{Bunch}\spxextra{class in pgamit.classes.pyBunch}, \hyperpage{10}
+  \item \spxentry{bunchify()}\spxextra{in module pgamit.classes.pyBunch}, \hyperpage{11}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{calculate\_and\_sum\_up\_inner\_sphere\_surface\_angles\_Voronoi\_polygon()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{33}
+  \item \spxentry{calculate\_etms()}\spxextra{in module pgamit.com.Stacker}, \hyperpage{63}
+  \item \spxentry{calculate\_etms()}\spxextra{pgamit.classes.pyStack.Stack method}, \hyperpage{28}
+  \item \spxentry{calculate\_haversine\_distance\_between\_spherical\_points()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{calculate\_otl\_coeff()}\spxextra{pgamit.classes.pyOTL.OceanLoading method}, 
+		\hyperpage{21}
+  \item \spxentry{calculate\_surface\_area\_of\_a\_spherical\_Voronoi\_polygon()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{calculate\_surface\_area\_of\_planar\_polygon\_in\_3D\_space()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{calculate\_Vincenty\_distance\_between\_spherical\_points()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{33}
+  \item \spxentry{callback\_class}\spxextra{class in pgamit.com.amend}, \hyperpage{68}
+  \item \spxentry{callback\_class}\spxextra{class in pgamit.com.ScanArchive}, \hyperpage{60}
+  \item \spxentry{callback\_class}\spxextra{class in pgamit.com.test\_proc}, \hyperpage{68}
+  \item \spxentry{callback\_handle()}\spxextra{in module pgamit.com.ArchiveService}, \hyperpage{37}
+  \item \spxentry{callback\_handle()}\spxextra{in module pgamit.com.GenerateKml}, \hyperpage{48}
+  \item \spxentry{callback\_handle()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{60}
+  \item \spxentry{callback\_handler()}\spxextra{in module pgamit.com.DRA}, \hyperpage{40}
+  \item \spxentry{callback\_handler()}\spxextra{in module pgamit.com.Stacker}, \hyperpage{63}
+  \item \spxentry{callbackfunc()}\spxextra{pgamit.com.amend.callback\_class method}, \hyperpage{68}
+  \item \spxentry{callbackfunc()}\spxextra{pgamit.com.ScanArchive.callback\_class method}, 
+		\hyperpage{60}
+  \item \spxentry{callbackfunc()}\spxextra{pgamit.com.test\_proc.callback\_class method}, 
+		\hyperpage{68}
+  \item \spxentry{cart2euler()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{check\_cluster()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, 
+		\hyperpage{19}
+  \item \spxentry{check\_eop()}\spxextra{pgamit.classes.pyPPP.RunPPP static method}, \hyperpage{23}
+  \item \spxentry{check\_gamit\_soln()}\spxextra{pgamit.classes.pyStation.Station method}, 
+		\hyperpage{29}
+  \item \spxentry{check\_header()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{check\_interval()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{check\_otl()}\spxextra{pgamit.classes.pyPPP.RunPPP static method}, \hyperpage{23}
+  \item \spxentry{check\_phase\_center()}\spxextra{pgamit.classes.pyPPP.RunPPP static method}, 
+		\hyperpage{23}
+  \item \spxentry{check\_rinex()}\spxextra{in module pgamit.com.test\_proc}, \hyperpage{68}
+  \item \spxentry{check\_rinex\_stn()}\spxextra{in module pgamit.com.IntegrityCheck}, 
+		\hyperpage{51}
+  \item \spxentry{check\_rinex\_timespan\_int()}\spxextra{in module pgamit.com.ArchiveService}, 
+		\hyperpage{37}
+  \item \spxentry{check\_station\_alias()}\spxextra{in module pgamit.com.ParallelGamit}, 
+		\hyperpage{54}
+  \item \spxentry{check\_year()}\spxextra{in module pgamit.classes.pyRinexName}, \hyperpage{26}
+  \item \spxentry{CheckRinexIntegrity()}\spxextra{in module pgamit.com.IntegrityCheck}, 
+		\hyperpage{50}
+  \item \spxentry{CheckSpatialCoherence()}\spxextra{in module pgamit.com.IntegrityCheck}, 
+		\hyperpage{50}
+  \item \spxentry{chi2inv()}\spxextra{pgamit.classes.pyETM.ETM static method}, \hyperpage{14}
+  \item \spxentry{chmod\_exec()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{CHUNK\_SIZE}\spxextra{pgamit.com.DownloadSources.FilesBag.Dates attribute}, 
+		\hyperpage{42}
+  \item \spxentry{cleanup()}\spxextra{pgamit.classes.pyBrdc.GetBrdcOrbits method}, \hyperpage{9}
+  \item \spxentry{cleanup()}\spxextra{pgamit.classes.pyClk.GetClkFile method}, \hyperpage{12}
+  \item \spxentry{cleanup()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, \hyperpage{19}
+  \item \spxentry{cleanup()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{23}
+  \item \spxentry{cleanup()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{cleanup()}\spxextra{pgamit.classes.pySp3.GetSp3Orbits method}, \hyperpage{27}
+  \item \spxentry{clear()}\spxextra{pgamit.classes.pyTerminal.ProgressBar method}, \hyperpage{31}
+  \item \spxentry{CLEAR\_BOL}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{CLEAR\_EOL}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{CLEAR\_EOS}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{CLEAR\_SCREEN}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{cleared}\spxextra{pgamit.classes.pyTerminal.ProgressBar attribute}, 
+		\hyperpage{31}
+  \item \spxentry{Client}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{40}
+  \item \spxentry{Client.NextDownload}\spxextra{class in pgamit.com.DownloadSources}, 
+		\hyperpage{41}
+  \item \spxentry{close\_cluster()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, 
+		\hyperpage{19}
+  \item \spxentry{cluster\_status()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, 
+		\hyperpage{19}
+  \item \spxentry{COLS}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{Combination}\spxextra{class in pgamit.classes.pyStack}, \hyperpage{27}
+  \item \spxentry{combine\_systems()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{command}\spxextra{class in pgamit.classes.pyRunWithRetry}, \hyperpage{27}
+  \item \spxentry{compare\_aliases()}\spxextra{pgamit.classes.pyStation.StationCollection method}, 
+		\hyperpage{29}
+  \item \spxentry{compare\_stninfo\_rinex()}\spxextra{in module pgamit.com.IntegrityCheck}, 
+		\hyperpage{51}
+  \item \spxentry{compareUsingCoordinates()}\spxextra{pgamit.classes.snxParse.snxStationMerger method}, 
+		\hyperpage{35}
+  \item \spxentry{Compress}\spxextra{class in pgamit.classes.pyCompress}, \hyperpage{12}
+  \item \spxentry{compress\_local\_copyto()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{compute\_disp\_field()}\spxextra{pgamit.classes.pyOkada.Score method}, 
+		\hyperpage{22}
+  \item \spxentry{compute\_dra()}\spxextra{in module pgamit.com.DRA}, \hyperpage{40}
+  \item \spxentry{cond}\spxextra{pgamit.com.DownloadSources.Client attribute}, \hyperpage{41}
+  \item \spxentry{config\_session()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{23}
+  \item \spxentry{connect()}\spxextra{pgamit.com.DownloadSources.IProtocol method}, \hyperpage{42}
+  \item \spxentry{connect()}\spxextra{pgamit.com.DownloadSources.ProtocolFTP method}, 
+		\hyperpage{44}
+  \item \spxentry{connect()}\spxextra{pgamit.com.DownloadSources.ProtocolFTPA method}, 
+		\hyperpage{44}
+  \item \spxentry{connect()}\spxextra{pgamit.com.DownloadSources.ProtocolHTTP method}, 
+		\hyperpage{44}
+  \item \spxentry{connect()}\spxextra{pgamit.com.DownloadSources.ProtocolSFTP method}, 
+		\hyperpage{44}
+  \item \spxentry{contains()}\spxextra{pgamit.classes.snxParse.snxFileParser method}, 
+		\hyperpage{35}
+  \item \spxentry{convert\_cartesian\_array\_to\_spherical\_array()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{convert\_spherical\_array\_to\_cartesian\_array()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{convert\_trimble()}\spxextra{in module pgamit.classes.pyTrimbleT0x}, 
+		\hyperpage{33}
+  \item \spxentry{ConvertRinex()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{copy\_sestbl\_procdef\_atx()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{17}
+  \item \spxentry{copyfile()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{copyfiles()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{23}
+  \item \spxentry{cosd()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{CoSeisJump}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{13}
+  \item \spxentry{CountryCode}\spxextra{pgamit.com.DownloadSources.Station attribute}, 
+		\hyperpage{45}
+  \item \spxentry{crc32()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{create\_apr\_sittbl\_file()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{17}
+  \item \spxentry{create\_cluster()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, 
+		\hyperpage{19}
+  \item \spxentry{create\_combination\_script()}\spxextra{pgamit.classes.pyGlobkTask.Globk method}, 
+		\hyperpage{19}
+  \item \spxentry{create\_combination\_script()}\spxextra{pgamit.classes.WeeklyCombination.Globk method}, 
+		\hyperpage{7}
+  \item \spxentry{create\_files()}\spxextra{in module pgamit.com.OTL\_FES2014b}, \hyperpage{54}
+  \item \spxentry{create\_gamit\_sessions()}\spxextra{pgamit.classes.pyNetwork.Network method}, 
+		\hyperpage{21}
+  \item \spxentry{create\_otl\_list()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{create\_replace\_links()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{create\_script()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{create\_sitedef()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{create\_station\_info()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{create\_temp\_dirs()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{ct2lg()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{CYAN}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{DailyRep}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{13}
+  \item \spxentry{database()}\spxextra{pgamit.classes.pyStationInfo.StationInfoRecord method}, 
+		\hyperpage{30}
+  \item \spxentry{Date}\spxextra{class in pgamit.classes.pyDate}, \hyperpage{12}
+  \item \spxentry{date}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{41}
+  \item \spxentry{date2doy()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+  \item \spxentry{date2gpsDate()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+  \item \spxentry{date\_mjd}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{41}
+  \item \spxentry{date\_mjd}\spxextra{pgamit.com.DownloadSources.FileDescriptor attribute}, 
+		\hyperpage{42}
+  \item \spxentry{datetime()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{db\_dict()}\spxextra{pgamit.classes.pyEvents.Event method}, \hyperpage{17}
+  \item \spxentry{db\_get\_sources\_for\_station()}\spxextra{in module pgamit.com.DownloadSources}, 
+		\hyperpage{45}
+  \item \spxentry{db\_migrate\_if\_needed()}\spxextra{in module pgamit.com.DownloadSources}, 
+		\hyperpage{46}
+  \item \spxentry{DbAlive}\spxextra{class in pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{dbErrConnect}, \hyperpage{8}
+  \item \spxentry{dbErrDelete}, \hyperpage{8}
+  \item \spxentry{dbErrInsert}, \hyperpage{8}
+  \item \spxentry{dbErrUpdate}, \hyperpage{8}
+  \item \spxentry{ddd()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{debug()}\spxextra{in module pgamit.classes.dbConnection}, \hyperpage{8}
+  \item \spxentry{DebugCoord()}\spxextra{pgamit.classes.pyStation.StationInstance method}, 
+		\hyperpage{29}
+  \item \spxentry{decimate()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{default()}\spxextra{pgamit.com.ScanArchive.Encoder method}, \hyperpage{60}
+  \item \spxentry{DEFAULT\_PORT}\spxextra{pgamit.com.DownloadSources.ProtocolFTP attribute}, 
+		\hyperpage{44}
+  \item \spxentry{DEFAULT\_PORT}\spxextra{pgamit.com.DownloadSources.ProtocolFTPA attribute}, 
+		\hyperpage{44}
+  \item \spxentry{DEFAULT\_PORT}\spxextra{pgamit.com.DownloadSources.ProtocolHTTP attribute}, 
+		\hyperpage{44}
+  \item \spxentry{DEFAULT\_PORT}\spxextra{pgamit.com.DownloadSources.ProtocolHTTPS attribute}, 
+		\hyperpage{44}
+  \item \spxentry{DEFAULT\_PORT}\spxextra{pgamit.com.DownloadSources.ProtocolSFTP attribute}, 
+		\hyperpage{44}
+  \item \spxentry{delete\_record()}\spxextra{in module pgamit.com.StationInfoEdit}, \hyperpage{64}
+  \item \spxentry{DeleteRinex()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{DeleteStationInfo()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{desc}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{41}
+  \item \spxentry{desc()}\spxextra{pgamit.com.DownloadSources.IProtocol method}, \hyperpage{42}
+  \item \spxentry{description\_content()}\spxextra{in module pgamit.com.GenerateKml}, 
+		\hyperpage{48}
+  \item \spxentry{determine\_frame()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{DIM}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{dir\_try\_remove()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{disconnect()}\spxextra{pgamit.com.DownloadSources.IProtocol method}, 
+		\hyperpage{42}
+  \item \spxentry{disconnect()}\spxextra{pgamit.com.DownloadSources.ProtocolFTP method}, 
+		\hyperpage{44}
+  \item \spxentry{disconnect()}\spxextra{pgamit.com.DownloadSources.ProtocolHTTP method}, 
+		\hyperpage{44}
+  \item \spxentry{disconnect()}\spxextra{pgamit.com.DownloadSources.ProtocolSFTP method}, 
+		\hyperpage{44}
+  \item \spxentry{display()}\spxextra{pgamit.com.StationInfoEdit.Menu method}, \hyperpage{64}
+  \item \spxentry{display\_postseismic\_params()}\spxextra{pgamit.classes.pyETM.ETM method}, 
+		\hyperpage{14}
+  \item \spxentry{distance()}\spxextra{in module pgamit.classes.pyETM}, \hyperpage{17}
+  \item \spxentry{distance()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{do\_copy\_op()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{DOWN}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{download()}\spxextra{pgamit.com.DownloadSources.IProtocol method}, \hyperpage{42}
+  \item \spxentry{download()}\spxextra{pgamit.com.DownloadSources.ProtocolFTP method}, 
+		\hyperpage{44}
+  \item \spxentry{download()}\spxextra{pgamit.com.DownloadSources.ProtocolHTTP method}, 
+		\hyperpage{44}
+  \item \spxentry{download()}\spxextra{pgamit.com.DownloadSources.ProtocolSFTP method}, 
+		\hyperpage{45}
+  \item \spxentry{download\_all\_stations\_data()}\spxextra{in module pgamit.com.DownloadSources}, 
+		\hyperpage{46}
+  \item \spxentry{doy2date()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+  \item \spxentry{DRA}\spxextra{class in pgamit.com.DRA}, \hyperpage{40}
+  \item \spxentry{dra()}\spxextra{in module pgamit.classes.pyNEQStack}, \hyperpage{20}
+
+  \indexspace
+  \bigletter E
+  \item \spxentry{Earthquakes}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{15}
+  \item \spxentry{ecef2lla()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{edit\_record()}\spxextra{in module pgamit.com.StationInfoEdit}, \hyperpage{64}
+  \item \spxentry{elapsed\_time}\spxextra{pgamit.com.DownloadSources.Msg.DOWNLOAD\_RESULT attribute}, 
+		\hyperpage{43}
+  \item \spxentry{enable\_picking()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{Encoder}\spxextra{class in pgamit.com.ScanArchive}, \hyperpage{60}
+  \item \spxentry{enter\_edit\_mode()}\spxextra{pgamit.com.StationInfoEdit.Menu method}, 
+		\hyperpage{64}
+  \item \spxentry{entropy\_sigma()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{error}\spxextra{pgamit.com.DownloadSources.Msg.DOWNLOAD\_RESULT attribute}, 
+		\hyperpage{43}
+  \item \spxentry{error}\spxextra{pgamit.com.DownloadSources.Msg.PROCESS\_RESULT attribute}, 
+		\hyperpage{44}
+  \item \spxentry{error\_handle()}\spxextra{in module pgamit.com.ArchiveService}, \hyperpage{37}
+  \item \spxentry{ETM}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{13}
+  \item \spxentry{EtmFunction}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{15}
+  \item \spxentry{eval()}\spxextra{pgamit.classes.pyETM.CoSeisJump method}, \hyperpage{13}
+  \item \spxentry{eval()}\spxextra{pgamit.classes.pyETM.Jump method}, \hyperpage{15}
+  \item \spxentry{eval()}\spxextra{pgamit.classes.pyETM.Model method}, \hyperpage{16}
+  \item \spxentry{Event}\spxextra{class in pgamit.classes.pyEvents}, \hyperpage{17}
+  \item \spxentry{ExcludeSolutions()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{exec\_ppp()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{23}
+  \item \spxentry{execute()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, \hyperpage{18}
+  \item \spxentry{execute()}\spxextra{pgamit.classes.pyGlobkTask.Globk method}, \hyperpage{19}
+  \item \spxentry{execute()}\spxextra{pgamit.classes.pyParseZTD.ParseZtdTask method}, 
+		\hyperpage{24}
+  \item \spxentry{execute()}\spxextra{pgamit.classes.WeeklyCombination.Globk method}, \hyperpage{7}
+  \item \spxentry{execute\_ppp()}\spxextra{in module pgamit.com.LocateRinex}, \hyperpage{52}
+  \item \spxentry{execute\_ppp()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{ExecuteGamit()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{ExecuteGlobk()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{export\_station()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{extract\_json()}\spxextra{in module pgamit.com.ReadPackage}, \hyperpage{59}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{fetch\_orbits()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{fetch\_rinex()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{File}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{41}
+  \item \spxentry{file}\spxextra{pgamit.com.DownloadSources.Msg.FILE\_IGNORED\_EXISTS\_IN\_DB attribute}, 
+		\hyperpage{43}
+  \item \spxentry{file}\spxextra{pgamit.com.DownloadSources.Msg.FILE\_SKIPPED\_INACTIVE\_STATION attribute}, 
+		\hyperpage{43}
+  \item \spxentry{file}\spxextra{pgamit.com.DownloadSources.Msg.NEW\_FILE attribute}, 
+		\hyperpage{43}
+  \item \spxentry{file}\spxextra{pgamit.com.DownloadSources.Msg.PROCESS\_RESULT attribute}, 
+		\hyperpage{44}
+  \item \spxentry{file\_append()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{file\_open()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{file\_read\_all()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{file\_readlines()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{file\_try\_remove()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{file\_write()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{5}
+  \item \spxentry{FileDescriptor}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{42}
+  \item \spxentry{FileETM}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{15}
+  \item \spxentry{filename}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{41}
+  \item \spxentry{filename\_base()}\spxextra{pgamit.classes.pyRinexName.RinexNameFormat method}, 
+		\hyperpage{26}
+  \item \spxentry{filename\_no\_ext()}\spxextra{pgamit.classes.pyRinexName.RinexNameFormat method}, 
+		\hyperpage{26}
+  \item \spxentry{FilesBag}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{42}
+  \item \spxentry{FilesBag.Dates}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{42}
+  \item \spxentry{filter\_polygon\_vertex\_coordinates\_for\_extreme\_proximity()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{filter\_tetrahedron\_to\_triangle()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{find\_between()}\spxextra{in module pgamit.classes.pyPPP}, \hyperpage{24}
+  \item \spxentry{finish()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, \hyperpage{18}
+  \item \spxentry{finish()}\spxextra{pgamit.com.DownloadSources.Client method}, \hyperpage{41}
+  \item \spxentry{first\_epoch()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{fix\_gps\_week()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{format}\spxextra{pgamit.com.DownloadSources.Source attribute}, \hyperpage{45}
+  \item \spxentry{format\_record()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{fqdn}\spxextra{pgamit.com.DownloadSources.Source attribute}, \hyperpage{45}
+  \item \spxentry{fqdn\_parse()}\spxextra{in module pgamit.com.DownloadSources}, \hyperpage{46}
+  \item \spxentry{from\_descriptor()}\spxextra{pgamit.com.DownloadSources.File static method}, 
+		\hyperpage{41}
+  \item \spxentry{from\_file()}\spxextra{in module pgamit.com.PlotETM}, \hyperpage{56}
+  \item \spxentry{from\_file()}\spxextra{in module pgamit.com.QueryETM}, \hyperpage{58}
+  \item \spxentry{from\_params()}\spxextra{pgamit.com.DownloadSources.File static method}, 
+		\hyperpage{41}
+  \item \spxentry{fromDict()}\spxextra{pgamit.classes.pyBunch.Bunch static method}, \hyperpage{10}
+  \item \spxentry{fyear2yeardoy()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{gamit\_callback()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{GamitConfiguration}\spxextra{class in pgamit.classes.pyGamitConfig}, 
+		\hyperpage{17}
+  \item \spxentry{GamitETM}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{15}
+  \item \spxentry{GamitSession}\spxextra{class in pgamit.classes.pyGamitSession}, \hyperpage{17}
+  \item \spxentry{GamitSessionException}, \hyperpage{18}
+  \item \spxentry{GamitSoln}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{15}
+  \item \spxentry{GamitTask}\spxextra{class in pgamit.classes.pyGamitTask}, \hyperpage{18}
+  \item \spxentry{generate\_alias()}\spxextra{pgamit.classes.pyStation.Station method}, 
+		\hyperpage{29}
+  \item \spxentry{generate\_kml()}\spxextra{in module pgamit.com.GenerateKml}, \hyperpage{48}
+  \item \spxentry{generate\_kml()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{generate\_kml()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{generate\_kml\_stninfo()}\spxextra{in module pgamit.com.GenerateKml}, 
+		\hyperpage{49}
+  \item \spxentry{generate\_kmz()}\spxextra{in module pgamit.com.PlotMapView}, \hyperpage{57}
+  \item \spxentry{generate\_kmz()}\spxextra{in module pgamit.com.TrajectoryFit}, \hyperpage{65}
+  \item \spxentry{GenericJumps}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{15}
+  \item \spxentry{get()}\spxextra{pgamit.classes.snxParse.snxFileParser method}, \hyperpage{35}
+  \item \spxentry{get\_active\_coordinates()}\spxextra{pgamit.classes.pyStation.StationCollection method}, 
+		\hyperpage{29}
+  \item \spxentry{get\_active\_stations()}\spxextra{pgamit.classes.pyStation.StationCollection method}, 
+		\hyperpage{29}
+  \item \spxentry{get\_clock()}\spxextra{pgamit.classes.pyPPP.RunPPP static method}, \hyperpage{23}
+  \item \spxentry{get\_data\_segments()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{get\_design\_ts()}\spxextra{pgamit.classes.pyETM.JumpTable method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_design\_ts()}\spxextra{pgamit.classes.pyETM.Periodic method}, \hyperpage{16}
+  \item \spxentry{get\_design\_ts()}\spxextra{pgamit.classes.pyETM.Polynomial method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_differences()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{51}
+  \item \spxentry{get\_etm\_soln\_list()}\spxextra{pgamit.classes.pyETM.GamitETM method}, 
+		\hyperpage{15}
+  \item \spxentry{get\_field\_or\_attr()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{get\_fields()}\spxextra{in module pgamit.com.StationInfoEdit}, \hyperpage{64}
+  \item \spxentry{get\_firstobs()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{get\_frame()}\spxextra{pgamit.classes.pyPPP.RunPPP static method}, \hyperpage{23}
+  \item \spxentry{get\_header()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{get\_norm\_doy\_str()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{get\_norm\_year\_str()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{get\_orbits()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{23}
+  \item \spxentry{get\_outliers\_list()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{get\_platform\_id()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{get\_pr\_observations()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, 
+		\hyperpage{23}
+  \item \spxentry{get\_processor\_count()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{get\_records()}\spxextra{in module pgamit.com.StationInfoEdit}, \hyperpage{64}
+  \item \spxentry{get\_residuals\_dict()}\spxextra{pgamit.classes.pyETM.DailyRep method}, 
+		\hyperpage{13}
+  \item \spxentry{get\_resource\_delimiter()}\spxextra{in module pgamit.classes.Utils}, 
+		\hyperpage{6}
+  \item \spxentry{get\_rinex\_file()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{get\_rinex\_filenames()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_rinex\_record()}\spxextra{pgamit.classes.pyArchiveStruct.RinexStruct method}, 
+		\hyperpage{8}
+  \item \spxentry{get\_sigmas()}\spxextra{pgamit.classes.pyPPP.RunPPP static method}, 
+		\hyperpage{23}
+  \item \spxentry{get\_stack\_stations()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{get\_station()}\spxextra{pgamit.classes.pyStack.Stack method}, \hyperpage{28}
+  \item \spxentry{get\_station()}\spxextra{pgamit.com.DRA.DRA method}, \hyperpage{40}
+  \item \spxentry{get\_text()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{23}
+  \item \spxentry{get\_xyz()}\spxextra{pgamit.classes.pyPPP.RunPPP static method}, \hyperpage{23}
+  \item \spxentry{get\_xyz\_s()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{GetApr()}\spxextra{pgamit.classes.pyStation.StationInstance method}, 
+		\hyperpage{29}
+  \item \spxentry{GetBrdcOrbits}\spxextra{class in pgamit.classes.pyBrdc}, \hyperpage{9}
+  \item \spxentry{GetClkFile}\spxextra{class in pgamit.classes.pyClk}, \hyperpage{12}
+  \item \spxentry{GetEOP}\spxextra{class in pgamit.classes.pyEOP}, \hyperpage{13}
+  \item \spxentry{GetGaps()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{GetRinexFilename()}\spxextra{pgamit.classes.pyStation.StationInstance method}, 
+		\hyperpage{29}
+  \item \spxentry{GetSittbl()}\spxextra{pgamit.classes.pyStation.StationInstance method}, 
+		\hyperpage{29}
+  \item \spxentry{GetSp3Orbits}\spxextra{class in pgamit.classes.pySp3}, \hyperpage{27}
+  \item \spxentry{GetStationInformation()}\spxextra{pgamit.classes.pyStation.StationInstance method}, 
+		\hyperpage{29}
+  \item \spxentry{GetStnGaps()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{getTimeSegments2()}\spxextra{in module pgamit.com.UpdateEarthquakes}, 
+		\hyperpage{67}
+  \item \spxentry{Globk}\spxextra{class in pgamit.classes.pyGlobkTask}, \hyperpage{19}
+  \item \spxentry{Globk}\spxextra{class in pgamit.classes.WeeklyCombination}, \hyperpage{7}
+  \item \spxentry{GlobkException}, \hyperpage{7}, \hyperpage{19}
+  \item \spxentry{gpsDate2mjd()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+  \item \spxentry{GREEN}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{hash\_check()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{HEADER}\spxextra{pgamit.classes.pyTerminal.ProgressBar attribute}, \hyperpage{31}
+  \item \spxentry{HIDE\_CURSOR}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{human\_readable\_time()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{id\_generator()}\spxextra{in module pgamit.classes.WeeklyCombination}, 
+		\hyperpage{7}
+  \item \spxentry{id\_generator()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{id\_generator()}\spxextra{pgamit.classes.pyStation.Station static method}, 
+		\hyperpage{29}
+  \item \spxentry{identify\_rinex\_type()}\spxextra{pgamit.classes.pyRinexName.RinexNameFormat method}, 
+		\hyperpage{26}
+  \item \spxentry{import\_blq()}\spxextra{in module pgamit.com.OTL\_FES2014b}, \hyperpage{54}
+  \item \spxentry{import\_harpos()}\spxextra{in module pgamit.com.OTL\_FES2014b}, \hyperpage{54}
+  \item \spxentry{import\_station()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{indent()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{indentify\_file()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{info()}\spxextra{pgamit.classes.pyStack.Polyhedron method}, \hyperpage{28}
+  \item \spxentry{initialize()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{insert\_comment()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{insert\_data()}\spxextra{in module pgamit.com.ArchiveService}, \hyperpage{37}
+  \item \spxentry{insert\_jump()}\spxextra{pgamit.classes.pyETM.JumpTable method}, \hyperpage{16}
+  \item \spxentry{insert\_modify\_param()}\spxextra{in module pgamit.com.AlterETM}, \hyperpage{36}
+  \item \spxentry{insert\_rinex()}\spxextra{pgamit.classes.pyArchiveStruct.RinexStruct method}, 
+		\hyperpage{9}
+  \item \spxentry{insert\_station()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{insert\_station\_w\_lock()}\spxextra{in module pgamit.com.ArchiveService}, 
+		\hyperpage{37}
+  \item \spxentry{insert\_stninfo()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{InsertStationInfo()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{IntersectionError}, \hyperpage{33}
+  \item \spxentry{IProtocol}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{42}
+  \item \spxentry{is\_empty()}\spxextra{pgamit.com.DownloadSources.FilesBag method}, \hyperpage{42}
+  \item \spxentry{is\_empty()}\spxextra{pgamit.com.DownloadSources.FilesBag.Dates method}, 
+		\hyperpage{42}
+  \item \spxentry{ismember()}\spxextra{pgamit.classes.pyStation.StationCollection method}, 
+		\hyperpage{29}
+  \item \spxentry{iso\_date()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{isPD()}\spxextra{pgamit.classes.pyETM.ETM static method}, \hyperpage{14}
+
+  \indexspace
+  \bigletter J
+  \item \spxentry{job\_callback()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{JobServer}\spxextra{class in pgamit.classes.pyJobServer}, \hyperpage{19}
+  \item \spxentry{JobsManager}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{43}
+  \item \spxentry{json\_converter()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{Jump}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{15}
+  \item \spxentry{JumpTable}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{16}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{LABEL()}\spxextra{in module pgamit.classes.pyETM}, \hyperpage{16}
+  \item \spxentry{labels\_array()}\spxextra{pgamit.classes.pyStation.StationCollection method}, 
+		\hyperpage{29}
+  \item \spxentry{last\_epoch()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{LEFT}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{32}
+  \item \spxentry{lg2ct()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{LINES}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{link\_tables()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{linktables()}\spxextra{pgamit.classes.pyGlobkTask.Globk method}, \hyperpage{19}
+  \item \spxentry{list\_dir()}\spxextra{pgamit.com.DownloadSources.IProtocol method}, 
+		\hyperpage{43}
+  \item \spxentry{list\_dir()}\spxextra{pgamit.com.DownloadSources.ProtocolFTP method}, 
+		\hyperpage{44}
+  \item \spxentry{list\_dir()}\spxextra{pgamit.com.DownloadSources.ProtocolHTTP method}, 
+		\hyperpage{44}
+  \item \spxentry{list\_dir()}\spxextra{pgamit.com.DownloadSources.ProtocolSFTP method}, 
+		\hyperpage{45}
+  \item \spxentry{ListSoln}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{16}
+  \item \spxentry{ll2sphere\_xyz()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{load\_blq()}\spxextra{in module pgamit.com.OTL\_FES2014b}, \hyperpage{54}
+  \item \spxentry{load\_constrains()}\spxextra{in module pgamit.com.Stacker}, \hyperpage{63}
+  \item \spxentry{load\_harpos()}\spxextra{in module pgamit.com.OTL\_FES2014b}, \hyperpage{54}
+  \item \spxentry{load\_parameters()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{load\_parameters()}\spxextra{pgamit.classes.pyETM.EtmFunction method}, 
+		\hyperpage{15}
+  \item \spxentry{load\_parameters()}\spxextra{pgamit.classes.pyETM.Jump method}, \hyperpage{15}
+  \item \spxentry{load\_parameters()}\spxextra{pgamit.classes.pyETM.JumpTable method}, 
+		\hyperpage{16}
+  \item \spxentry{load\_parameters()}\spxextra{pgamit.classes.pyETM.Polynomial method}, 
+		\hyperpage{16}
+  \item \spxentry{load\_periodic\_space()}\spxextra{in module pgamit.com.Stacker}, \hyperpage{63}
+  \item \spxentry{load\_record()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{24}
+  \item \spxentry{load\_record()}\spxextra{pgamit.classes.pyRinex.RinexRecord method}, 
+		\hyperpage{26}
+  \item \spxentry{load\_session\_config()}\spxextra{pgamit.classes.pyGamitConfig.GamitConfiguration method}, 
+		\hyperpage{17}
+  \item \spxentry{load\_stationinfo\_records()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{LOG}\spxextra{pgamit.classes.pyETM.Model attribute}, \hyperpage{16}
+  \item \spxentry{log()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, \hyperpage{18}
+  \item \spxentry{log\_event()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{MAGENTA}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{main()}\spxextra{in module pgamit.classes.pyNEQStack}, \hyperpage{20}
+  \item \spxentry{main()}\spxextra{in module pgamit.classes.pyStack}, \hyperpage{28}
+  \item \spxentry{main()}\spxextra{in module pgamit.classes.snxParse}, \hyperpage{35}
+  \item \spxentry{main()}\spxextra{in module pgamit.classes.WeeklyCombination}, \hyperpage{7}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.AlterETM}, \hyperpage{36}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.amend}, \hyperpage{68}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.ApplyCountryCode}, \hyperpage{37}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.ArchiveService}, \hyperpage{37}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.CloseStationInfo}, \hyperpage{38}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.CompareDBs}, \hyperpage{38}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.ConvertDate}, \hyperpage{39}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.ConvertTrimble}, \hyperpage{39}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.DownloadSources}, \hyperpage{46}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.DownloadSourcesFill}, \hyperpage{46}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.DRA}, \hyperpage{40}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.FixPlate}, \hyperpage{48}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.gamit\_stats}, \hyperpage{68}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.GenerateKml}, \hyperpage{49}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.GenerateSinex}, \hyperpage{49}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{51}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.load\_g2\_aprs}, \hyperpage{68}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.LocateRinex}, \hyperpage{52}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.OTL\_FES2014b}, \hyperpage{54}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.PlotETM}, \hyperpage{56}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.PlotMapView}, \hyperpage{57}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.QueryETM}, \hyperpage{58}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.ReadPackage}, \hyperpage{59}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.Stacker}, \hyperpage{63}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.SyncOrbits}, \hyperpage{65}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.test\_proc}, \hyperpage{68}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.TrajectoryFit}, \hyperpage{65}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.UpdateEarthquakes}, \hyperpage{67}
+  \item \spxentry{main()}\spxextra{in module pgamit.com.Ztd2trp}, \hyperpage{67}
+  \item \spxentry{make\_clusters()}\spxextra{pgamit.classes.pyNetwork.Network method}, 
+		\hyperpage{21}
+  \item \spxentry{Marker}\spxextra{pgamit.com.DownloadSources.Station attribute}, \hyperpage{45}
+  \item \spxentry{maxLevel()}\spxextra{pgamit.classes.snxParse.snxStationMerger method}, 
+		\hyperpage{35}
+  \item \spxentry{Menu}\spxextra{class in pgamit.com.StationInfoEdit}, \hyperpage{64}
+  \item \spxentry{mergedSinexStationData}\spxextra{class in pgamit.classes.snxParse}, 
+		\hyperpage{35}
+  \item \spxentry{mjd2date()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+  \item \spxentry{Model}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{16}
+  \item \spxentry{module}
+    \subitem \spxentry{pgamit}, \hyperpage{68}
+    \subitem \spxentry{pgamit.classes}, \hyperpage{36}
+    \subitem \spxentry{pgamit.classes.dbConnection}, \hyperpage{8}
+    \subitem \spxentry{pgamit.classes.NetClusters}, \hyperpage{3}
+    \subitem \spxentry{pgamit.classes.pyArchiveStruct}, \hyperpage{8}
+    \subitem \spxentry{pgamit.classes.pyBrdc}, \hyperpage{9}
+    \subitem \spxentry{pgamit.classes.pyBunch}, \hyperpage{9}
+    \subitem \spxentry{pgamit.classes.pyClk}, \hyperpage{12}
+    \subitem \spxentry{pgamit.classes.pyCompress}, \hyperpage{12}
+    \subitem \spxentry{pgamit.classes.pyDate}, \hyperpage{12}
+    \subitem \spxentry{pgamit.classes.pyEOP}, \hyperpage{13}
+    \subitem \spxentry{pgamit.classes.pyETM}, \hyperpage{13}
+    \subitem \spxentry{pgamit.classes.pyEvents}, \hyperpage{17}
+    \subitem \spxentry{pgamit.classes.pyGamitConfig}, \hyperpage{17}
+    \subitem \spxentry{pgamit.classes.pyGamitSession}, \hyperpage{17}
+    \subitem \spxentry{pgamit.classes.pyGamitTask}, \hyperpage{18}
+    \subitem \spxentry{pgamit.classes.pyGlobkTask}, \hyperpage{19}
+    \subitem \spxentry{pgamit.classes.pyJobServer}, \hyperpage{19}
+    \subitem \spxentry{pgamit.classes.pyLeastSquares}, \hyperpage{19}
+    \subitem \spxentry{pgamit.classes.pyNEQStack}, \hyperpage{20}
+    \subitem \spxentry{pgamit.classes.pyNetwork}, \hyperpage{20}
+    \subitem \spxentry{pgamit.classes.pyOkada}, \hyperpage{21}
+    \subitem \spxentry{pgamit.classes.pyOptions}, \hyperpage{23}
+    \subitem \spxentry{pgamit.classes.pyOTL}, \hyperpage{21}
+    \subitem \spxentry{pgamit.classes.pyParseAntex}, \hyperpage{24}
+    \subitem \spxentry{pgamit.classes.pyParseZTD}, \hyperpage{24}
+    \subitem \spxentry{pgamit.classes.pyPPP}, \hyperpage{23}
+    \subitem \spxentry{pgamit.classes.pyProducts}, \hyperpage{24}
+    \subitem \spxentry{pgamit.classes.pyRinex}, \hyperpage{25}
+    \subitem \spxentry{pgamit.classes.pyRinexName}, \hyperpage{26}
+    \subitem \spxentry{pgamit.classes.pyRunWithRetry}, \hyperpage{27}
+    \subitem \spxentry{pgamit.classes.pySp3}, \hyperpage{27}
+    \subitem \spxentry{pgamit.classes.pyStack}, \hyperpage{27}
+    \subitem \spxentry{pgamit.classes.pyStatic1d}, \hyperpage{28}
+    \subitem \spxentry{pgamit.classes.pyStation}, \hyperpage{29}
+    \subitem \spxentry{pgamit.classes.pyStationInfo}, \hyperpage{30}
+    \subitem \spxentry{pgamit.classes.pyTerminal}, \hyperpage{31}
+    \subitem \spxentry{pgamit.classes.pyTrimbleT0x}, \hyperpage{33}
+    \subitem \spxentry{pgamit.classes.pyVoronoi}, \hyperpage{33}
+    \subitem \spxentry{pgamit.classes.pyZTD}, \hyperpage{35}
+    \subitem \spxentry{pgamit.classes.snxParse}, \hyperpage{35}
+    \subitem \spxentry{pgamit.classes.Utils}, \hyperpage{5}
+    \subitem \spxentry{pgamit.classes.WeeklyCombination}, \hyperpage{7}
+    \subitem \spxentry{pgamit.com}, \hyperpage{68}
+    \subitem \spxentry{pgamit.com.AlterETM}, \hyperpage{36}
+    \subitem \spxentry{pgamit.com.amend}, \hyperpage{68}
+    \subitem \spxentry{pgamit.com.ApplyCountryCode}, \hyperpage{37}
+    \subitem \spxentry{pgamit.com.ArchiveService}, \hyperpage{37}
+    \subitem \spxentry{pgamit.com.CloseStationInfo}, \hyperpage{38}
+    \subitem \spxentry{pgamit.com.CompareDBs}, \hyperpage{38}
+    \subitem \spxentry{pgamit.com.ConvertDate}, \hyperpage{39}
+    \subitem \spxentry{pgamit.com.ConvertTrimble}, \hyperpage{39}
+    \subitem \spxentry{pgamit.com.DownloadSources}, \hyperpage{40}
+    \subitem \spxentry{pgamit.com.DownloadSourcesFill}, \hyperpage{46}
+    \subitem \spxentry{pgamit.com.DRA}, \hyperpage{40}
+    \subitem \spxentry{pgamit.com.FixPlate}, \hyperpage{48}
+    \subitem \spxentry{pgamit.com.gamit\_stats}, \hyperpage{68}
+    \subitem \spxentry{pgamit.com.GenerateKml}, \hyperpage{48}
+    \subitem \spxentry{pgamit.com.GenerateSinex}, \hyperpage{49}
+    \subitem \spxentry{pgamit.com.IntegrityCheck}, \hyperpage{50}
+    \subitem \spxentry{pgamit.com.load\_g2\_aprs}, \hyperpage{68}
+    \subitem \spxentry{pgamit.com.LocateRinex}, \hyperpage{52}
+    \subitem \spxentry{pgamit.com.OTL\_FES2014b}, \hyperpage{54}
+    \subitem \spxentry{pgamit.com.ParallelGamit}, \hyperpage{54}
+    \subitem \spxentry{pgamit.com.PlotETM}, \hyperpage{56}
+    \subitem \spxentry{pgamit.com.PlotMapView}, \hyperpage{57}
+    \subitem \spxentry{pgamit.com.QueryETM}, \hyperpage{58}
+    \subitem \spxentry{pgamit.com.ReadPackage}, \hyperpage{59}
+    \subitem \spxentry{pgamit.com.ScanArchive}, \hyperpage{59}
+    \subitem \spxentry{pgamit.com.Stacker}, \hyperpage{63}
+    \subitem \spxentry{pgamit.com.StationInfoEdit}, \hyperpage{64}
+    \subitem \spxentry{pgamit.com.StationList}, \hyperpage{65}
+    \subitem \spxentry{pgamit.com.SyncOrbits}, \hyperpage{65}
+    \subitem \spxentry{pgamit.com.test\_proc}, \hyperpage{68}
+    \subitem \spxentry{pgamit.com.TrajectoryFit}, \hyperpage{65}
+    \subitem \spxentry{pgamit.com.UpdateEarthquakes}, \hyperpage{67}
+    \subitem \spxentry{pgamit.com.Ztd2trp}, \hyperpage{67}
+  \item \spxentry{move()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{move\_origin\_file()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{Msg}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{43}
+  \item \spxentry{Msg.CLIENT\_STOPPED}\spxextra{class in pgamit.com.DownloadSources}, 
+		\hyperpage{43}
+  \item \spxentry{Msg.DOWNLOAD\_RESULT}\spxextra{class in pgamit.com.DownloadSources}, 
+		\hyperpage{43}
+  \item \spxentry{Msg.FILE\_IGNORED\_EXISTS\_IN\_DB}\spxextra{class in pgamit.com.DownloadSources}, 
+		\hyperpage{43}
+  \item \spxentry{Msg.FILE\_SKIPPED\_INACTIVE\_STATION}\spxextra{class in pgamit.com.DownloadSources}, 
+		\hyperpage{43}
+  \item \spxentry{Msg.NEW\_FILE}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{43}
+  \item \spxentry{Msg.PROCESS\_RESULT}\spxextra{class in pgamit.com.DownloadSources}, 
+		\hyperpage{44}
+  \item \spxentry{multiday\_handle()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{MyApp}\spxextra{class in pgamit.com.StationInfoEdit}, \hyperpage{64}
+
+  \indexspace
+  \bigletter N
+  \item \spxentry{navigate()}\spxextra{pgamit.com.StationInfoEdit.Menu method}, \hyperpage{64}
+  \item \spxentry{nearestPD()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{Network}\spxextra{class in pgamit.classes.pyNetwork}, \hyperpage{21}
+  \item \spxentry{NetworkCode}\spxextra{pgamit.com.DownloadSources.Station attribute}, 
+		\hyperpage{45}
+  \item \spxentry{NetworkException}, \hyperpage{21}
+  \item \spxentry{next\_download}\spxextra{pgamit.com.DownloadSources.Client attribute}, 
+		\hyperpage{41}
+  \item \spxentry{NORMAL}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{normalize\_header()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{now\_str()}\spxextra{in module pgamit.classes.pyGamitTask}, \hyperpage{18}
+  \item \spxentry{np\_array\_vertices()}\spxextra{in module pgamit.classes.pyStack}, \hyperpage{28}
+
+  \indexspace
+  \bigletter O
+  \item \spxentry{obtain\_otl()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{OceanLoading}\spxextra{class in pgamit.classes.pyOTL}, \hyperpage{21}
+  \item \spxentry{okada()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{okadakernel()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{on\_job\_result()}\spxextra{pgamit.com.DownloadSources.JobsManager method}, 
+		\hyperpage{43}
+  \item \spxentry{on\_nodes\_changed()}\spxextra{pgamit.com.DownloadSources.JobsManager method}, 
+		\hyperpage{43}
+  \item \spxentry{onpick()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{OrbitalProduct}\spxextra{class in pgamit.classes.pyProducts}, \hyperpage{24}
+  \item \spxentry{output\_handle()}\spxextra{in module pgamit.com.amend}, \hyperpage{68}
+  \item \spxentry{output\_handle()}\spxextra{in module pgamit.com.test\_proc}, \hyperpage{68}
+  \item \spxentry{over\_cluster()}\spxextra{in module pgamit.classes.NetClusters}, \hyperpage{3}
+  \item \spxentry{overlaps()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{param\_count()}\spxextra{pgamit.classes.pyETM.JumpTable method}, \hyperpage{16}
+  \item \spxentry{parse()}\spxextra{pgamit.classes.snxParse.snxFileParser method}, \hyperpage{35}
+  \item \spxentry{parse\_archive\_keys()}\spxextra{pgamit.classes.pyArchiveStruct.RinexStruct method}, 
+		\hyperpage{9}
+  \item \spxentry{parse\_atx\_antennas()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{parse\_crinex\_rinex\_filename()}\spxextra{in module pgamit.classes.Utils}, 
+		\hyperpage{6}
+  \item \spxentry{parse\_monitor()}\spxextra{in module pgamit.com.gamit\_stats}, \hyperpage{68}
+  \item \spxentry{parse\_output()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{parse\_sinex()}\spxextra{pgamit.classes.pyGamitSession.GamitSession method}, 
+		\hyperpage{18}
+  \item \spxentry{parse\_sinex()}\spxextra{pgamit.classes.pyGlobkTask.Globk method}, \hyperpage{19}
+  \item \spxentry{parse\_station\_info()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{parse\_station\_record()}\spxextra{pgamit.classes.pyStationInfo.StationInfoRecord method}, 
+		\hyperpage{30}
+  \item \spxentry{parse\_stninfo()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+  \item \spxentry{parse\_summary()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{24}
+  \item \spxentry{ParseAntexFile}\spxextra{class in pgamit.classes.pyParseAntex}, \hyperpage{24}
+  \item \spxentry{parseIntSet()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{ParseZTD()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{ParseZtdTask}\spxextra{class in pgamit.classes.pyParseZTD}, \hyperpage{24}
+  \item \spxentry{password}\spxextra{pgamit.com.DownloadSources.Source attribute}, \hyperpage{45}
+  \item \spxentry{path}\spxextra{pgamit.com.DownloadSources.Source attribute}, \hyperpage{45}
+  \item \spxentry{path\_replace\_tags()}\spxextra{in module pgamit.com.DownloadSources}, 
+		\hyperpage{46}
+  \item \spxentry{Periodic}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{16}
+  \item \spxentry{pgamit}
+    \subitem \spxentry{module}, \hyperpage{68}
+  \item \spxentry{pgamit.classes}
+    \subitem \spxentry{module}, \hyperpage{36}
+  \item \spxentry{pgamit.classes.dbConnection}
+    \subitem \spxentry{module}, \hyperpage{8}
+  \item \spxentry{pgamit.classes.NetClusters}
+    \subitem \spxentry{module}, \hyperpage{3}
+  \item \spxentry{pgamit.classes.pyArchiveStruct}
+    \subitem \spxentry{module}, \hyperpage{8}
+  \item \spxentry{pgamit.classes.pyBrdc}
+    \subitem \spxentry{module}, \hyperpage{9}
+  \item \spxentry{pgamit.classes.pyBunch}
+    \subitem \spxentry{module}, \hyperpage{9}
+  \item \spxentry{pgamit.classes.pyClk}
+    \subitem \spxentry{module}, \hyperpage{12}
+  \item \spxentry{pgamit.classes.pyCompress}
+    \subitem \spxentry{module}, \hyperpage{12}
+  \item \spxentry{pgamit.classes.pyDate}
+    \subitem \spxentry{module}, \hyperpage{12}
+  \item \spxentry{pgamit.classes.pyEOP}
+    \subitem \spxentry{module}, \hyperpage{13}
+  \item \spxentry{pgamit.classes.pyETM}
+    \subitem \spxentry{module}, \hyperpage{13}
+  \item \spxentry{pgamit.classes.pyEvents}
+    \subitem \spxentry{module}, \hyperpage{17}
+  \item \spxentry{pgamit.classes.pyGamitConfig}
+    \subitem \spxentry{module}, \hyperpage{17}
+  \item \spxentry{pgamit.classes.pyGamitSession}
+    \subitem \spxentry{module}, \hyperpage{17}
+  \item \spxentry{pgamit.classes.pyGamitTask}
+    \subitem \spxentry{module}, \hyperpage{18}
+  \item \spxentry{pgamit.classes.pyGlobkTask}
+    \subitem \spxentry{module}, \hyperpage{19}
+  \item \spxentry{pgamit.classes.pyJobServer}
+    \subitem \spxentry{module}, \hyperpage{19}
+  \item \spxentry{pgamit.classes.pyLeastSquares}
+    \subitem \spxentry{module}, \hyperpage{19}
+  \item \spxentry{pgamit.classes.pyNEQStack}
+    \subitem \spxentry{module}, \hyperpage{20}
+  \item \spxentry{pgamit.classes.pyNetwork}
+    \subitem \spxentry{module}, \hyperpage{20}
+  \item \spxentry{pgamit.classes.pyOkada}
+    \subitem \spxentry{module}, \hyperpage{21}
+  \item \spxentry{pgamit.classes.pyOptions}
+    \subitem \spxentry{module}, \hyperpage{23}
+  \item \spxentry{pgamit.classes.pyOTL}
+    \subitem \spxentry{module}, \hyperpage{21}
+  \item \spxentry{pgamit.classes.pyParseAntex}
+    \subitem \spxentry{module}, \hyperpage{24}
+  \item \spxentry{pgamit.classes.pyParseZTD}
+    \subitem \spxentry{module}, \hyperpage{24}
+  \item \spxentry{pgamit.classes.pyPPP}
+    \subitem \spxentry{module}, \hyperpage{23}
+  \item \spxentry{pgamit.classes.pyProducts}
+    \subitem \spxentry{module}, \hyperpage{24}
+  \item \spxentry{pgamit.classes.pyRinex}
+    \subitem \spxentry{module}, \hyperpage{25}
+  \item \spxentry{pgamit.classes.pyRinexName}
+    \subitem \spxentry{module}, \hyperpage{26}
+  \item \spxentry{pgamit.classes.pyRunWithRetry}
+    \subitem \spxentry{module}, \hyperpage{27}
+  \item \spxentry{pgamit.classes.pySp3}
+    \subitem \spxentry{module}, \hyperpage{27}
+  \item \spxentry{pgamit.classes.pyStack}
+    \subitem \spxentry{module}, \hyperpage{27}
+  \item \spxentry{pgamit.classes.pyStatic1d}
+    \subitem \spxentry{module}, \hyperpage{28}
+  \item \spxentry{pgamit.classes.pyStation}
+    \subitem \spxentry{module}, \hyperpage{29}
+  \item \spxentry{pgamit.classes.pyStationInfo}
+    \subitem \spxentry{module}, \hyperpage{30}
+  \item \spxentry{pgamit.classes.pyTerminal}
+    \subitem \spxentry{module}, \hyperpage{31}
+  \item \spxentry{pgamit.classes.pyTrimbleT0x}
+    \subitem \spxentry{module}, \hyperpage{33}
+  \item \spxentry{pgamit.classes.pyVoronoi}
+    \subitem \spxentry{module}, \hyperpage{33}
+  \item \spxentry{pgamit.classes.pyZTD}
+    \subitem \spxentry{module}, \hyperpage{35}
+  \item \spxentry{pgamit.classes.snxParse}
+    \subitem \spxentry{module}, \hyperpage{35}
+  \item \spxentry{pgamit.classes.Utils}
+    \subitem \spxentry{module}, \hyperpage{5}
+  \item \spxentry{pgamit.classes.WeeklyCombination}
+    \subitem \spxentry{module}, \hyperpage{7}
+  \item \spxentry{pgamit.com}
+    \subitem \spxentry{module}, \hyperpage{68}
+  \item \spxentry{pgamit.com.AlterETM}
+    \subitem \spxentry{module}, \hyperpage{36}
+  \item \spxentry{pgamit.com.amend}
+    \subitem \spxentry{module}, \hyperpage{68}
+  \item \spxentry{pgamit.com.ApplyCountryCode}
+    \subitem \spxentry{module}, \hyperpage{37}
+  \item \spxentry{pgamit.com.ArchiveService}
+    \subitem \spxentry{module}, \hyperpage{37}
+  \item \spxentry{pgamit.com.CloseStationInfo}
+    \subitem \spxentry{module}, \hyperpage{38}
+  \item \spxentry{pgamit.com.CompareDBs}
+    \subitem \spxentry{module}, \hyperpage{38}
+  \item \spxentry{pgamit.com.ConvertDate}
+    \subitem \spxentry{module}, \hyperpage{39}
+  \item \spxentry{pgamit.com.ConvertTrimble}
+    \subitem \spxentry{module}, \hyperpage{39}
+  \item \spxentry{pgamit.com.DownloadSources}
+    \subitem \spxentry{module}, \hyperpage{40}
+  \item \spxentry{pgamit.com.DownloadSourcesFill}
+    \subitem \spxentry{module}, \hyperpage{46}
+  \item \spxentry{pgamit.com.DRA}
+    \subitem \spxentry{module}, \hyperpage{40}
+  \item \spxentry{pgamit.com.FixPlate}
+    \subitem \spxentry{module}, \hyperpage{48}
+  \item \spxentry{pgamit.com.gamit\_stats}
+    \subitem \spxentry{module}, \hyperpage{68}
+  \item \spxentry{pgamit.com.GenerateKml}
+    \subitem \spxentry{module}, \hyperpage{48}
+  \item \spxentry{pgamit.com.GenerateSinex}
+    \subitem \spxentry{module}, \hyperpage{49}
+  \item \spxentry{pgamit.com.IntegrityCheck}
+    \subitem \spxentry{module}, \hyperpage{50}
+  \item \spxentry{pgamit.com.load\_g2\_aprs}
+    \subitem \spxentry{module}, \hyperpage{68}
+  \item \spxentry{pgamit.com.LocateRinex}
+    \subitem \spxentry{module}, \hyperpage{52}
+  \item \spxentry{pgamit.com.OTL\_FES2014b}
+    \subitem \spxentry{module}, \hyperpage{54}
+  \item \spxentry{pgamit.com.ParallelGamit}
+    \subitem \spxentry{module}, \hyperpage{54}
+  \item \spxentry{pgamit.com.PlotETM}
+    \subitem \spxentry{module}, \hyperpage{56}
+  \item \spxentry{pgamit.com.PlotMapView}
+    \subitem \spxentry{module}, \hyperpage{57}
+  \item \spxentry{pgamit.com.QueryETM}
+    \subitem \spxentry{module}, \hyperpage{58}
+  \item \spxentry{pgamit.com.ReadPackage}
+    \subitem \spxentry{module}, \hyperpage{59}
+  \item \spxentry{pgamit.com.ScanArchive}
+    \subitem \spxentry{module}, \hyperpage{59}
+  \item \spxentry{pgamit.com.Stacker}
+    \subitem \spxentry{module}, \hyperpage{63}
+  \item \spxentry{pgamit.com.StationInfoEdit}
+    \subitem \spxentry{module}, \hyperpage{64}
+  \item \spxentry{pgamit.com.StationList}
+    \subitem \spxentry{module}, \hyperpage{65}
+  \item \spxentry{pgamit.com.SyncOrbits}
+    \subitem \spxentry{module}, \hyperpage{65}
+  \item \spxentry{pgamit.com.test\_proc}
+    \subitem \spxentry{module}, \hyperpage{68}
+  \item \spxentry{pgamit.com.TrajectoryFit}
+    \subitem \spxentry{module}, \hyperpage{65}
+  \item \spxentry{pgamit.com.UpdateEarthquakes}
+    \subitem \spxentry{module}, \hyperpage{67}
+  \item \spxentry{pgamit.com.Ztd2trp}
+    \subitem \spxentry{module}, \hyperpage{67}
+  \item \spxentry{plot()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{plot()}\spxextra{pgamit.classes.pyZTD.Ztd method}, \hyperpage{35}
+  \item \spxentry{plot\_etm()}\spxextra{in module pgamit.com.Stacker}, \hyperpage{63}
+  \item \spxentry{plot\_hist()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{plot\_jumps()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{plot\_map\_view()}\spxextra{in module pgamit.com.PlotMapView}, \hyperpage{57}
+  \item \spxentry{plot\_missing\_soln()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{plot\_rinex()}\spxextra{in module pgamit.com.GenerateKml}, \hyperpage{49}
+  \item \spxentry{plot\_station\_info\_rinex()}\spxextra{in module pgamit.com.GenerateKml}, 
+		\hyperpage{49}
+  \item \spxentry{plot\_station\_param()}\spxextra{in module pgamit.com.TrajectoryFit}, 
+		\hyperpage{65}
+  \item \spxentry{Polyhedron}\spxextra{class in pgamit.classes.pyStack}, \hyperpage{27}
+  \item \spxentry{Polynomial}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{16}
+  \item \spxentry{pop()}\spxextra{pgamit.com.DownloadSources.FilesBag method}, \hyperpage{42}
+  \item \spxentry{pop()}\spxextra{pgamit.com.DownloadSources.FilesBag.Dates method}, \hyperpage{42}
+  \item \spxentry{post\_scan\_rinex\_job()}\spxextra{in module pgamit.com.ScanArchive}, 
+		\hyperpage{61}
+  \item \spxentry{PPPETM}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{16}
+  \item \spxentry{PppSoln}\spxextra{class in pgamit.classes.pyETM}, \hyperpage{16}
+  \item \spxentry{PPPSpatialCheck}\spxextra{class in pgamit.classes.pyPPP}, \hyperpage{23}
+  \item \spxentry{prGreen()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{Print()}\spxextra{pgamit.classes.snxParse.mergedSinexStationData method}, 
+		\hyperpage{35}
+  \item \spxentry{Print()}\spxextra{pgamit.classes.snxParse.snxFileParser method}, \hyperpage{35}
+  \item \spxentry{Print()}\spxextra{pgamit.classes.snxParse.snxStationMerger method}, 
+		\hyperpage{35}
+  \item \spxentry{Print()}\spxextra{pgamit.classes.snxParse.StationData method}, \hyperpage{35}
+  \item \spxentry{print\_archive\_service\_summary()}\spxextra{in module pgamit.com.ArchiveService}, 
+		\hyperpage{37}
+  \item \spxentry{print\_columns()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{print\_datetime()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{print\_insert\_sql()}\spxextra{in module pgamit.com.ReadPackage}, \hyperpage{59}
+  \item \spxentry{print\_parameters()}\spxextra{pgamit.classes.pyETM.JumpTable method}, 
+		\hyperpage{16}
+  \item \spxentry{print\_parameters()}\spxextra{pgamit.classes.pyETM.Periodic method}, 
+		\hyperpage{16}
+  \item \spxentry{print\_parameters()}\spxextra{pgamit.classes.pyETM.Polynomial method}, 
+		\hyperpage{16}
+  \item \spxentry{print\_params()}\spxextra{in module pgamit.com.AlterETM}, \hyperpage{36}
+  \item \spxentry{print\_residuals()}\spxextra{in module pgamit.classes.pyStack}, \hyperpage{28}
+  \item \spxentry{print\_scan\_archive\_summary()}\spxextra{in module pgamit.com.ScanArchive}, 
+		\hyperpage{61}
+  \item \spxentry{print\_station\_info()}\spxextra{in module pgamit.com.ReadPackage}, 
+		\hyperpage{59}
+  \item \spxentry{print\_summary()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{PrintStationInfo()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{process\_covariance()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{process\_crinex\_file()}\spxextra{in module pgamit.com.ArchiveService}, 
+		\hyperpage{37}
+  \item \spxentry{process\_date()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{process\_date\_str()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{process\_file()}\spxextra{in module pgamit.com.DownloadSources}, \hyperpage{46}
+  \item \spxentry{process\_interseismic()}\spxextra{in module pgamit.com.TrajectoryFit}, 
+		\hyperpage{65}
+  \item \spxentry{process\_otl()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{process\_postseismic()}\spxextra{in module pgamit.com.TrajectoryFit}, 
+		\hyperpage{65}
+  \item \spxentry{process\_ppp()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{process\_sinex()}\spxextra{in module pgamit.classes.WeeklyCombination}, 
+		\hyperpage{7}
+  \item \spxentry{process\_sinex()}\spxextra{in module pgamit.com.GenerateSinex}, \hyperpage{49}
+  \item \spxentry{process\_stnlist()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{process\_tropo()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{produce\_array\_Voronoi\_vertices\_on\_sphere\_surface()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{produce\_triangle\_vertex\_coordinate\_array\_Delaunay\_sphere()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{ProgressBar}\spxextra{class in pgamit.classes.pyTerminal}, \hyperpage{31}
+  \item \spxentry{proto}\spxextra{pgamit.com.DownloadSources.Client attribute}, \hyperpage{41}
+  \item \spxentry{protocol}\spxextra{pgamit.com.DownloadSources.Source attribute}, \hyperpage{45}
+  \item \spxentry{ProtocolFTP}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{44}
+  \item \spxentry{ProtocolFTPA}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{44}
+  \item \spxentry{ProtocolHTTP}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{44}
+  \item \spxentry{ProtocolHTTPS}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{44}
+  \item \spxentry{ProtocolSFTP}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{44}
+  \item \spxentry{prRed()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{prYellow()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{54}
+  \item \spxentry{purge\_comments()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{25}
+  \item \spxentry{purge\_solution()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{55}
+  \item \spxentry{purge\_solutions()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{55}
+  \item \spxentry{push()}\spxextra{pgamit.com.DownloadSources.FilesBag method}, \hyperpage{42}
+  \item \spxentry{push()}\spxextra{pgamit.com.DownloadSources.FilesBag.Dates method}, 
+		\hyperpage{42}
+  \item \spxentry{pyBrdcException}, \hyperpage{9}
+  \item \spxentry{pyClkException}, \hyperpage{12}
+  \item \spxentry{pyDateException}, \hyperpage{13}
+  \item \spxentry{pyEOPException}, \hyperpage{13}
+  \item \spxentry{pyETMException}, \hyperpage{17}
+  \item \spxentry{pyETMException\_Model}, \hyperpage{17}
+  \item \spxentry{pyETMException\_NoDesignMatrix}, \hyperpage{17}
+  \item \spxentry{pyGamitConfigException}, \hyperpage{17}
+  \item \spxentry{pyOTLException}, \hyperpage{21}
+  \item \spxentry{pyProductsException}, \hyperpage{24}
+  \item \spxentry{pyProductsExceptionUnreasonableDate}, \hyperpage{24}
+  \item \spxentry{pyRinexException}, \hyperpage{26}
+  \item \spxentry{pyRinexExceptionBadFile}, \hyperpage{26}
+  \item \spxentry{pyRinexExceptionNoAutoCoord}, \hyperpage{26}
+  \item \spxentry{pyRinexExceptionSingleEpoch}, \hyperpage{26}
+  \item \spxentry{pyRunPPPException}, \hyperpage{24}
+  \item \spxentry{pyRunPPPExceptionCoordConflict}, \hyperpage{24}
+  \item \spxentry{pyRunPPPExceptionEOPError}, \hyperpage{24}
+  \item \spxentry{pyRunPPPExceptionNaN}, \hyperpage{24}
+  \item \spxentry{pyRunPPPExceptionTooFewAcceptedObs}, \hyperpage{24}
+  \item \spxentry{pyRunPPPExceptionZeroProcEpochs}, \hyperpage{24}
+  \item \spxentry{pySp3Exception}, \hyperpage{27}
+  \item \spxentry{pyStationCollectionException}, \hyperpage{29}
+  \item \spxentry{pyStationException}, \hyperpage{29}
+  \item \spxentry{pyStationInfoException}, \hyperpage{31}
+  \item \spxentry{pyStationInfoHeightCodeNotFound}, \hyperpage{31}
+
+  \indexspace
+  \bigletter Q
+  \item \spxentry{query\_yes\_no()}\spxextra{in module pgamit.com.DownloadSourcesFill}, 
+		\hyperpage{46}
+  \item \spxentry{queue\_process()}\spxextra{pgamit.com.DownloadSources.JobsManager method}, 
+		\hyperpage{43}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{read\_data()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{read\_fields()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{ReadOptions}\spxextra{class in pgamit.classes.pyOptions}, \hyperpage{23}
+  \item \spxentry{ReadRinex}\spxextra{class in pgamit.classes.pyRinex}, \hyperpage{25}
+  \item \spxentry{records\_are\_equal()}\spxextra{pgamit.classes.pyStationInfo.StationInfo static method}, 
+		\hyperpage{30}
+  \item \spxentry{recover\_subnets()}\spxextra{pgamit.classes.pyNetwork.Network static method}, 
+		\hyperpage{21}
+  \item \spxentry{RED}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{refresh()}\spxextra{pgamit.com.DownloadSources.IProtocol method}, \hyperpage{43}
+  \item \spxentry{refresh()}\spxextra{pgamit.com.DownloadSources.ProtocolFTP method}, 
+		\hyperpage{44}
+  \item \spxentry{refresh()}\spxextra{pgamit.com.DownloadSources.ProtocolHTTP method}, 
+		\hyperpage{44}
+  \item \spxentry{refresh()}\spxextra{pgamit.com.DownloadSources.ProtocolSFTP method}, 
+		\hyperpage{45}
+  \item \spxentry{rehash()}\spxextra{pgamit.classes.pyETM.CoSeisJump method}, \hyperpage{13}
+  \item \spxentry{rehash()}\spxextra{pgamit.classes.pyETM.Jump method}, \hyperpage{15}
+  \item \spxentry{remove\_common\_modes()}\spxextra{pgamit.classes.pyStack.Stack method}, 
+		\hyperpage{28}
+  \item \spxentry{remove\_empty\_folders()}\spxextra{in module pgamit.com.ArchiveService}, 
+		\hyperpage{38}
+  \item \spxentry{remove\_from\_archive()}\spxextra{in module pgamit.com.ScanArchive}, 
+		\hyperpage{61}
+  \item \spxentry{remove\_from\_fit()}\spxextra{pgamit.classes.pyETM.Jump method}, \hyperpage{15}
+  \item \spxentry{remove\_rinex()}\spxextra{pgamit.classes.pyArchiveStruct.RinexStruct method}, 
+		\hyperpage{9}
+  \item \spxentry{remove\_systems()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{26}
+  \item \spxentry{rename()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{26}
+  \item \spxentry{RenameStation()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{render()}\spxextra{pgamit.classes.pyTerminal.TerminalController method}, 
+		\hyperpage{33}
+  \item \spxentry{replace\_in\_sinex()}\spxextra{in module pgamit.classes.WeeklyCombination}, 
+		\hyperpage{7}
+  \item \spxentry{replace\_in\_sinex()}\spxextra{in module pgamit.com.GenerateSinex}, 
+		\hyperpage{49}
+  \item \spxentry{replace\_record()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, 
+		\hyperpage{26}
+  \item \spxentry{replace\_vars()}\spxextra{in module pgamit.classes.pyGamitTask}, \hyperpage{18}
+  \item \spxentry{required\_length()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{return\_stninfo()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{return\_stninfo\_short()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{REVERSE}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{RIGHT}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{rinex\_based\_stninfo()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{RinexCount()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{RinexNameException}, \hyperpage{26}
+  \item \spxentry{RinexNameFormat}\spxextra{class in pgamit.classes.pyRinexName}, \hyperpage{26}
+  \item \spxentry{RinexRecord}\spxextra{class in pgamit.classes.pyRinex}, \hyperpage{26}
+  \item \spxentry{RinexStruct}\spxextra{class in pgamit.classes.pyArchiveStruct}, \hyperpage{8}
+  \item \spxentry{rotate\_2neu()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{14}
+  \item \spxentry{rotate\_2xyz()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{15}
+  \item \spxentry{rotate\_sig\_cov()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{15}
+  \item \spxentry{rotate\_sigmas()}\spxextra{in module pgamit.classes.pyNEQStack}, \hyperpage{20}
+  \item \spxentry{rotate\_vector()}\spxextra{in module pgamit.classes.pyLeastSquares}, 
+		\hyperpage{20}
+  \item \spxentry{rotct2lg()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{6}
+  \item \spxentry{rotlg2ct()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{7}
+  \item \spxentry{run()}\spxextra{pgamit.classes.pyRunWithRetry.command method}, \hyperpage{27}
+  \item \spxentry{run()}\spxextra{pgamit.com.ParallelGamit.DbAlive method}, \hyperpage{54}
+  \item \spxentry{run\_adjustment()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{15}
+  \item \spxentry{run\_gamit()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{run\_gamit\_session()}\spxextra{in module pgamit.com.ParallelGamit}, 
+		\hyperpage{55}
+  \item \spxentry{run\_globk()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{55}
+  \item \spxentry{run\_parse\_ztd()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{55}
+  \item \spxentry{run\_shell()}\spxextra{pgamit.classes.pyRunWithRetry.RunCommand method}, 
+		\hyperpage{27}
+  \item \spxentry{RunCommand}\spxextra{class in pgamit.classes.pyRunWithRetry}, \hyperpage{27}
+  \item \spxentry{RunCommandWithRetryExeception}, \hyperpage{27}
+  \item \spxentry{RunGfzrnx()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+  \item \spxentry{RunPPP}\spxextra{class in pgamit.classes.pyPPP}, \hyperpage{23}
+  \item \spxentry{RunRinSum()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{25}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{save()}\spxextra{pgamit.classes.pyStack.Stack method}, \hyperpage{28}
+  \item \spxentry{save\_changes()}\spxextra{in module pgamit.com.StationInfoEdit}, \hyperpage{64}
+  \item \spxentry{save\_excluded\_soln()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{15}
+  \item \spxentry{save\_mask()}\spxextra{pgamit.classes.pyOkada.Score method}, \hyperpage{22}
+  \item \spxentry{save\_parameters()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{15}
+  \item \spxentry{scan\_archive\_struct()}\spxextra{pgamit.classes.pyArchiveStruct.RinexStruct method}, 
+		\hyperpage{9}
+  \item \spxentry{scan\_archive\_struct\_stninfo()}\spxextra{pgamit.classes.pyArchiveStruct.RinexStruct method}, 
+		\hyperpage{9}
+  \item \spxentry{scan\_rinex()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{scan\_station\_info()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{scan\_station\_info\_man()}\spxextra{in module pgamit.com.ScanArchive}, 
+		\hyperpage{61}
+  \item \spxentry{Score}\spxextra{class in pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{score()}\spxextra{pgamit.classes.pyOkada.Score method}, \hyperpage{22}
+  \item \spxentry{ScoreTable}\spxextra{class in pgamit.classes.pyOkada}, \hyperpage{22}
+  \item \spxentry{search\_by\_date()}\spxextra{in module pgamit.com.DownloadSourcesFill}, 
+		\hyperpage{47}
+  \item \spxentry{search\_by\_station()}\spxextra{in module pgamit.com.DownloadSourcesFill}, 
+		\hyperpage{47}
+  \item \spxentry{select\_central\_point()}\spxextra{in module pgamit.classes.NetClusters}, 
+		\hyperpage{4}
+  \item \spxentry{selection\_main\_menu()}\spxextra{in module pgamit.com.StationInfoEdit}, 
+		\hyperpage{64}
+  \item \spxentry{server\_id}\spxextra{pgamit.com.DownloadSources.Client attribute}, \hyperpage{41}
+  \item \spxentry{server\_id}\spxextra{pgamit.com.DownloadSources.Msg.CLIENT\_STOPPED attribute}, 
+		\hyperpage{43}
+  \item \spxentry{server\_id}\spxextra{pgamit.com.DownloadSources.Msg.DOWNLOAD\_RESULT attribute}, 
+		\hyperpage{43}
+  \item \spxentry{server\_id}\spxextra{pgamit.com.DownloadSources.Source attribute}, \hyperpage{45}
+  \item \spxentry{set\_lims()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{15}
+  \item \spxentry{set\_lims()}\spxextra{pgamit.classes.pyZTD.Ztd method}, \hyperpage{35}
+  \item \spxentry{set\_next\_download()}\spxextra{pgamit.com.DownloadSources.Client method}, 
+		\hyperpage{41}
+  \item \spxentry{setup()}\spxextra{in module pgamit.classes.pyJobServer}, \hyperpage{19}
+  \item \spxentry{SHOW\_CURSOR}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{ShowError()}\spxextra{pgamit.com.StationInfoEdit.Menu method}, \hyperpage{64}
+  \item \spxentry{sind()}\spxextra{in module pgamit.classes.pyOkada}, \hyperpage{23}
+  \item \spxentry{size}\spxextra{pgamit.com.DownloadSources.Msg.DOWNLOAD\_RESULT attribute}, 
+		\hyperpage{43}
+  \item \spxentry{size()}\spxextra{pgamit.classes.snxParse.snxFileParser method}, \hyperpage{35}
+  \item \spxentry{smallestN\_indices()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{7}
+  \item \spxentry{SmartFormatter}\spxextra{class in pgamit.com.AlterETM}, \hyperpage{36}
+  \item \spxentry{snxFileParser}\spxextra{class in pgamit.classes.snxParse}, \hyperpage{35}
+  \item \spxentry{snxStationMerger}\spxextra{class in pgamit.classes.snxParse}, \hyperpage{35}
+  \item \spxentry{Source}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{45}
+  \item \spxentry{source}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{41}
+  \item \spxentry{source\_host\_desc()}\spxextra{in module pgamit.com.DownloadSources}, 
+		\hyperpage{46}
+  \item \spxentry{sources}\spxextra{pgamit.com.DownloadSources.Station attribute}, \hyperpage{45}
+  \item \spxentry{split\_file()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{26}
+  \item \spxentry{split\_filename()}\spxextra{pgamit.classes.pyRinexName.RinexNameFormat method}, 
+		\hyperpage{26}
+  \item \spxentry{split\_string()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{7}
+  \item \spxentry{sql\_select()}\spxextra{in module pgamit.classes.pyNEQStack}, \hyperpage{20}
+  \item \spxentry{sql\_select()}\spxextra{in module pgamit.com.DRA}, \hyperpage{40}
+  \item \spxentry{sql\_select\_union()}\spxextra{in module pgamit.classes.pyNEQStack}, 
+		\hyperpage{20}
+  \item \spxentry{src\_desc}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{41}
+  \item \spxentry{src\_idx}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{41}
+  \item \spxentry{src\_idx}\spxextra{pgamit.com.DownloadSources.FileDescriptor attribute}, 
+		\hyperpage{42}
+  \item \spxentry{Stack}\spxextra{class in pgamit.classes.pyStack}, \hyperpage{28}
+  \item \spxentry{stack\_dra()}\spxextra{pgamit.com.DRA.DRA method}, \hyperpage{40}
+  \item \spxentry{start()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, \hyperpage{18}
+  \item \spxentry{start\_thread()}\spxextra{pgamit.com.DownloadSources.Client method}, 
+		\hyperpage{41}
+  \item \spxentry{state}\spxextra{pgamit.com.DownloadSources.Client attribute}, \hyperpage{41}
+  \item \spxentry{Static1d}\spxextra{class in pgamit.classes.pyStatic1d}, \hyperpage{28}
+  \item \spxentry{Station}\spxextra{class in pgamit.classes.pyStation}, \hyperpage{29}
+  \item \spxentry{Station}\spxextra{class in pgamit.com.DownloadSources}, \hyperpage{45}
+  \item \spxentry{station}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{42}
+  \item \spxentry{station\_etm()}\spxextra{in module pgamit.com.Stacker}, \hyperpage{63}
+  \item \spxentry{station\_info\_gaps()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{station\_list()}\spxextra{in module pgamit.com.ParallelGamit}, \hyperpage{55}
+  \item \spxentry{station\_list\_help()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{7}
+  \item \spxentry{StationCode}\spxextra{pgamit.com.DownloadSources.Station attribute}, 
+		\hyperpage{45}
+  \item \spxentry{StationCollection}\spxextra{class in pgamit.classes.pyStation}, \hyperpage{29}
+  \item \spxentry{StationData}\spxextra{class in pgamit.classes.snxParse}, \hyperpage{35}
+  \item \spxentry{stationExistsWithNumberOfOccurrences()}\spxextra{pgamit.classes.snxParse.snxStationMerger method}, 
+		\hyperpage{36}
+  \item \spxentry{stationID}\spxextra{pgamit.com.DownloadSources.Station attribute}, \hyperpage{45}
+  \item \spxentry{stationID()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{7}
+  \item \spxentry{StationInfo}\spxextra{class in pgamit.classes.pyStationInfo}, \hyperpage{30}
+  \item \spxentry{StationInfoRecord}\spxextra{class in pgamit.classes.pyStationInfo}, 
+		\hyperpage{30}
+  \item \spxentry{StationInstance}\spxextra{class in pgamit.classes.pyStation}, \hyperpage{29}
+  \item \spxentry{StationList}\spxextra{class in pgamit.com.StationList}, \hyperpage{65}
+  \item \spxentry{StationListException}, \hyperpage{65}
+  \item \spxentry{stn\_idx}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{42}
+  \item \spxentry{stn\_idx}\spxextra{pgamit.com.DownloadSources.FileDescriptor attribute}, 
+		\hyperpage{42}
+  \item \spxentry{StnInfoCheck()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+  \item \spxentry{StnInfoRinexIntegrity()}\spxextra{in module pgamit.com.IntegrityCheck}, 
+		\hyperpage{50}
+  \item \spxentry{stnrnx\_callback()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{51}
+  \item \spxentry{stop()}\spxextra{pgamit.com.DownloadSources.Client method}, \hyperpage{41}
+  \item \spxentry{stop()}\spxextra{pgamit.com.ParallelGamit.DbAlive method}, \hyperpage{54}
+  \item \spxentry{strftime()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{struct\_unpack()}\spxextra{in module pgamit.classes.Utils}, \hyperpage{7}
+  \item \spxentry{submit()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, \hyperpage{19}
+  \item \spxentry{submit\_async()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, 
+		\hyperpage{19}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{TerminalController}\spxextra{class in pgamit.classes.pyTerminal}, \hyperpage{31}
+  \item \spxentry{test\_node()}\spxextra{in module pgamit.classes.pyJobServer}, \hyperpage{19}
+  \item \spxentry{test\_polygon\_for\_self\_intersection()}\spxextra{in module pgamit.classes.pyVoronoi}, 
+		\hyperpage{34}
+  \item \spxentry{thread\_queue\_all\_files()}\spxextra{in module pgamit.com.DownloadSources}, 
+		\hyperpage{46}
+  \item \spxentry{tic()}\spxextra{in module pgamit.classes.pyETM}, \hyperpage{17}
+  \item \spxentry{tic()}\spxextra{in module pgamit.classes.pyNetwork}, \hyperpage{21}
+  \item \spxentry{to\_descriptor()}\spxextra{pgamit.com.DownloadSources.File method}, 
+		\hyperpage{42}
+  \item \spxentry{to\_dharp()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{to\_json()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{to\_json()}\spxextra{pgamit.classes.pyStack.Stack method}, \hyperpage{28}
+  \item \spxentry{to\_json()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{to\_json()}\spxextra{pgamit.classes.pyStationInfo.StationInfoRecord method}, 
+		\hyperpage{30}
+  \item \spxentry{to\_json()}\spxextra{pgamit.com.DRA.DRA method}, \hyperpage{40}
+  \item \spxentry{to\_list()}\spxextra{in module pgamit.classes.pyETM}, \hyperpage{17}
+  \item \spxentry{to\_postgres()}\spxextra{in module pgamit.classes.pyETM}, \hyperpage{17}
+  \item \spxentry{to\_rinex\_format()}\spxextra{pgamit.classes.pyRinexName.RinexNameFormat method}, 
+		\hyperpage{26}
+  \item \spxentry{to\_string()}\spxextra{pgamit.com.StationList.StationList method}, \hyperpage{65}
+  \item \spxentry{toc()}\spxextra{in module pgamit.classes.pyETM}, \hyperpage{17}
+  \item \spxentry{toc()}\spxextra{in module pgamit.classes.pyNetwork}, \hyperpage{21}
+  \item \spxentry{toDict()}\spxextra{pgamit.classes.pyBunch.Bunch method}, \hyperpage{11}
+  \item \spxentry{todictionary()}\spxextra{pgamit.classes.pyETM.ETM method}, \hyperpage{15}
+  \item \spxentry{toJSON()}\spxextra{pgamit.classes.pyBunch.Bunch method}, \hyperpage{11}
+  \item \spxentry{translate\_station\_alias()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{try\_insert()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+  \item \spxentry{try\_insert\_files()}\spxextra{in module pgamit.com.ScanArchive}, \hyperpage{61}
+
+  \indexspace
+  \bigletter U
+  \item \spxentry{unbunchify()}\spxextra{in module pgamit.classes.pyBunch}, \hyperpage{11}
+  \item \spxentry{uncompress()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{26}
+  \item \spxentry{UP}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{update()}\spxextra{pgamit.classes.pyTerminal.ProgressBar method}, \hyperpage{31}
+  \item \spxentry{UpdateRecord()}\spxextra{in module pgamit.com.amend}, \hyperpage{68}
+  \item \spxentry{UpdateStationInfo()}\spxextra{pgamit.classes.pyStationInfo.StationInfo method}, 
+		\hyperpage{30}
+  \item \spxentry{url}\spxextra{pgamit.com.DownloadSources.File attribute}, \hyperpage{42}
+  \item \spxentry{urlpath\_file}\spxextra{pgamit.com.DownloadSources.Client.NextDownload attribute}, 
+		\hyperpage{41}
+  \item \spxentry{urlpath\_file}\spxextra{pgamit.com.DownloadSources.File attribute}, 
+		\hyperpage{42}
+  \item \spxentry{username}\spxextra{pgamit.com.DownloadSources.Source attribute}, \hyperpage{45}
+  \item \spxentry{UtilsException}, \hyperpage{5}
+
+  \indexspace
+  \bigletter V
+  \item \spxentry{validate()}\spxextra{pgamit.com.StationInfoEdit.Menu method}, \hyperpage{64}
+  \item \spxentry{VEL}\spxextra{pgamit.classes.pyETM.Model attribute}, \hyperpage{16}
+  \item \spxentry{verify\_rinex\_date\_multiday()}\spxextra{in module pgamit.com.amend}, 
+		\hyperpage{68}
+  \item \spxentry{verify\_rinex\_date\_multiday()}\spxextra{in module pgamit.com.ScanArchive}, 
+		\hyperpage{61}
+  \item \spxentry{verify\_rinex\_multiday()}\spxextra{in module pgamit.com.ArchiveService}, 
+		\hyperpage{38}
+  \item \spxentry{verify\_spatial\_coherence()}\spxextra{pgamit.classes.pyPPP.PPPSpatialCheck method}, 
+		\hyperpage{23}
+  \item \spxentry{VisualizeGaps()}\spxextra{in module pgamit.com.IntegrityCheck}, \hyperpage{50}
+
+  \indexspace
+  \bigletter W
+  \item \spxentry{wait()}\spxextra{pgamit.classes.pyJobServer.JobServer method}, \hyperpage{19}
+  \item \spxentry{wait()}\spxextra{pgamit.classes.pyRunWithRetry.command method}, \hyperpage{27}
+  \item \spxentry{warn\_with\_traceback()}\spxextra{pgamit.classes.pyETM.ETM static method}, 
+		\hyperpage{15}
+  \item \spxentry{WHITE}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{window\_data()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{26}
+  \item \spxentry{window\_rinex()}\spxextra{pgamit.classes.pyGamitTask.GamitTask method}, 
+		\hyperpage{18}
+  \item \spxentry{write\_error()}\spxextra{in module pgamit.com.ArchiveService}, \hyperpage{38}
+  \item \spxentry{write\_otl()}\spxextra{pgamit.classes.pyPPP.RunPPP method}, \hyperpage{24}
+  \item \spxentry{write\_rinex()}\spxextra{pgamit.classes.pyRinex.ReadRinex method}, \hyperpage{26}
+  \item \spxentry{wwww()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{wwwwd()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+
+  \indexspace
+  \bigletter Y
+  \item \spxentry{yeardoy2fyear()}\spxextra{in module pgamit.classes.pyDate}, \hyperpage{13}
+  \item \spxentry{YELLOW}\spxextra{pgamit.classes.pyTerminal.TerminalController attribute}, 
+		\hyperpage{33}
+  \item \spxentry{yyyy()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{12}
+  \item \spxentry{yyyyddd()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{13}
+  \item \spxentry{yyyymmdd()}\spxextra{pgamit.classes.pyDate.Date method}, \hyperpage{13}
+
+  \indexspace
+  \bigletter Z
+  \item \spxentry{Ztd}\spxextra{class in pgamit.classes.pyZTD}, \hyperpage{35}
+  \item \spxentry{ZtdSoln}\spxextra{class in pgamit.classes.pyZTD}, \hyperpage{35}
+
+\end{sphinxtheindex}
