@@ -27,7 +27,7 @@ from tqdm import tqdm
 # app
 from pgamit import dbConnection, pyDate, pyJobServer, pyOptions, pyStationInfo
 from pgamit.pyGamitConfig import GamitConfiguration
-from pgamit.Utils import process_stnlist, stationID
+from pgamit.Utils import process_stnlist, stationID, plot_rinex_completion, add_version_argument
 
 global kml, folder_project, folder_allstns, stnlist
 
@@ -70,6 +70,8 @@ def main():
 
     parser.add_argument('-np', '--noparallel', action='store_true',
                         help="Execute command without parallelization.")
+
+    add_version_argument(parser)
 
     args = parser.parse_args()
 
@@ -121,9 +123,7 @@ def description_content(stn, DateS, DateE, count, completion, stn_issues,
             <strong>Observation distribution:</strong><br>
             </p>
             <img src="data:image/png;base64, %s" alt="Available data" />
-                        """ % plot_rinex(cnn,
-                                         stn['NetworkCode'],
-                                         stn['StationCode'])
+                        """ % plot_rinex_completion(cnn, stn['NetworkCode'], stn['StationCode'])
     else:
         data_plt = ""
 
@@ -183,12 +183,9 @@ def generate_kml_stninfo(JobServer, cnn, project, data=False,
     kml = simplekml.Kml()
 
     if stnonly:
-        rs = cnn.query_float('''SELECT * FROM stations
-                             WHERE "NetworkCode" NOT LIKE \'?%%\' AND
-                             "NetworkCode" || \'.\' ||
-                             "StationCode" IN (\'%s\')
-                             ORDER BY "NetworkCode", "StationCode"
-                             ' % '\',\' '''.join(stnonly), as_dict=True)
+        rs = cnn.query_float('SELECT * FROM stations WHERE "NetworkCode" NOT LIKE \'?%%\' AND '
+                             '"NetworkCode" || \'.\' || "StationCode" IN (\'%s\')'
+                             'ORDER BY "NetworkCode", "StationCode" ' % '\',\''.join(stnonly), as_dict=True)
     else:
         rs = cnn.query_float('''SELECT * FROM stations
                              WHERE "NetworkCode" NOT LIKE \'?%\'
@@ -251,7 +248,7 @@ def generate_kml_stninfo(JobServer, cnn, project, data=False,
     pbar = tqdm(
         desc=' >> Adding stations', total=len(rs), ncols=80, disable=None)
 
-    depfuncs = (plot_station_info_rinex, plot_rinex, stationID)
+    depfuncs = (plot_station_info_rinex, plot_rinex_completion, stationID)
 
     JobServer.create_cluster(description_content,
                              depfuncs,
@@ -366,12 +363,14 @@ def generate_kml_stninfo(JobServer, cnn, project, data=False,
 
     # remove the extension if supplied
     ext = os.path.splitext(kmz_filename)
+
+    # DDG Jun 17 2025: the wrong version of simplekml was being used, now using latest
     # to fix the issue from simple kml
     # AttributeError: module 'cgi' has no attribute 'escape'
     # see: https://github.com/tjlang/simplekml/issues/38
-    import cgi
-    import html
-    cgi.escape = html.escape
+    # import cgi
+    # import html
+    # cgi.escape = html.escape
     kml.savekmz(ext[0] + '.kmz')
 
 
@@ -488,7 +487,7 @@ def generate_kml(cnn, project, data=False):
 <strong>Observation distribution:</strong><br>
 </p>
 <img src="data:image/png;base64, %s" alt="Available data" />
-            """ % plot_rinex(cnn, stn['NetworkCode'], stn['StationCode'])
+            """ % plot_rinex_completion(cnn, stn['NetworkCode'], stn['StationCode'])
         else:
             data_plt = ""
 
@@ -515,12 +514,13 @@ RINEX count: %i PPP soln: %s%%<br><br>
     if not os.path.exists('production'):
         os.makedirs('production')
 
+    # DDG Jun 17 2025: the wrong version of simplekml was being used, now using latest
     # to fix the issue from simple kml
     # AttributeError: module 'cgi' has no attribute 'escape'
     # see: https://github.com/tjlang/simplekml/issues/38
-    import cgi
-    import html
-    cgi.escape = html.escape
+    # import cgi
+    # import html
+    # cgi.escape = html.escape
 
     kml.savekmz('production/' + project + '.kmz')
 
@@ -574,65 +574,6 @@ def plot_station_info_rinex(cnn, NetworkCode, StationCode, stninfo_records):
     except Exception:
         # either no rinex or no station info
         figdata_png = ''
-    plt.close()
-
-    return figdata_png
-
-
-def plot_rinex(cnn, NetworkCode, StationCode):
-
-    import matplotlib.pyplot as plt
-
-    # find the available data
-    rinex = numpy.array(cnn.query_float("""
-    SELECT "ObservationYear", "ObservationDOY",
-    "Completion" FROM rinex_proc WHERE
-    "NetworkCode" = '%s' AND "StationCode" = '%s'""" % (NetworkCode,
-                                                        StationCode)))
-
-    fig, ax = plt.subplots(figsize=(10, 25))
-
-    fig.tight_layout(pad=5)
-    ax.set_title('RINEX and missing data for %s.%s'
-                 % (NetworkCode, StationCode))
-
-    if rinex.size:
-        # create a continuous vector for missing data
-        md = numpy.arange(1, 367)
-        my = numpy.unique(rinex[:, 0])
-        for yr in my:
-            ax.plot(numpy.repeat(yr, 366), md, 'o', fillstyle='none',
-                    color='silver', markersize=4, linewidth=0.1)
-
-        ax.scatter(rinex[:, 0], rinex[:, 1],
-                   c=['tab:blue' if c >= 0.5 else 'tab:orange'
-                      for c in rinex[:, 2]], s=10, zorder=10)
-
-        ax.tick_params(top=True, labeltop=True, labelleft=True,
-                       labelright=True, left=True, right=True)
-        plt.xticks(numpy.arange(my.min(), my.max()+1, step=1),
-                   rotation='vertical')  # Set label locations.
-
-    ax.grid(True)
-    ax.set_axisbelow(True)
-    plt.ylim([0, 367])
-    plt.yticks(numpy.arange(0, 368, step=5))  # Set label locations.
-
-    ax.set_ylabel('DOYs')
-    ax.set_xlabel('Years')
-
-    figfile = io.BytesIO()
-
-    try:
-        plt.savefig(figfile, format='png')
-        # plt.show()
-        figfile.seek(0)  # rewind to beginning of file
-
-        figdata_png = base64.b64encode(figfile.getvalue()).decode()
-    except Exception:
-        # either no rinex or no station info
-        figdata_png = ''
-
     plt.close()
 
     return figdata_png

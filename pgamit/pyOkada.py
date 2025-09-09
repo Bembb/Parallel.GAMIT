@@ -55,14 +55,21 @@ version 1.0  (PYTHON) translated by Demian Gomez        15 May 24
 """
 import numpy as np
 import math
-from scipy.interpolate import griddata
+
 from scipy.spatial     import KDTree
 from datetime          import timedelta
-import matplotlib.pyplot as plt
 import simplekml
+import io
+import zipfile
+import base64
+from skimage.measure import find_contours
+from shapely.geometry import Polygon
+from obspy.imaging.beachball import beachball
 
 from pgamit.pyDate import Date
 from pgamit import pyETM as etm
+from pgamit.pyETM import CO_SEISMIC_JUMP, CO_SEISMIC_JUMP_DECAY
+from pgamit import dbConnection
 
 cosd  = lambda x : np.cos(np.deg2rad(x))
 sind  = lambda x : np.sin(np.deg2rad(x))
@@ -76,6 +83,29 @@ b = -1.1478
 
 POST_SEISMIC_SCALE_FACTOR = 1.5
 
+
+def azimuth(lon1, lat1, lon2, lat2):
+    """
+    Calculates the initial bearing (azimuth) in degrees between two points
+    on the Earth's surface (latitude and longitude).
+    """
+    # convert decimal degrees to radians
+    lon1 = lon1 * np.pi / 180
+    lat1 = lat1 * np.pi / 180
+    lon2 = lon2 * np.pi / 180
+    lat2 = lat2 * np.pi / 180
+
+    delta_lon = lon2 - lon1
+
+    y = np.sin(delta_lon) * np.cos(lat2)
+    x = np.cos(lat1) * np.sin(lat2) - \
+        np.sin(lat1) * np.cos(lat2) * np.cos(delta_lon)
+
+    az_rad = np.arctan2(y, x)
+    az_deg = np.rad2deg(az_rad)
+
+    # Normalize to 0-360 degrees
+    return (az_deg + 360) % 360
 
 def distance(lon1, lat1, lon2, lat2):
     """
@@ -106,6 +136,85 @@ def inv_azimuthal(x, y, lon, lat):
     i_lon = lon + atand((x.flatten() * np.sin(c)) / (r * cosd(lat) * np.cos(c) - y.flatten() * sind(lat) * np.sin(c)))
 
     return i_lon, i_lat
+
+
+class EarthquakeTable(object):
+    """
+    Given a connection to the database and an earthquake id, find all stations affected by the given event
+    """
+    def __init__(self, cnn, earthquake_id, include_postseismic=True):
+        self.earthquake_id = earthquake_id
+        self.c_stations = []
+        self.p_stations = []
+        self.cnn = cnn
+
+        # get the earthquakes based on Mike's expression
+        # earthquakes before the start data: only magnitude 7+
+        eq   = cnn.get('earthquakes', {'id': earthquake_id})
+        stns = cnn.query_float('SELECT "NetworkCode", "StationCode", lat, lon, height, auto_x, auto_y, auto_z '
+                               'FROM stations WHERE "NetworkCode" NOT LIKE \'?%\' AND '
+                               'lat IS NOT NULL AND lon IS NOT NULL', as_dict=True)
+
+        strike = [float(eq['strike1']), float(eq['strike2'])] if not math.isnan(eq['strike1']) else []
+        dip    = [float(eq['dip1']), float(eq['dip2'])]       if not math.isnan(eq['strike1']) else []
+        rake   = [float(eq['rake1']), float(eq['rake2'])]     if not math.isnan(eq['strike1']) else []
+
+        score = Score(float(eq['lat']), float(eq['lon']), float(eq['depth']), float(eq['mag']),
+                      strike, dip, rake, eq['date'], location=eq['location'], event_id=eq['id'])
+
+        for stn in stns:
+
+            dist = distance(stn['lon'], stn['lat'], eq['lon'], eq['lat'])
+            # Obtain level-1 s-score to make the process faster: do not use events outside of level-1 s-score
+            # inflate the score to also include postseismic events if include_postseismic=True
+            sp = a * eq['mag'] - np.log10(dist) + b + np.log10(POST_SEISMIC_SCALE_FACTOR)
+            sc = a * eq['mag'] - np.log10(dist) + b
+
+            # prepare a dictionary for this station
+            stn_dict = dict(stn)
+            stn_dict['distance'] = dist
+            stn_dict['azimuth']  = azimuth(stn['lon'], stn['lat'], eq['lon'], eq['lat'])
+
+            if (sc > 0 or sp > 0) and rake:
+                # check the actual score if rake, otherwise no need to check
+                sc, sp = score.score(stn['lat'], stn['lon'])
+                if sc > 0:
+                    self.c_stations.append(stn_dict)
+                elif sp > 0 and include_postseismic:
+                    self.p_stations.append(stn_dict)
+            elif sc > 0:
+                # append the station because no L2 s-score
+                self.c_stations.append(stn_dict)
+            elif sp > 0 and include_postseismic:
+                self.p_stations.append(stn_dict)
+
+        self.c_stations = sorted(self.c_stations, key=lambda x: x['StationCode'])
+        self.p_stations = sorted(self.p_stations, key=lambda x: x['StationCode'])
+
+    def get_coseismic_displacements(self, stack='ppp'):
+        # find co-seismic only and co+post-seismic
+        etms = self.cnn.query_float(f"SELECT \"NetworkCode\", \"StationCode\", params, relaxation, "
+                                    f"ARRAY_LENGTH(relaxation,1) as len, jump_type FROM etms "
+                                    f"WHERE jump_type in ({CO_SEISMIC_JUMP_DECAY}, {CO_SEISMIC_JUMP}) "
+                                    f"AND metadata like '%{self.earthquake_id}%' and stack = '{stack}'", as_dict=True)
+
+        displacements = []
+
+        for etm in etms:
+            if etm['jump_type'] == CO_SEISMIC_JUMP:
+                displacements.append({"NetworkCode": etm['NetworkCode'],
+                                      "StationCode": etm['StationCode'],
+                                      "n"          : etm['params'][0],
+                                      "e"          : etm['params'][1],
+                                      "u"          : etm['params'][2]})
+            else:
+                displacements.append({"NetworkCode": etm['NetworkCode'],
+                                      "StationCode": etm['StationCode'],
+                                      "n": etm['params'][0],
+                                      "e": etm['params'][1 + etm['len']],
+                                      "u": etm['params'][2 + 2*etm['len']]})
+
+        return sorted(displacements, key=lambda x: x['StationCode'])
 
 
 class ScoreTable(object):
@@ -140,24 +249,28 @@ class ScoreTable(object):
             if s > 0:
 
                 score = Score(float(j['lat']), float(j['lon']), float(j['depth']), float(j['mag']),
-                              strike, dip, rake, j['date'])
+                              strike, dip, rake, j['date'], location=j['location'], event_id=j['id'])
 
                 # capture co-seismic and post-seismic scores
                 s_score, p_score = score.score(lat, lon)
                 # print(j['date'], s, s_score, p_score, dist)
+                link = ('<a href="https://earthquake.usgs.gov/earthquakes/eventpage/%s" target="_blank">%s</a>'
+                        % (j['id'], j['id']))
                 if s_score > 0:
                     # seismic score came back > 0, add jump
                     self.table.append([j['mag'], Date(datetime=j['date']), j['lon'], j['lat'],
-                                       etm.CO_SEISMIC_JUMP_DECAY])
+                                       etm.CO_SEISMIC_JUMP_DECAY,
+                                       link + ': M%.1f' % j['mag'] + ' ' + j['location'] + ' -> %.0f km' % dist])
                 elif p_score > 0:
                     # seismic score came back == 0, but post-seismic score > 0 add jump
                     self.table.append([j['mag'], Date(datetime=j['date']), j['lon'], j['lat'],
-                                       etm.CO_SEISMIC_DECAY])
+                                       etm.CO_SEISMIC_DECAY,
+                                       link + ': M%.1f' % j['mag'] + ' ' + j['location'] + ' -> %.0f km' % dist])
 
 
 class Score(object):
     def __init__(self, event_lat, event_lon, depth_km, magnitude, strike=(), dip=(), rake=(), event_date=None,
-                 density=250, location=''):
+                 density=250, location='', event_id='Unknown'):
         """
         Seismic-score (s-score) class that allows testing if a latitude longitude locations requires co-seismic
         displacement parameters on its ETM. The class includes the formulations from Wells and Coppersmith (1994) to
@@ -186,14 +299,18 @@ class Score(object):
         self.date   = event_date
         # for the kml information
         self.location = location
+        self.event_id = event_id
+
+        # init variables
+        self.along_strike_l = None
+        self.downdip_l      = None
+        self.avg_disp       = None
+        self.rupture_area   = None
+        self.maximum_disp   = None
 
         # compute fault dimensions from Wells and Coppersmith 1994
         # all lengths and displacements reported in m
-        self.along_strike_l = 10. ** (-3.22 + 0.69 * self.mag) * 1000  # [m]
-        self.downdip_l      = 10. ** (-1.01 + 0.32 * self.mag) * 1000  # [m]
-        self.avg_disp       = 10. ** (-4.80 + 0.69 * self.mag)         # [m]
-        self.rupture_area   = 10. ** (-3.49 + 0.91 * self.mag)         # [km ** 2]
-        self.maximum_disp   = 10. ** (-5.46 + 0.82 * self.mag)         # [m]
+        self.fault_dims()
 
         # to compute okada
         self.c_mx = np.array([])
@@ -221,6 +338,19 @@ class Score(object):
             self.p_mx = self.gx / 1000.
             self.p_my = self.gy / 1000.
 
+        # save the interpolator to make the score response faster
+        self.kd_c = KDTree(np.column_stack((self.c_mx.flatten(), self.c_my.flatten())))
+        self.kd_p = KDTree(np.column_stack((self.p_mx.flatten(), self.p_my.flatten())))
+
+    def fault_dims(self):
+        # compute fault dimensions from Wells and Coppersmith 1994
+        # all lengths and displacements reported in m
+        self.along_strike_l = 10. ** (-3.22 + 0.69 * self.mag) * 1000  # [m]
+        self.downdip_l      = 10. ** (-1.01 + 0.32 * self.mag) * 1000  # [m]
+        self.avg_disp       = 10. ** (-4.80 + 0.69 * self.mag)         # [m]
+        self.rupture_area   = 10. ** (-3.49 + 0.91 * self.mag)         # [km ** 2]
+        self.maximum_disp   = 10. ** (-5.46 + 0.82 * self.mag)         # [m]
+
     def compute_disp_field(self, scale_factor=1., limit=1e-3):
         # source dimensions L is horizontal, and W is depth
         L1 = -self.along_strike_l / 2
@@ -237,8 +367,8 @@ class Score(object):
             U = np.zeros_like(self.gx, dtype=bool)
 
             for strike, dip, rake in zip(self.strike, self.dip, self.rake):
-                # check depth of fault edge
-                d2 = depth - W2 * sind(dip)
+                # check depth of fault edge (add 500 meters for security factor)
+                d2 = depth - (W2 * sind(dip) + 500)
 
                 if d2 < 0:
                     # fault is sticking out of the ground! reduce depth
@@ -272,7 +402,7 @@ class Score(object):
 
         mx = self.gx / np.max(ref_scale) * self.dmax * scale_factor
         my = self.gy / np.max(ref_scale) * self.dmax * scale_factor
-
+        # print(ref_scale)
         return mx, my, U
 
     def score(self, lat, lon):
@@ -288,13 +418,11 @@ class Score(object):
 
         if self.c_mask.size > 0:
             # if mask is available, use mask
-            kd = KDTree(np.column_stack((self.c_mx.flatten(), self.c_my.flatten())))
-            _, i = kd.query((x, y))
+            _, i = self.kd_c.query((x, y))
             s_score = self.c_mask.flatten()[i] + 0
 
             # repeat, this time inflating the level-2 mask to get the postseismic
-            kd = KDTree(np.column_stack((self.p_mx.flatten(), self.p_my.flatten())))
-            _, i = kd.query((x, y))
+            _, i = self.kd_p.query((x, y))
             p_score = self.p_mask.flatten()[i] + 0
         else:
             s_score = a * self.mag - np.log10(np.sqrt(np.square(x) + np.square(y))) + b
@@ -304,62 +432,222 @@ class Score(object):
 
     def save_masks(self, txt_file=None, kmz_file=None, include_postseismic=False):
         """
-        Function to export coseismic mask. Method returns the kml structure. If txt_file and/or kmz_file are given,
-        then files are saved
+        Exports coseismic mask as a KMZ file with proper polygon separation.
         """
-        # to fix the issue from simple kml
-        # AttributeError: module 'cgi' has no attribute 'escape'
-        # see: https://github.com/tjlang/simplekml/issues/38
-        import cgi
-        import html
-        cgi.escape = html.escape
+        # DDG Jun 17 2025: the wrong version of simplekml was being used, now using latest
+        # import cgi
+        # import html
+        # cgi.escape = html.escape
 
-        cs = plt.contour(np.reshape(self.c_mx, self.c_mask.shape), np.reshape(self.c_my, self.c_mask.shape),
-                         self.c_mask, [9e-8], colors='k')
+        # First, transform the scalar field coordinates using inv_azimuthal
+        c_lon, c_lat = inv_azimuthal(self.c_mx, self.c_my, self.lon, self.lat)
+        p_lon, p_lat = inv_azimuthal(self.p_mx, self.p_my, self.lon, self.lat)
 
-        ps = plt.contour(np.reshape(self.p_mx, self.p_mask.shape), np.reshape(self.p_my, self.p_mask.shape),
-                         self.p_mask, [9e-8], colors='k')
+        # Reshape to match mask shape
+        c_lon = np.reshape(c_lon, self.c_mask.shape)
+        c_lat = np.reshape(c_lat, self.c_mask.shape)
+        p_lon = np.reshape(p_lon, self.p_mask.shape)
+        p_lat = np.reshape(p_lat, self.p_mask.shape)
 
-        # coseismic
-        cp = cs.collections[0].get_paths()[0]
-        cv = cp.vertices
-        # inverse azimuthal equidistant (coseismic)
-        clon, clat = inv_azimuthal(cv[:, 0], cv[:, 1], self.lon, self.lat)
+        # Find contours on transformed scalar field coordinates
+        coseismic_contours = find_contours(self.c_mask, 1e-16)
+        postseismic_contours = find_contours(self.p_mask, 1e-16) if include_postseismic else []
 
-        # postseismic
-        pp = ps.collections[0].get_paths()[0]
-        pv = pp.vertices
-        # inverse azimuthal equidistant (postseismic)
-        plon, plat = inv_azimuthal(pv[:, 0], pv[:, 1], self.lon, self.lat)
-
-        # Produce KML
+        # Create KML
         kml = simplekml.Kml()
+
         epicenter = kml.newpoint(name=self.location, coords=[(self.lon, self.lat)])
         epicenter.style.iconstyle.icon.href = 'https://maps.google.com/mapfiles/kml/shapes/star.png'
         epicenter.style.iconstyle.scale = 1.5
         epicenter.style.iconstyle.color = simplekml.Color.yellow
         epicenter.style.labelstyle.scale = 0
 
-        poly = kml.newpolygon(name="Coseimic mask", outerboundaryis=np.column_stack((clon, clat)))
-        poly.style.linestyle.color = simplekml.Color.blue
-        poly.style.linestyle.width = 3
-        poly.style.polystyle.color = simplekml.Color.changealphaint(0, simplekml.Color.white)
+        if self.strike:
+            img_buffer = io.BytesIO()
+            beachball([self.strike[0], self.dip[0], self.rake[0]], width=100, linewidth=1,
+                      facecolor='k', outfile=img_buffer)
+            img_buffer.seek(0)
+            img_base64 = base64.b64encode(img_buffer.read()).decode("utf-8")
 
+            # Add overlay to KML
+            epicenter.description = """<table style="border-collapse: collapse; width: 100%%; text-align: left;">
+            <tr><td style="text-align: left; font-weight: bold;">ID:</td><td>%s</td></tr>
+            <tr><td style="text-align: left; font-weight: bold;">Date:</td><td>%s</td></tr>
+            <tr><td style="text-align: left; font-weight: bold;">Mag:</td><td>%.1f</td></tr>
+            <tr><td style="text-align: left; font-weight: bold;">Depth:</td><td>%.0f km</td></tr>
+            <tr>
+                <td colspan="2" style="text-align: left;">
+                    <a href="https://earthquake.usgs.gov/earthquakes/eventpage/%s" target="_blank"
+                    style="display: inline-block; text-align: left;">
+                        USGS event page
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"">
+                    <strong>Focal Mechanism</strong><br>
+                    <img src="data:image/png;base64,%s" alt="Focal Mechanism" 
+                    style="display: block; margin: 0 auto; max-width: 100%%;" />
+                </td>
+            </tr>
+            </table>""" % (self.event_id, self.date.strftime('%Y-%m-%d %H:%M:%S'),
+                           self.mag, self.depth[1] / 1000, self.event_id, img_base64)
+        else:
+            epicenter.description = """<table style="border-collapse: collapse;">
+            <tr><td style="text-align: left; font-weight: bold;">ID:</td><td>%s</td></tr>
+            <tr><td style="text-align: left; font-weight: bold;">Date:</td><td>%s</td></tr>
+            <tr><td style="text-align: left; font-weight: bold;">Mag:</td><td>%.1f</td></tr>
+            <tr><td style="text-align: left; font-weight: bold;">Depth:</td><td>%.0f km</td></tr>
+            <tr>
+                <td colspan="2" style="text-align: left;">
+                    <a href="https://earthquake.usgs.gov/earthquakes/eventpage/%s" target="_blank"
+                    style="display: inline-block; text-align: left;">
+                        USGS event page
+                    </a>
+                </td>
+            </tr>
+            </table>
+            """ % (self.event_id, self.date.strftime('%Y-%m-%d %H:%M:%S'), self.mag,
+                   self.depth[1] / 1000, self.event_id)
+
+        def process_contours(contours, lon_grid, lat_grid, color, name):
+            """
+            Converts contour paths into properly formatted KML polygons.
+            """
+            polygons = []
+            for contour in contours:
+                # Convert contour indices to geographic coordinates
+                row_indices = contour[:, 0].astype(int)
+                col_indices = contour[:, 1].astype(int)
+                lon = lon_grid[row_indices, col_indices]
+                lat = lat_grid[row_indices, col_indices]
+
+                poly = Polygon(np.column_stack((lon, lat)))  # Convert to a Shapely polygon
+                if poly.area > 0.0025:
+                    # ignore polygons with areas smaller than 10 km**2 (expressed in deg**2)
+                    polygons.append(poly)
+                    # print('added %f' % poly.area)
+                # else:
+                    # print('not added %f' % poly.area)
+
+            # Separate outer polygons from inner holes
+            outer_polys = []
+            holes = []
+            for poly in polygons:
+                is_hole = False
+                for outer in outer_polys:
+                    if outer.contains(poly):  # If it's inside another, it's a hole
+                        holes.append(poly)
+                        is_hole = True
+                        break
+                if not is_hole:
+                    outer_polys.append(poly)
+                    # print('outer detected')
+
+            # Add to KML
+            for outer in outer_polys:
+                kml_poly = kml.newpolygon(name=name, outerboundaryis=outer.exterior.coords)
+                kml_poly.style.linestyle.color = color
+                kml_poly.style.linestyle.width = 3
+                kml_poly.style.polystyle.color = simplekml.Color.changealphaint(0, simplekml.Color.white)
+
+                # todo: add the inner boundary, which needs to be tested
+                # Add inner boundaries (holes)
+                # for hole in holes:
+                #    if outer.contains(hole):  # Ensure hole belongs to this polygon
+                #        kml_poly.innerboundaryis = hole.exterior.coords
+
+        # Process coseismic and postseismic separately
+        process_contours(coseismic_contours, c_lon, c_lat, simplekml.Color.blue, "Coseismic mask")
         if include_postseismic:
-            poly = kml.newpolygon(name="Postseismic mask", outerboundaryis=np.column_stack((plon, plat)))
-            poly.style.linestyle.color = simplekml.Color.orange
-            poly.style.linestyle.width = 3
-            poly.style.polystyle.color = simplekml.Color.changealphaint(0, simplekml.Color.white)
+            process_contours(postseismic_contours, p_lon, p_lat, simplekml.Color.orange, "Postseismic mask")
 
-        if kmz_file is not None:
+        if kmz_file:
             kml.savekmz(kmz_file)
 
         if txt_file is not None:
             # inverse azimuthal equidistant (coseismic)
-            clon, clat = inv_azimuthal(self.c_mx, self.c_my, self.lon, self.lat)
-            np.savetxt(txt_file, np.column_stack((clon, clat, self.c_mask.flatten())))
+            if include_postseismic:
+                np.savetxt(txt_file, np.column_stack((c_lon, c_lat, self.c_mask.flatten(), self.p_mask.flatten())))
+            else:
+                np.savetxt(txt_file, np.column_stack((c_lon, c_lat, self.c_mask.flatten())))
 
         return kml.kml()
+
+
+class Mask(Score):
+    """
+    A mask object takes an earthquake id as a parameter and calculates the mask or loads it from the database
+    """
+
+    def __init__(self, cnn: dbConnection, earthquake_id: str, density=750):
+        # first check that the new fields exist or create them
+        if 'density' not in cnn.get_columns('earthquakes').keys():
+            cnn.begin_transac()
+            cnn.query("""
+                    ALTER TABLE earthquakes
+                    ADD COLUMN density INTEGER   DEFAULT NULL,
+                    ADD COLUMN c_kml   TEXT      DEFAULT NULL,
+                    ADD COLUMN cp_kml  TEXT      DEFAULT NULL;
+                    """)
+            cnn.commit_transac()
+
+        # check that the index exists
+        idx = cnn.query("SELECT * FROM pg_indexes WHERE tablename = 'earthquakes' "
+                        "AND indexname = 'earthquake_id_key'")
+
+        if not len(idx):
+            cnn.begin_transac()
+            cnn.query("""CREATE UNIQUE INDEX earthquake_id_key ON earthquakes (id);""")
+            cnn.commit_transac()
+
+        eq = cnn.get('earthquakes', {'id': earthquake_id})
+
+        strike = [float(eq['strike1']), float(eq['strike2'])] if not math.isnan(eq['strike1']) else []
+        dip = [float(eq['dip1']), float(eq['dip2'])] if not math.isnan(eq['strike1']) else []
+        rake = [float(eq['rake1']), float(eq['rake2'])] if not math.isnan(eq['strike1']) else []
+
+        super().__init__(float(eq['lat']), float(eq['lon']), float(eq['depth']), float(eq['mag']),
+                         strike, dip, rake, eq['date'], density=density, location=eq['location'], event_id=eq['id'])
+
+        if eq['density'] is None:
+            # need to call super
+            self.c_kml = super().save_masks(include_postseismic=False)
+            self.cp_kml = super().save_masks(include_postseismic=True)
+
+            # save values to database only if density is 750 or above
+            if density >= 750:
+                cnn.update('earthquakes', {'density': density, 'c_kml'  : self.c_kml, 'cp_kml' : self.cp_kml},
+                           id=eq['id'])
+        else:
+            self.c_kml = eq['c_kml']
+            self.cp_kml = eq['cp_kml']
+
+    def save_masks(self, txt_file=None, kmz_file=None, include_postseismic=False):
+        """
+        Completely override the parent's save_mask method
+        """
+        if kmz_file:
+            if not include_postseismic:
+                kml_stream = io.BytesIO(self.c_kml.encode('utf-8'))
+            else:
+                kml_stream = io.BytesIO(self.cp_kml.encode('utf-8'))
+
+            # Create the KMZ file (a zip archive)
+            with zipfile.ZipFile(kmz_file, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
+                # Write the KML string into the KMZ file
+                zf.writestr('doc.kml', kml_stream.getvalue())
+
+        if txt_file:
+            # First, transform the scalar field coordinates using inv_azimuthal
+            c_lon, c_lat = inv_azimuthal(self.c_mx, self.c_my, self.lon, self.lat)
+            # inverse azimuthal equidistant (coseismic)
+            if include_postseismic:
+                np.savetxt(txt_file, np.column_stack((c_lon, c_lat, self.c_mask.flatten(), self.p_mask.flatten())))
+            else:
+                np.savetxt(txt_file, np.column_stack((c_lon, c_lat, self.c_mask.flatten())))
+
+        return self.cp_kml if include_postseismic else self.c_kml
 
 
 def okada(alpha, x, y, d, L1, L2, W1, W2, snd, csd, B1, B2, B3):
@@ -501,4 +789,7 @@ if __name__ == '__main__':
     _score = Score(-3.6122000e+01, -7.2898000e+01, 22.9, 8.8, [178, 17], [77, 14],
                    [86, 108], density=1000)
     print(_score.save_masks(kmz_file='test.kmz', include_postseismic=True))
+
+    et = EarthquakeTable(conn, 'us20003k7a')
+    print(et.stations)
 

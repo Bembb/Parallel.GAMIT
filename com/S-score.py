@@ -14,6 +14,7 @@ import math
 # app
 from pgamit import pyOkada
 from pgamit import dbConnection
+from pgamit.Utils import add_version_argument, stationID, print_columns
 
 
 def main():
@@ -26,6 +27,26 @@ def main():
     parser.add_argument('-post', '--postseismic', action='store_true',
                         help="Include the postseismic S-score", default=False)
 
+    parser.add_argument('-disp', '--output_displacements', nargs='?', type=str,
+                        metavar='[stack_name]', const='ppp',
+                        help="Output the displacements produced by the requested earthquake. "
+                             "By default, the ppp ETM solution is printed. To output another stack ETM, specify "
+                             "provide a stack_name.")
+
+    parser.add_argument('-table', '--output_table', action='store_true',
+                        help="Output the list of stations affected by the requested earthquake.", default=False)
+
+    parser.add_argument('-ad', '--azimuth_distance', action='store_true',
+                        help="Output the list of stations affected by the requested earthquake with "
+                             "the azimuth and distance to epicenter.", default=False)
+
+    parser.add_argument('-density', '--mask_density', nargs=1, type=int,
+                        metavar='{mask_density}', default=[750],
+                        help="A value to control the quality of the output mask. "
+                             "Recommended for high quality is 1000. For low quality use 250. Default is 750.")
+
+    add_version_argument(parser)
+
     args = parser.parse_args()
 
     cnn = dbConnection.Cnn('gnss_data.cfg')
@@ -35,14 +56,36 @@ def main():
         if len(event):
             event = event.dictresult()[0]
 
-            strike = [float(event['strike1']), float(event['strike2'])] if not math.isnan(event['strike1']) else []
-            dip = [float(event['dip1']), float(event['dip2'])] if not math.isnan(event['strike1']) else []
-            rake = [float(event['rake1']), float(event['rake2'])] if not math.isnan(event['strike1']) else []
+            mask = pyOkada.Mask(cnn, event['id'])
+            mask.save_masks(kmz_file=eq + '.kmz', include_postseismic=args.postseismic)
 
-            score = pyOkada.Score(event['lat'], event['lon'], event['depth'], event['mag'], strike, dip, rake,
-                                  event['date'], density=1000, location=event['location'])
+            if args.output_table:
+                table = pyOkada.EarthquakeTable(cnn, event['id'], args.postseismic)
+                print(' >> Stations affected by %s (id %s, co+post-seismic)' % (event['location'], event['id']))
+                print_columns([stationID(stn) for stn in table.c_stations])
 
-            score.save_masks(kmz_file=eq + '.kmz', include_postseismic=args.postseismic)
+                if args.postseismic:
+                    print(' >> Stations affected by %s (id %s, post-seismic only)' % (event['location'], event['id']))
+                    print_columns([stationID(stn) for stn in table.p_stations])
+                else:
+                    print(' >> Post-seismic affected stations not requested')
+
+            if args.output_displacements:
+                table = pyOkada.EarthquakeTable(cnn, event['id'], args.postseismic)
+                print(' >> Co-seismic displacements produced by %s '
+                      '(id %s, NEU, stack name %s)' % (event['location'], event['id'], args.output_displacements))
+
+                for stn in table.get_coseismic_displacements(args.output_displacements):
+                    print('%s : %6.3f %6.3f %6.3f' % (stationID(stn), stn['n'], stn['e'], stn['u']))
+
+            if args.azimuth_distance:
+                table = pyOkada.EarthquakeTable(cnn, event['id'], args.postseismic)
+                print(' >> Azimuth and distance to %s '
+                      '(id %s)' % (event['location'], event['id']))
+
+                for stn in table.c_stations:
+                    print('%s : %6.1f deg %6.1f km' % (stationID(stn), stn['azimuth'], stn['distance']))
+
         else:
             print(' -- Event %s not found' % eq)
 

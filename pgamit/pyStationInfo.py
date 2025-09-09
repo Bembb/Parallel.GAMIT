@@ -6,8 +6,6 @@ Author: Demian D. Gomez
 
 import struct
 import datetime
-import zlib
-import re
 from json import JSONEncoder
 import os
 
@@ -15,11 +13,11 @@ import os
 import numpy as np
 
 # app
-from pgamit import dbConnection
 from pgamit import pyDate
 from pgamit.pyBunch import Bunch
 from pgamit import pyEvents
 from pgamit.Utils import struct_unpack, file_readlines, crc32, stationID, determine_frame, parse_atx_antennas
+from pgamit import igslog
 
 
 def _default(self, obj):
@@ -278,7 +276,7 @@ class StationInfo:
                         gaps.append({'rinex_count': count, 'record_start': srecord, 'record_end': erecord})
 
         # there should not be RINEX data outside the station info window
-        rs = self.cnn.query('SELECT min("ObservationSTime") as first_obs, max("ObservationSTime") as last_obs '
+        rs = self.cnn.query('SELECT min("ObservationSTime") as first_obs, max("ObservationETime") as last_obs '
                             'FROM rinex_proc WHERE "NetworkCode" = \'%s\' AND "StationCode" = \'%s\' '
                             'AND "Completion" >= 0.5'
                             % (self.NetworkCode, self.StationCode))  # only check RINEX with more than 12 hours of data
@@ -306,8 +304,34 @@ class StationInfo:
             # a list is comming in
             stninfo = stninfo_file_list
         else:
-            # a file is comming in
-            stninfo = file_readlines(stninfo_file_list)
+            # a file is comming in, it is an IGS log file
+            _, ext = os.path.splitext(stninfo_file_list)
+            if ext.lower() == '.log':
+                fs = ' {:4.4}  {:16.16}  {:19.19}{:19.19}{:7.4f}  {:5.5}  {:7.4f}  {:7.4f}  {:20.20}  ' \
+                     '{:20.20}  {:>5.5}  {:20.20}  {:15.15}  {:5.5}  {:20.20}'
+                logfile = igslog.parse_igs_log_file(stninfo_file_list)
+                stninfo = []
+                for row in logfile:
+                    stninfo.append(fs.format(
+                        row[0],  # station code
+                        row[1],  # station name
+                        str(pyDate.Date(datetime=row[2])),  # session start
+                        str(pyDate.Date(datetime=row[3])) if row[3].year < 2100 else '9999 999 00 00 00',  # session end
+                        float(row[4]) if type(row[4]) is float else 0.000,  # antenna height
+                        row[5],  # height code
+                        float(row[6]) if type(row[6]) is float else 0.000,  # antenna north offset
+                        float(row[7]) if type(row[7]) is float else 0.000,  # antenna east offset
+                        row[8],  # receiver type
+                        row[9],  # receiver firmware version
+                        row[10],  # software version
+                        row[11],  # receiver serial number
+                        row[12],  # antenna type
+                        row[13],  # radome
+                        row[14],  # antenna serial number
+                        row[15],  # comment
+                    ))
+            else:
+                stninfo = file_readlines(stninfo_file_list)
 
         records = []
         for line in stninfo:
@@ -530,8 +554,8 @@ class StationInfo:
                             not self.records[-1]['DateEnd'].year:
                         # overlap with the last session
                         # stop the current valid session
-                        self.cnn.update('stationinfo', self.records[-1].database(),
-                                        DateEnd=record['DateStart'].datetime() - datetime.timedelta(seconds=1))
+                        new_end_date = record['DateStart'].datetime() - datetime.timedelta(seconds=1)
+                        self.cnn.update('stationinfo', {'DateEnd': new_end_date}, **self.records[-1].database())
 
                         # create the incoming session
                         self.cnn.insert('stationinfo', **record.database())
@@ -540,12 +564,13 @@ class StationInfo:
                         event = pyEvents.Event(
                                     Description='A new station information record was added:\n' +
                                                 self.return_stninfo(record) +
-                                                '\nThe previous DateEnd value was updated to ' +
-                                                self.records[-1]['DateEnd'].strftime(),
+                                                '\nThe DateEnd value of previous last record was updated to ' +
+                                                str(new_end_date),
                                     StationCode=self.StationCode,
                                     NetworkCode=self.NetworkCode)
-
                         self.cnn.insert_event(event)
+
+                        # TODO: RELOAD THE RECORDS??
 
                     else:
                         stroverlap = []

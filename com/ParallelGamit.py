@@ -41,7 +41,8 @@ from pgamit.Utils import (process_date,
                           parseIntSet,
                           indent,
                           file_append,
-                          stationID)
+                          stationID,
+                          add_version_argument)
 
 
 def prYellow(skk):
@@ -275,6 +276,29 @@ def check_station_alias(cnn):
                     cnn.update('stations', {'alias': stn_id}, StationCode=StationCode, NetworkCode=NetworkCode)
 
 
+def config_summary(GamitConfig, args):
+    print(' -- Summary of config file %s' % args.session_cfg[0])
+    for conf in GamitConfig.gamitopt.keys():
+        if type(GamitConfig.gamitopt[conf]) is int:
+            val = '%i'
+        elif type(GamitConfig.gamitopt[conf]) is float:
+            val = '%.1f'
+        else:
+            val = '%s'
+
+        print((' -- %s: ' + val) % (conf, GamitConfig.gamitopt[conf]))
+
+    for conf in GamitConfig.NetworkConfig.keys():
+        if type(GamitConfig.NetworkConfig[conf]) is int:
+            val = '%i'
+        elif type(GamitConfig.NetworkConfig[conf]) is float:
+            val = '%.1f'
+        else:
+            val = '%s'
+
+        print((' -- %s: ' + val) % (conf, GamitConfig.NetworkConfig[conf]))
+
+
 def main():
 
     parser = argparse.ArgumentParser(description='Parallel.GAMIT main execution program')
@@ -319,6 +343,8 @@ def main():
     parser.add_argument('-np', '--noparallel', action='store_true',
                         help="Execute command without parallelization.")
 
+    add_version_argument(parser)
+
     args = parser.parse_args()
 
     cnn = dbConnection.Cnn('gnss_data.cfg')  # type: dbConnection.Cnn
@@ -359,6 +385,9 @@ def main():
     print(' >> Reading configuration files and creating project network, please wait...')
 
     GamitConfig = pyGamitConfig.GamitConfiguration(args.session_cfg[0])  # type: pyGamitConfig.GamitConfiguration
+
+    # print the configuration used for this session
+    config_summary(GamitConfig, args)
 
     print(' >> Checking GAMIT tables for requested config and year, please wait...')
 
@@ -462,12 +491,13 @@ def generate_kml(dates, sessions, GamitConfig):
     if not os.path.exists('production'):
         os.makedirs('production')
 
+    # DDG Jun 17 2025: the wrong version of simplekml was being used, now using latest
     # to fix the issue from simple kml
     # AttributeError: module 'cgi' has no attribute 'escape'
     # see: https://github.com/tjlang/simplekml/issues/38
-    import cgi
-    import html
-    cgi.escape = html.escape
+    # import cgi
+    # import html
+    # cgi.escape = html.escape
 
     kml.savekmz('production/' + GamitConfig.NetworkConfig.network_id.lower() + '.kmz')
 
@@ -688,7 +718,7 @@ def ExecuteGamit(cnn, JobServer, GamitConfig, stations, check_stations, ignore_m
                  dry_run=False, create_kml=False):
 
     modules = ('pgamit.pyRinex', 'datetime', 'os', 'shutil', 'pgamit.pyProducts', 'subprocess', 're', 'pgamit.pyETM',
-               'glob', 'platform', 'traceback', 'pgamit.pyGamitTask')
+               'glob', 'platform', 'traceback', 'pgamit.pyGamitTask', 'zipfile')
 
     tqdm.write(' >> %s Creating GAMIT session instances and executing GAMIT, please wait...' % print_datetime())
 

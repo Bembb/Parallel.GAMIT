@@ -22,7 +22,7 @@ from pgamit import Utils
 from pgamit import pyDate
 from pgamit import snxParse
 from pgamit import pyGamitConfig
-from pgamit.Utils import split_string, file_open, file_readlines, stationID, chmod_exec
+from pgamit.Utils import split_string, file_open, file_readlines, stationID, chmod_exec, add_version_argument
 
 
 def replace_in_sinex(sinex, observations, unknowns, new_val):
@@ -122,7 +122,7 @@ class Globk:
         for glx in glx_list:
             dst_filename = pwd_comb + '/' + org + glx['gpsweek'] + '.GLX'
             if glx['file'].endswith('gz'):
-                os.system('gunzip -k -c ' + glx['file'] + ' > ' + dst_filename)
+                os.system('gunzip -c ' + glx['file'] + ' > ' + dst_filename)
             else:
                 copyfile(glx['file'], dst_filename)
 
@@ -253,6 +253,8 @@ def main():
     parser.add_argument('-e', '--exclude', type=str, nargs='+', metavar='station',
                         help="List of stations to exclude (e.g. -e igm1 lpgs vbca)")
 
+    add_version_argument(parser)
+
     args = parser.parse_args()
 
     cnn = dbConnection.Cnn("gnss_data.cfg")
@@ -272,6 +274,9 @@ def main():
     # get the station list
     stnlist = Utils.process_stnlist(cnn, args.stnlist)
 
+    if not len(stnlist):
+        print(' >> ERROR: no stations selected. Please check the station list argument.')
+        exit(1)
     # check that the selected stations have all different station codes
     # otherwise, exit with error
     for i in range(len(stnlist) - 1):
@@ -318,6 +323,9 @@ def main():
                 glx = glob.glob(os.path.join(soln_dir, '*.glx'))
                 
             glx_list.append({'file': glx[0], 'gpsweek': date.wwwwd()})
+            print(' -- Found GLX %s for gps week %i day %i' % (glx[0], date.gpsWeek, date.gpsWeekDay))
+        else:
+            print(' -- WARNING: Could not find GLX for gps week %i day %i' % (date.gpsWeek, date.gpsWeekDay))
 
     # create the earthquakes.txt file to remove outliers
     with file_open(globk_pwd + '/eq_rename.txt', 'w') as fd:
@@ -408,6 +416,7 @@ def main():
     print(' >> Formatting the SINEX file')
 
     process_sinex(cnn, project, [date_s, date_e], globk_pwd + '/' + org + date_s.wwww() + '7.snx')
+
 
 if __name__ == '__main__':
     main()

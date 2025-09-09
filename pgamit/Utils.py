@@ -7,6 +7,8 @@ import filecmp
 import argparse
 import stat
 import shutil
+import io
+import base64
 from datetime import datetime
 from zlib import crc32 as zlib_crc32
 from pathlib import Path
@@ -14,6 +16,8 @@ from pathlib import Path
 
 # deps
 import numpy
+import numpy as np
+from importlib.metadata import version
 
 # app
 from pgamit import pyRinexName
@@ -26,6 +30,12 @@ class UtilsException(Exception):
         
     def __str__(self):
         return str(self.value)
+
+
+def add_version_argument(parser):
+    __version__ = version('pgamit')
+    parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {__version__}')
+    return parser
 
 
 def cart2euler(x, y, z):
@@ -48,9 +58,18 @@ def stationID(s):
 
 
 def get_stack_stations(cnn, name):
-    return cnn.query_float(f'SELECT DISTINCT "NetworkCode", "StationCode", lat, lon FROM stacks INNER JOIN stations '
-                           f'USING ("NetworkCode", "StationCode")'
-                           f'WHERE "name" = \'{name}\'', as_dict=True)
+    rs = cnn.query_float(f'SELECT DISTINCT "NetworkCode", "StationCode", auto_x, auto_y, auto_z '
+                         f'FROM stacks INNER JOIN stations '
+                         f'USING ("NetworkCode", "StationCode")'
+                         f'WHERE "name" = \'{name}\'', as_dict=True)
+
+    # since we require spherical lat lon for the Euler pole, I compute it from the xyz values
+    for i, stn in enumerate(rs):
+        lla = xyz2sphere_lla(numpy.array([stn['auto_x'], stn['auto_y'], stn['auto_z']]))
+        rs[i]['lat'] = lla[0][0]
+        rs[i]['lon'] = lla[0][1]
+
+    return rs
 
 
 def parse_atx_antennas(atx_file):
@@ -84,7 +103,27 @@ def ll2sphere_xyz(ell):
     return numpy.array(x)
 
 
-def required_length(nmin,nmax):
+def xyz2sphere_lla(xyz):
+    """
+    function to turn xyz coordinates to lat lon using spherical earth
+    output is lat, lon, radius
+    """
+    if isinstance(xyz, list):
+        xyz = numpy.array(xyz)
+
+    if xyz.ndim == 1:
+        xyz = xyz[np.newaxis, :]
+
+    g = numpy.zeros(xyz.shape)
+    for i, x in enumerate(xyz):
+        g[i, 0] = numpy.rad2deg(numpy.arctan2(x[2], numpy.sqrt(x[0]**2 + x[1]**2)))
+        g[i, 1] = numpy.rad2deg(numpy.arctan2(x[1], x[0]))
+        g[i, 2] = numpy.sqrt(x[0]**2 + x[1]**2 + x[2]**2)
+
+    return g
+
+
+def required_length(nmin, nmax):
     class RequiredLength(argparse.Action):
         def __call__(self, parser, args, values, option_string=None):
             if not nmin <= len(values) <= nmax:
@@ -163,7 +202,8 @@ def _increment_filename(filename):
     #  2) a "counter" - the integer which is incremented
     #  3) an "extension" - the file extension
 
-    sessions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] + [chr(x) for x in range(ord('a'), ord('z')+1)]
+    sessions = ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9] + [chr(x) for x in range(ord('a'), ord('x')+1)] +
+                [chr(x) for x in range(ord('A'), ord('X')+1)])
 
     path      = os.path.dirname(filename)
     filename  = os.path.basename(filename)
@@ -418,6 +458,35 @@ def ecef2lla(ecefArr):
     lat = lat * 180 / numpy.pi
 
     return lat.ravel(), lon.ravel(), alt.ravel()
+
+
+def lla2ecef(llaArr):
+    # convert LLA coordinates to ECEF
+    # test data : test_coord = [-66.8765400174 23.876539914 999.998386689]
+    # expected result : 2297292.91, 1016894.94, -5843939.62
+
+    llaArr = numpy.atleast_1d(llaArr)
+
+    # transpose to work on both vectors and scalars
+    lat = llaArr.T[0]
+    lon = llaArr.T[1]
+    alt = llaArr.T[2]
+
+    rad_lat = lat * (numpy.pi / 180.0)
+    rad_lon = lon * (numpy.pi / 180.0)
+
+    # WGS84
+    a = 6378137.0
+    finv = 298.257223563
+    f = 1 / finv
+    e2 = 1 - (1 - f) * (1 - f)
+    v = a / numpy.sqrt(1 - e2 * numpy.sin(rad_lat) * numpy.sin(rad_lat))
+
+    x = (v + alt) * numpy.cos(rad_lat) * numpy.cos(rad_lon)
+    y = (v + alt) * numpy.cos(rad_lat) * numpy.sin(rad_lon)
+    z = (v * (1 - e2) + alt) * numpy.sin(rad_lat)
+
+    return numpy.round(x, 4).ravel(), numpy.round(y, 4).ravel(), numpy.round(z, 4).ravel()
 
 
 def process_date_str(arg, allow_days=False):
@@ -720,12 +789,12 @@ def human_readable_time(secs):
     unit = 'secs'
     
     # make human readable work time with units
-    if time > 60 and time < 3600:
+    if 60 < time < 3600:
         time = time / 60.0
         unit = 'mins'
     elif time > 3600:
         time = time / 3600.0
-        unit = 'hours';
+        unit = 'hours'
         
     return time, unit
 
@@ -781,11 +850,12 @@ def struct_unpack(fs, data):
     return [(f.decode('utf-8', 'ignore') if isinstance(f, (bytes, bytearray)) else f)
             for f in fs.unpack_from(bytes(data, 'utf-8'))]
 
+
 # python 3 zlib.crc32 requires bytes instead of strings
 # also returns a positive int (ints are bignums on python 3)
 def crc32(s):
     x = zlib_crc32(bytes(s, 'utf-8'))
-    return x - ((x & 0x80000000) <<1)
+    return x - ((x & 0x80000000) << 1)
 
 
 # Text files
@@ -820,6 +890,7 @@ def file_try_remove(path):
         return True
     except:
         return False
+
 
 def dir_try_remove(path, recursive=False):
     try:
@@ -916,3 +987,147 @@ def fqdn_parse(fqdn, default_port=None):
         return fqdn, int(port[1])
     else:
         return fqdn, default_port
+
+
+def plot_rinex_completion(cnn, NetworkCode, StationCode, landscape=False):
+
+    import matplotlib.pyplot as plt
+
+    # find the available data
+    rinex = numpy.array(cnn.query_float("""
+    SELECT "ObservationYear", "ObservationDOY",
+    "Completion" FROM rinex_proc WHERE
+    "NetworkCode" = '%s' AND "StationCode" = '%s'""" % (NetworkCode,
+                                                        StationCode)))
+
+    if landscape:
+        fig, ax = plt.subplots(figsize=(25, 10))
+        x = 1
+        y = 0
+    else:
+        fig, ax = plt.subplots(figsize=(10, 25))
+        x = 0
+        y = 1
+
+    fig.tight_layout(pad=5)
+    ax.set_title('RINEX and missing data for %s.%s'
+                 % (NetworkCode, StationCode))
+
+    if rinex.size:
+        # create a continuous vector for missing data
+        md = numpy.arange(1, 367)
+        my = numpy.unique(rinex[:, 0])
+        for yr in my:
+
+            if landscape:
+                ax.plot(md, numpy.repeat(yr, 366), 'o', fillstyle='none',
+                        color='silver', markersize=4, linewidth=0.1)
+            else:
+                ax.plot(numpy.repeat(yr, 366), md, 'o', fillstyle='none',
+                        color='silver', markersize=4, linewidth=0.1)
+
+        ax.scatter(rinex[:, x], rinex[:, y],
+                   c=['tab:blue' if c >= 0.5 else 'tab:orange'
+                      for c in rinex[:, 2]], s=10, zorder=10)
+
+        ax.tick_params(top=True, labeltop=True, labelleft=True,
+                       labelright=True, left=True, right=True)
+        if landscape:
+            plt.yticks(numpy.arange(my.min(), my.max() + 1, step=1))  # Set label locations.
+        else:
+            plt.xticks(numpy.arange(my.min(), my.max()+1, step=1),
+                       rotation='vertical')  # Set label locations.
+
+    ax.grid(True)
+    ax.set_axisbelow(True)
+
+    if landscape:
+        plt.xlim([0, 367])
+        plt.xticks(numpy.arange(0, 368, step=5))  # Set label locations.
+
+        ax.set_xlabel('DOYs')
+        ax.set_ylabel('Years')
+    else:
+        plt.ylim([0, 367])
+        plt.yticks(numpy.arange(0, 368, step=5))  # Set label locations.
+
+        ax.set_ylabel('DOYs')
+        ax.set_xlabel('Years')
+
+    figfile = io.BytesIO()
+
+    try:
+        plt.savefig(figfile, format='png')
+        # plt.show()
+        figfile.seek(0)  # rewind to beginning of file
+
+        figdata_png = base64.b64encode(figfile.getvalue()).decode()
+    except Exception:
+        # either no rinex or no station info
+        figdata_png = ''
+
+    plt.close()
+
+    return figdata_png
+
+
+def import_blq(blq_str, NetworkCode=None, StationCode=None):
+
+    if blq_str[0:2] != '$$':
+        raise UtilsException('Input string does not appear to be in BLQ format!')
+
+    # header as defined in the new version of the holt.oso.chalmers.se service
+    header = """$$ Ocean loading displacement
+$$
+$$ OTL provider: http://holt.oso.chalmers.se/loading/
+$$ Created by Scherneck & Bos
+$$
+$$ WARNING: All your longitudes were within -90 to +90 degrees
+$$ There is a risk that longitude and latitude were swapped
+$$ Please verify for yourself that this has not been the case
+$$
+$$ COLUMN ORDER:  M2  S2  N2  K2  K1  O1  P1  Q1  MF  MM SSA
+$$
+$$ ROW ORDER:
+$$ AMPLITUDES (m)
+$$   RADIAL
+$$   TANGENTL    EW
+$$   TANGENTL    NS
+$$ PHASES (degrees)
+$$   RADIAL
+$$   TANGENTL    EW
+$$   TANGENTL    NS
+$$
+$$ Displacement is defined positive in upwards, South and West direction.
+$$ The phase lag is relative to Greenwich and lags positive. The PREM
+$$ Green's function is used. The deficit of tidal water mass in the tide
+$$ model has been corrected by subtracting a uniform layer of water with
+$$ a certain phase lag globally.
+$$
+$$ CMC:  NO (corr.tide centre of mass)
+$$
+$$ A constant seawater density of 1030 kg/m^3 is used.
+$$
+$$ A thin tidal layer is subtracted to conserve water mass.
+$$
+$$ FES2014b: m2 s2 n2 k2 k1 o1
+$$ FES2014b: p1 q1 Mf Mm Ssa
+$$
+$$ END HEADER
+$$"""
+    # it's BLQ alright
+    pattern = re.compile(r'(?m)(^\s{2}(\w{3}_\w{4})[\s\S]*?^\$\$(?=\s*(?:END TABLE)?$))', re.MULTILINE)
+    matches = pattern.findall(blq_str)
+
+    # create a list with the matches
+    otl_records = []
+    for match in matches:
+        net, stn = match[1].split('_')
+        # add the match to the list if none requested or if a specific station was requested
+        if NetworkCode is None or StationCode is None or (net == NetworkCode and stn == StationCode):
+            otl = header + '\n' + match[0].replace('$$ ' + match[1], '$$ %-8s' % stn).replace(match[1], stn)
+            otl_records.append({'StationCode': stn,
+                                'NetworkCode': net,
+                                'otl': otl})
+
+    return otl_records

@@ -1,4 +1,11 @@
-__version__ = "1.2.3"
+from importlib.metadata import version, PackageNotFoundError
+
+try:
+    __version__ = version("pgamit")
+except PackageNotFoundError:
+    # package is not installed
+    __version__ = "0.0.0"
+
 __all__ = [
     'cluster',
     'network',
@@ -19,7 +26,7 @@ __all__ = [
     'pyTerminal',
     'pyArchiveStruct',
     'pyOkada',
-    'pyTrimbleT0x',
+    'ConvertRaw',
     'pyETM',
     'pyOptions',
     'pyRunWithRetry',
@@ -38,4 +45,10 @@ __all__ = [
     'pyStation'
 ]
 
-from pgamit import *
+from importlib import import_module
+
+for _name in __all__:
+    try:
+        globals()[_name] = import_module(f'.{_name}', __name__)
+    except Exception:
+        pass

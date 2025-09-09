@@ -15,6 +15,9 @@ import json
 
 # deps
 import numpy as np
+import zipfile
+from io import BytesIO
+import xml.etree.ElementTree as ET
 
 # app
 from pgamit import pyETM
@@ -23,7 +26,75 @@ from pgamit import pyDate
 from pgamit.Utils import (process_date,
                           process_stnlist,
                           file_write,
-                          station_list_help)
+                          station_list_help,
+                          stationID,
+                          print_columns,
+                          add_version_argument)
+
+
+def read_kml_or_kmz(file_path):
+    # Check if the file is a KMZ (by its extension)
+    if file_path.endswith('.kmz'):
+        # Open the KMZ file and read it in memory
+        with zipfile.ZipFile(file_path, 'r') as kmz:
+            # List all files in the KMZ archive
+            kml_file = None
+            for file_name in kmz.namelist():
+                if file_name.endswith(".kml"):
+                    kml_file = file_name
+                    break
+
+            if not kml_file:
+                raise Exception("No KML file found in the KMZ archive")
+
+            # Extract the KML file into memory (as a BytesIO object)
+            kml_content = kmz.read(kml_file)
+            kml_file = BytesIO(kml_content)
+
+    else:
+        # If the file is a regular KML, process it directly
+        kml_file = open(file_path, 'r')
+
+    # Extract coordinates from the KML file
+    placemarks = extract_placemarks(kml_file)
+
+    # Close the file if it was opened from the filesystem
+    if isinstance(kml_file, BytesIO) == False:
+        kml_file.close()
+
+    return placemarks
+
+
+# Helper function to extract placemark and coordinates from a KML file
+def extract_placemarks(kml_file):
+    tree = ET.parse(kml_file)
+    root = tree.getroot()
+
+    # Define the KML namespace
+    ns = {'kml': 'http://www.opengis.net/kml/2.2'}
+
+    # Initialize list to store placemark names and coordinates
+    placemarks = []
+
+    # Loop through all placemarks
+    for placemark in root.findall('.//kml:Placemark', ns):
+        # Extract the placemark name (if available)
+        name_element = placemark.find('kml:name', ns)
+        name = name_element.text if name_element is not None else "Unnamed"
+
+        # Extract the coordinates for the placemark
+        coordinates_list = []
+        for coord in placemark.findall('.//kml:coordinates', ns):
+            coords = coord.text.strip().split()
+            for coord_str in coords:
+                lon, lat, height = coord_str.split(',')  # Ignore the altitude (third value)
+                coordinates_list.append((float(lon), float(lat), float(height)))
+
+        # Store the placemark name and its coordinates
+        for coord in coordinates_list:
+            placemarks.append((name, coord))
+
+    return placemarks
 
 
 def gamit_soln(args, cnn, stn):
@@ -63,7 +134,7 @@ def gamit_soln(args, cnn, stn):
     return etm
 
 
-def from_file(args, cnn, stn):
+def from_file(args, cnn, stn, placemarks):
 
     # replace any variables with the station name
     filename = args.filename.replace('{net}', stn['NetworkCode']).replace('{stn}', stn['StationCode'])
@@ -97,7 +168,13 @@ def from_file(args, cnn, stn):
 
     polyhedrons = np.array((x, y, z, [d.year for d in dd], [d.doy for d in dd])).transpose()
 
-    soln = pyETM.ListSoln(cnn, polyhedrons.tolist(), stn['NetworkCode'], stn['StationCode'])
+    if args.override_database:
+        placemark = [pl for pl in placemarks if stationID(stn) == pl[0]]
+        soln = pyETM.ListSoln(cnn, polyhedrons.tolist(), stn['NetworkCode'], stn['StationCode'],
+                              station_metadata=placemark[0])
+    else:
+        soln = pyETM.ListSoln(cnn, polyhedrons.tolist(), stn['NetworkCode'], stn['StationCode'])
+
     etm  = pyETM.FileETM(cnn, soln, False, args.no_model, args.remove_jumps, args.remove_polynomial)
 
     return etm
@@ -112,8 +189,8 @@ def main():
     parser.add_argument('-nop', '--no_plots', action='store_true',
                         help="Do not produce plots", default=False)
 
-    parser.add_argument('-nom', '--no_missing_data', action='store_true',
-                        help="Do not show missing days", default=False)
+    parser.add_argument('-pm', '--plot_missing_data', action='store_true',
+                        help="Show missing days as magenta lines in the plot", default=False)
 
     parser.add_argument('-nm', '--no_model', action='store_true',
                         help="Plot time series without fitting a model")
@@ -170,8 +247,17 @@ def main():
                              "x, y, z, na. Use 'na' to specify a field that should be ignored. If fields to be ignored "
                              "are at the end of the line, then there is no need to specify those.")
 
+    parser.add_argument('-no_db', '--override_database', nargs=1, type=str, default=None,
+                        help="To be used together with --filename and --format. Do not fetch station metadata from "
+                             "the database but rather use the provided kmz/kml file to obtain station coordinates "
+                             "and other relevant metadata. When using this option, the station list is ignored and "
+                             "only one station is processed.")
+
     parser.add_argument('-outliers', '--plot_outliers', action='store_true',
                         help="Plot an additional panel with the outliers")
+
+    parser.add_argument('-dj', '--detected_jumps', action='store_true',
+                        help="Plot unmodeled detected jumps")
 
     parser.add_argument('-vel', '--velocity', action='store_true',
                         help="During query, output the velocity in XYZ.")
@@ -182,11 +268,22 @@ def main():
     parser.add_argument('-quiet', '--suppress_messages', action='store_true',
                         help="Quiet mode: suppress information messages")
 
+    add_version_argument(parser)
+
     args = parser.parse_args()
 
     cnn = dbConnection.Cnn('gnss_data.cfg', write_cfg_file=True)
 
-    stnlist = process_stnlist(cnn, args.stnlist)
+    if args.override_database:
+        # user selected database override
+        placemarks = read_kml_or_kmz(args.override_database[0])
+        stnlist = [{'NetworkCode': stnm.split('.')[0], 'StationCode': stnm.split('.')[1]} for stnm, _ in placemarks]
+
+        print(' >> Station from kml/kmz file %s' % args.override_database[0])
+        print_columns([stationID(item) for item in stnlist])
+    else:
+        placemarks = []
+        stnlist = process_stnlist(cnn, args.stnlist)
 
     # define the language
     pyETM.LANG = args.language.lower()
@@ -230,6 +327,7 @@ def main():
                     etm = pyETM.PPPETM(cnn, stn['NetworkCode'], stn['StationCode'], False, args.no_model,
                                        plot_remove_jumps=args.remove_jumps,
                                        plot_polynomial_removed=args.remove_polynomial)
+
                 elif args.filename is not None:
                     if '{stn}' in args.filename or '{net}' in args.filename:
                         # repeat the process for each station
@@ -238,7 +336,7 @@ def main():
                         # stop on the first station since no variables were passed
                         stop = True
 
-                    etm = from_file(args, cnn, stn)
+                    etm = from_file(args, cnn, stn, placemarks)
                 else:
                     etm = gamit_soln(args, cnn, stn)
 
@@ -256,10 +354,11 @@ def main():
                 # leave pngfile empty to enter interactive mode (GUI)
                 if not args.no_plots:
                     etm.plot(xfile + '.png',
-                             t_win         = dates,
-                             residuals     = args.residuals,
-                             plot_missing  = not args.no_missing_data,
-                             plot_outliers = args.plot_outliers)
+                             t_win          = dates,
+                             residuals      = args.residuals,
+                             plot_missing   = args.plot_missing_data,
+                             plot_outliers  = args.plot_outliers,
+                             plot_auto_jumps= args.detected_jumps)
 
                     if args.histogram:
                         etm.plot_hist(xfile + '_hist.png')
@@ -297,7 +396,7 @@ def main():
                           % (etm.NetworkCode, etm.StationCode, xyz[0], xyz[1], xyz[2], q_date.fyear, strp, txt))
 
                 print('Successfully plotted ' + stn['NetworkCode'] + '.' + stn['StationCode'])
-
+                # print(etm.pull_params())
                 # if the stop flag is true, stop processing after the first station
                 if stop:
                     break

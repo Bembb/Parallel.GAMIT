@@ -269,7 +269,13 @@ $$\n""" % (self.Config.options['otlmodel']))
             for stn in self.StationInstances:
                 otl = stn.otl_H.split('\n')
                 # remove BLQ header
-                otl = otl[29:]
+                # DDG: there is a new header for the OTL, so go line by line checking if line starts with $
+                for i, line in enumerate(otl):
+                    if line[0] == ' ':
+                        start_line = i
+                        break
+
+                otl = otl[start_line:]  # previous value here was 29
                 # need to change the station record for GAMIT to take it
                 otl[0] = '  %s' % stn.StationAlias.upper()
                 if stn.lon < 0:
@@ -442,11 +448,12 @@ $$\n""" % (self.Config.options['otlmodel']))
             else:
                 pt.stylemap = styles_stn
 
+        # DDG Jun 17 2025: the wrong version of simplekml was being used, now using latest
         # to fix the issue from simple kml
         # AttributeError: module 'cgi' has no attribute 'escape'
         # see: https://github.com/tjlang/simplekml/issues/38
-        import cgi
-        import html
-        cgi.escape = html.escape
+        # import cgi
+        # import html
+        # cgi.escape = html.escape
 
         kml.savekmz(os.path.join(self.solution_pwd, self.DirName) + '.kmz')

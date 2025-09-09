@@ -10,8 +10,8 @@ import argparse
 import os
 
 # app
-from pgamit.pyTrimbleT0x import convert_trimble
-from pgamit.Utils import required_length
+from pgamit.ConvertRaw import ConvertRaw
+from pgamit.Utils import required_length, add_version_argument
 
 
 def main():
@@ -40,13 +40,30 @@ def main():
                              exception will be raised). Optionally,
                              provide the antenna serial number.''')
 
+    add_version_argument(parser)
+
     args = parser.parse_args()
     path = os.path.abspath(args.path[0])
     print('Working on %s' % path)
 
     stnm = args.station_name
     out_path = args.path_out[0]
-    convert_trimble(path, stnm, out_path, antenna=args.antenna_name)
+
+    atx_file = None
+    antenna = None
+    antenna_serial = None
+
+    if args.antenna_name is not None:
+        atx_file = args.antenna_name[0]
+        antenna = args.antenna_name[1]
+        antenna_serial = args.antenna_name[2]
+
+    convert = ConvertRaw(stnm, path, out_path, atx_file=atx_file, antenna=antenna, ant_serial=antenna_serial)
+
+    convert.process_files()
+    convert.merge_rinex()
+
+    convert.print_events()
 
 
 if __name__ == '__main__':

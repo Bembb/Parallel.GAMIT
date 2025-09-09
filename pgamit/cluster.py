@@ -5,10 +5,11 @@
 
 import warnings
 import numpy as np
+import pandas as pd
 import scipy.sparse as sp
 
 from sklearn.neighbors import NearestNeighbors
-
+from sklearn.metrics import pairwise_distances
 from sklearn.base import _fit_context
 from sklearn.utils._openmp_helpers import _openmp_effective_n_threads
 from sklearn.utils._param_validation import Integral, Interval, StrOptions
@@ -19,8 +20,48 @@ from sklearn.cluster._kmeans import (_BaseKMeans, _kmeans_single_elkan,
                                      _kmeans_single_lloyd)
 
 
-def select_central_point(labels, coordinates, centroids,
-                         metric='euclidean'):
+def prune(OC, central_points, method='minsize'):
+    """Prune redundant clusters from overcluster (OC) and other arrays
+
+    Parameters
+    ----------
+
+    OC : bool array of shape (n_clusters, n_coordinates)
+    method : ["linear", "minsize:]; "linear" is a row-by-row scan through the
+        cluster matrix, "minsize" will sort matrix rows (i.e., the clusters)
+        according to size and prioritize pruning the smallest clusters first.
+
+    Returns
+
+    OC : Pruned bool array of shape (n_clusters - N, n_coordinates)
+    central_points : Pruned int array of shape (n_clusters -N,)
+    """
+    subset = []
+    rowlength = len(OC[0, :])
+    if method == "linear":
+        indices = list(range(len(OC)))
+    elif method == "minsize":
+        indices = np.argsort(OC.sum(axis=1))
+    else:
+        raise ValueError("Unknown method '" + method + "'")
+    for i in indices:
+        mod = OC.copy()
+        mod[i, :] = np.zeros(rowlength)
+        counts = mod.sum(axis=0)
+        problems = np.sum(counts == 0)
+        if problems == 0:
+            subset.append(i)
+            OC[i, :] = np.zeros(rowlength)
+    # Cast subset list to pandas index
+    dfIndex = pd.Index(subset)
+    # Cast OC to pandas dataframe
+    dfOC = pd.DataFrame(OC)
+    # Apply the 'inverse' index; pruned is boolean numpy index array
+    pruned = ~dfOC.index.isin(dfIndex)
+    return OC[pruned], central_points[pruned]
+
+
+def select_central_point(coordinates, centroids, metric='euclidean'):
     """Select the nearest central point in a given neighborhood
 
     Note this code explicitly assumes that centroids are passed from a
@@ -33,8 +74,6 @@ def select_central_point(labels, coordinates, centroids,
     Parameters
     ----------
 
-    labels : ndarray of type int, and shape (n_samples,)
-        Cluster labels for each point in the dataset from prior clustering.
     coordinates : ndarray of shape (n_samples, n_features)
         Coordinates do not need to match what was used for the prior
         clustering; i.e., if 'Euclidean' was used to calculate the prior
@@ -62,18 +101,18 @@ def select_central_point(labels, coordinates, centroids,
     return idxs.squeeze()
 
 
-def over_cluster(labels, coordinates, metric='haversine', neighborhood=5,
-                 overlap_points=2, rejection_threshold=None):
+def overcluster(labels, coordinates, metric='euclidean', overlap=4,
+                nmax=2, rejection_threshold=5e6, method='static'):
     """Expand cluster membership to include edge points of neighbor clusters
 
     Expands an existing clustering to create overlapping membership between
     clusters. Existing clusters are processed sequentially by looking up
     nearest neighbors as an intersection of the current cluster membership and
-    all cluster's point membership.  Once the `overlap_points` for a given
+    all cluster's point membership.  Once the `nmax` for a given
     neighbor cluster have been determined and added to current cluster, the
     remainder of that neighboring cluster is removed from consideration and
     distance query is rerun, with the process repeating until a number of
-    clusters equal to the `neighborhood` parameter is reached. For stability,
+    clusters equal to the `overlap` parameter is reached. For stability,
     only original points are included for subsequent neighborhood searches;
     that is, Nearest neighbor distances are run as the shortest distance from
     all **original** members of the current cluster.
@@ -94,11 +133,12 @@ def over_cluster(labels, coordinates, metric='haversine', neighborhood=5,
         clustering in an X,Y,Z projection, those coordinates can be provided in
         spherical coordinates, provided that 'haversine' is selected for the
         `metric` parameter.
-    metric : str or callable, default='haversine'
+    metric : str or callable, default='euclidean'
         Metric to use for distance computation. Any metric from scikit-learn or
-        scipy.spatial.distance can be used. Note that latitude and longitude
-        values will need to be converted to radians if using the default
-        'haversine' distance metric.
+        scipy.spatial.distance can be used.
+
+        Note that latitude and longitude values will need to be converted to
+        radians if using the default 'haversine' distance metric.
 
         If metric is a callable function, it is called on each pair of
         instances (rows) and the resulting value recorded. The callable should
@@ -122,19 +162,34 @@ def over_cluster(labels, coordinates, metric='haversine', neighborhood=5,
         Sparse matrices are only supported by scikit-learn metrics.  See the
         documentation for scipy.spatial.distance for details on these metrics.
 
-    neighborhood : int greater than or equal to 1, default=3
-        Number of adjacent clusters to include when adding cluster membership
-        overlap. Should be less than the number of unique cluster labels - 1.
+    overlap: int greater than or equal to 1, default=3
+        For method='static', this is total number of points that will be added
+        to the seed clusters during cluster expansion.
+        For method='paired', this is the number of cluster that are used to
+        tie, with each cluster contributing exactly 2 points.
+        For method='dynamic', this is the (zero-indexed) number of adjacent
+        clusters to include when adding cluster membership overlap. Should be
+        less than the number of unique cluster labels - 1.
 
-    overlap_points : int greater than or equal to 1, default=2
-        Should not exceed the size of the smallest cluster in `labels`.
+    nmax : int greater than or equal to 1, default=2
+        Should not exceed the size of the smallest cluster in `labels`. Note
+        that this parameter has no effect for method='paired'.
 
-    rejection_threshold : float, default=None
+    rejection_threshold : float, default=5e6
         Determines if any potential overlapping points should be rejected for
         being too far (from source centroid or nearest source edge point).
-        Default of 'None' is equivalent to setting the threshold to infinity.
+        Value of 'None' is equivalent to setting the threshold to infinity.
         Note that if value other than 'None' is used, there is no guarantee
-        that all clusters will have overlap points added.
+        that all clusters will have overlap points added. This parameter value
+        is required to be set when using method='paired'.
+
+    method : 'static' (default), 'paired', or 'dynamic'
+        The 'static' method will always produce an overcluster equal to the
+        `overlap` parameter; 'dynamic' will produce an overcluster ceiling
+        of (overlap - 1) * overlap_points, with a floor of overlap. The
+        'paired' method will add 2 * `nieghbors` points per cluster, one
+        of which is the closest nieghbor and one which is the farthest point
+        within that same nieghboring cluster.
 
     Returns
     -------
@@ -150,7 +205,8 @@ def over_cluster(labels, coordinates, metric='haversine', neighborhood=5,
     clusters = np.unique(labels)
     n_clusters = len(clusters)
 
-    if (n_clusters - 1) < neighborhood: neighborhood = (n_clusters - 1)
+    if (n_clusters - 1) < overlap:
+        overlap = (n_clusters - 1)
 
     # reference index for reverse lookups
     ridx = np.array(list(range(len(labels))))
@@ -166,32 +222,57 @@ def over_cluster(labels, coordinates, metric='haversine', neighborhood=5,
         # Build index tree on members
         nbrs = NearestNeighbors(n_neighbors=1, algorithm='ball_tree',
                                 metric=metric).fit(coordinates[members])
-        # Could be set to '1';
-        # using same check as while loop for consistency
-        coverage = len(np.unique(labels[output[cluster, :]]))
-        while coverage <= neighborhood:
-            # intersect search tree with non-members
-            D, _ = nbrs.kneighbors(coordinates[nonmembers, :])
-            # Rejection threshold is lightly tested...
-            if rejection_threshold:
-                if np.min(D) > rejection_threshold:
-                    break
-            # Select closest external point to add to member cluster
-            new_member = ridx[nonmembers][np.argmin(D)]
-            # Remove point from future coordinate distance queries
-            nonmembers[new_member] = 0
-            # Add to member label array
-            output[cluster, new_member] = 1
-            # Update current count of over-clustered neighbors
+        if method == 'dynamic':
             coverage = len(np.unique(labels[output[cluster, :]]))
-            # Grab label of new member for overlap check
-            nm_label = labels[new_member]
-            # Check if we've exceeded our overlap allotment...
-            if sum(labels[output[cluster, :]] == nm_label) >= overlap_points:
-                # ...if so, remove entire neighboring cluster
-                remove = nm_label == labels
-                nonmembers[remove] = False
+        else:  # method == 'static' or 'paired'
+            coverage = 1
 
+        while coverage <= overlap:
+            # intersect search tree with non-members
+            D, indx = nbrs.kneighbors(coordinates[nonmembers, :])
+            mindex = np.argmin(D)
+            # Select closest external point to add to member cluster
+            new_member = ridx[nonmembers][mindex]
+            # Grab label of new member for overlap and other checks
+            nm_label = labels[new_member]
+            # Paired method removes full cluster from consideration
+            if method == 'paired':
+                # 'remove' is the captured cluster, from which we select pairs
+                remove = nm_label == labels
+                # For simplicity, we use the single point defined my 'mindex'
+                # as the 'member point' to calculate max eligible distance
+                rdists = pairwise_distances(coordinates[members][indx[mindex]],
+                                            coordinates[remove])
+                # Filter too far points from argmax eligibility
+                rdists[rdists >= rejection_threshold] = 0
+                far_member = ridx[remove][np.argmax(rdists)]
+                # Add near / far points to cluster for overlap
+                output[cluster, new_member] = 1
+                output[cluster, far_member] = 1
+                # Remove captured cluster from further consideration
+                nonmembers[remove] = False
+                # Continue
+                coverage += 1
+            else:
+                # Rejection threshold is lightly tested...
+                if rejection_threshold:
+                    if np.min(D) > rejection_threshold:
+                        break
+                # Remove point from future coordinate distance queries
+                nonmembers[new_member] = 0
+                # Add to member label array
+                output[cluster, new_member] = 1
+                if method == 'dynamic':
+                    # Update current count of overclustered neighbors
+                    coverage = len(np.unique(labels[output[cluster, :]]))
+                elif method == 'static':
+                    # Update current point expansion count
+                    coverage += 1
+                # Check if we've exceeded our overlap allotment...
+                if sum(labels[output[cluster, :]] == nm_label) >= nmax:
+                    # ...if so, remove entire neighboring cluster
+                    remove = nm_label == labels
+                    nonmembers[remove] = False
     return output
 
 
@@ -218,19 +299,7 @@ class BisectingQMeans(_BaseKMeans):
 
     Parameters
     ----------
-    min_size : int, default=4
-        The minimum acceptable cluster size. Clusters of size <= to this
-        parameter will **not** be produced by this algorithm.
-
-    opt_size : int, default=12
-        Target optimum cluster size. If the sum membership of a proposed
-        cluster bisection is less than this value, the cluster will not be
-        bisected. When combined with the `min_size` parameter above,
-        these conditions together mean that clusters of sizes smaller than
-        (`opt_size` - `min_size`) are *a priori* ineligible to be
-        bisected.
-
-    max_size: int, default=25
+    qmax: int, default=25
         Hard cutoff to bypass the heuristic when bisecting clusters; no
         clusters greater than this size will be produced.
 
@@ -330,9 +399,7 @@ class BisectingQMeans(_BaseKMeans):
 
     def __init__(
         self,
-        min_size=4,
-        opt_size=12,
-        max_size=25,
+        qmax=25,
         *,
         init="random",
         n_init=1,
@@ -341,7 +408,7 @@ class BisectingQMeans(_BaseKMeans):
         verbose=0,
         tol=1e-4,
         copy_x=True,
-        algorithm="lloyd",
+        algorithm="elkan",
         n_clusters=2,      # needed for base class, do not remove
     ):
         super().__init__(
@@ -354,9 +421,7 @@ class BisectingQMeans(_BaseKMeans):
             n_init=n_init,
         )
 
-        self.min_size = min_size
-        self.opt_size = opt_size
-        self.max_size = max_size
+        self.qmax = qmax
         self.copy_x = copy_x
         self.algorithm = algorithm
         self.bisect = True
@@ -369,40 +434,6 @@ class BisectingQMeans(_BaseKMeans):
             "threads. You can avoid it by setting the environment"
             f" variable OMP_NUM_THREADS={n_active_threads}."
         )
-
-    def _inertia_per_cluster(self, X, centers, labels, sample_weight):
-        """Calculate the sum of squared errors (inertia) per cluster.
-
-        Parameters
-        ----------
-        X : {ndarray, csr_matrix} of shape (n_samples, n_features)
-            The input samples.
-
-        centers : ndarray of shape (n_clusters=2, n_features)
-            The cluster centers.
-
-        labels : ndarray of shape (n_samples,)
-            Index of the cluster each sample belongs to.
-
-        sample_weight : ndarray of shape (n_samples,)
-            The weights for each observation in X.
-
-        Returns
-        -------
-        inertia_per_cluster : ndarray of shape (n_clusters=2,)
-            Sum of squared errors (inertia) for each cluster.
-        """
-        # n_clusters = 2 since centers comes from a bisection
-        n_clusters = centers.shape[0]
-        _inertia = _inertia_sparse if sp.issparse(X) else _inertia_dense
-
-        inertia_per_cluster = np.empty(n_clusters)
-        for label in range(n_clusters):
-            inertia_per_cluster[label] = _inertia(X, sample_weight, centers,
-                                                  labels, self._n_threads,
-                                                  single_label=label)
-
-        return inertia_per_cluster
 
     def _bisect(self, X, x_squared_norms, sample_weight, cluster_to_bisect):
         """Split a cluster into 2 subsclusters.
@@ -459,24 +490,12 @@ class BisectingQMeans(_BaseKMeans):
         if self.verbose:
             print(f"New centroids from bisection: {best_centers}")
 
-        scores = self._inertia_per_cluster(X, best_centers, best_labels,
-                                           sample_weight)
         counts = np.bincount(best_labels, minlength=2)
-        scores[np.where(counts <
-                        (self.opt_size - self.min_size))] = -np.inf
-        # case where bisecting is not optimum
-        if (counts[0] + counts[1]) < self.opt_size:
-            cluster_to_bisect.score = -np.inf
-        # bisect as long as the smallest child meets membership constraints
-        elif ((counts[0] >= self.min_size) and
-              (counts[1] >= self.min_size)):
+        scores = counts
+        if (counts[0] + counts[1] >= self.qmax):
             cluster_to_bisect.split(best_labels, best_centers, scores)
-        # one child will have membership of 3 or less; don't split
         else:
-            if (counts[0] + counts[1] >= self.max_size):
-                cluster_to_bisect.split(best_labels, best_centers, scores)
-            else:
-                cluster_to_bisect.score = -np.inf
+            self.bisect = False
 
     @_fit_context(prefer_skip_nested_validation=True)
     def fit(self, X, y=None, sample_weight=None):
@@ -540,15 +559,20 @@ class BisectingQMeans(_BaseKMeans):
 
         x_squared_norms = row_norms(X, squared=True)
 
+        # run first bisection out of loop to avoid 0-count early termination
+        cluster_to_bisect = self._bisecting_tree.get_cluster_to_bisect()
+        self._bisect(X, x_squared_norms, sample_weight, cluster_to_bisect)
         while self.bisect:
             # Chose cluster to bisect
             cluster_to_bisect = self._bisecting_tree.get_cluster_to_bisect()
 
             # Split this cluster into 2 subclusters
-            if cluster_to_bisect is not None:
+            # if cluster_to_bisect is not None:
+            if cluster_to_bisect.score > self.qmax:
                 self._bisect(X, x_squared_norms, sample_weight,
                              cluster_to_bisect)
             else:
+                self.bisect = False
                 break
 
         # Aggregate final labels and centers from the bisecting tree
@@ -625,6 +649,7 @@ class _BisectingTree:
                 max_score = cluster_leaf.score
                 best_cluster_leaf = cluster_leaf
 
+        # if max_score >= self.opt_size:
         if np.isneginf(max_score):
             self.bisect = False
         else:
@@ -637,4 +662,3 @@ class _BisectingTree:
         else:
             yield from self.left.iter_leaves()
             yield from self.right.iter_leaves()
-

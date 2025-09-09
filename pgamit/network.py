@@ -37,7 +37,8 @@ from scipy.spatial import Delaunay, distance
 # app
 from pgamit.pyGamitSession import GamitSession
 from pgamit.pyStation import StationCollection
-from pgamit.cluster import over_cluster, select_central_point, BisectingQMeans
+from pgamit.cluster import (BisectingQMeans, overcluster, prune, 
+                            select_central_point)
 from pgamit.plots import plot_global_network
 
 BACKBONE_NET = 45
@@ -75,6 +76,8 @@ class Network(object):
         self.org = GamitConfig.gamitopt['org']
         self.GamitConfig = GamitConfig
         self.date = date
+        self.cluster_size = int(self.GamitConfig.NetworkConfig['cluster_size'])
+        self.ties = int(self.GamitConfig.NetworkConfig['ties'])
 
         # find out if this project-day has been processed before
         db_subnets = cnn.query_float('SELECT * FROM gamit_subnets '
@@ -178,16 +181,18 @@ class Network(object):
 
     def make_clusters(self, points, stations, net_limit=NET_LIMIT):
         # Run initial clustering using bisecting 'q-means'
-        qmean = BisectingQMeans(min_size=2, random_state=42)
+        qmean = BisectingQMeans(qmax=self.cluster_size, random_state=42)
         qmean.fit(points)
         # snap centroids to closest station coordinate
-        central_points = select_central_point(qmean.labels_, points,
-                                              qmean.cluster_centers_)
+        central_points = select_central_point(points, qmean.cluster_centers_)
         # expand the initial clusters to overlap stations with neighbors
-        OC = over_cluster(qmean.labels_, points, metric='euclidean',
-                          neighborhood=5, overlap_points=2)
+        OC = overcluster(qmean.labels_, points, metric='euclidean',
+                         overlap=self.ties, nmax=2)
+        # set 'method=None' to disable
+        OC, central_points = prune(OC, central_points, method='minsize')
         # calculate all 'tie' stations
         ties = np.where(np.sum(OC, axis=0) > 1)[0]
+
         # monotonic labels, compatible with previous data structure / api
         cluster_labels = []
         station_labels = []
@@ -220,8 +225,8 @@ class Network(object):
         path = solution_base + end_path + '_cluster.png'
 
         # generate plot of the network segmentation
-        central_points = plot_global_network(central_points, OC, qmean.labels_,
-                                             points, output_path=path)
+        # central_points = plot_global_network(central_points, OC, qmean.labels_,
+        #                                     points, output_path=path)
 
         # put everything in a dictionary
         clusters = {'centroids': points[central_points],

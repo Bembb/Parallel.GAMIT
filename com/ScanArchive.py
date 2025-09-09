@@ -7,61 +7,6 @@ Author: Demian D. Gomez
 Main routines to load the RINEX files to the database, load station
 information, run PPP on the archive files and obtain the OTL coefficients
 
-usage: pyScanArchive.py [-h] [-rinex] [-otl]
-                        [-stninfo [argument [argument ...]]]
-                        [-ppp [argument [argument ...]]]
-                        [-rehash [argument [argument ...]]] [-np]
-                        all|net.stnm [all|net.stnm ...]
-
-Archive operations Main Program
-
-positional arguments:
-  all|net.stnm          List of networks/stations to process given in
-                        [net].[stnm] format or just [stnm] (separated by
-                        spaces; if [stnm] is not unique in the database, all
-                        stations with that name will be processed). Use
-                        keyword 'all' to process all stations in the database.
-                        If [net].all is given, all stations from network [net]
-                        will be processed. Alternatevily, a file with the
-                        station list can be provided.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -rinex, --rinex       Scan the current archive for RINEX 2/3 files.
-  -otl, --ocean_loading
-                        Calculate ocean loading coefficients.
-  -stninfo [argument [argument ...]], --station_info [argument [argument ...]]
-                        Insert station information to the database. If no
-                        arguments are given, then scan the archive for station
-                        info files and use their location (folder) to
-                        determine the network to use during insertion. Only
-                        stations in the station list will be processed. If a
-                        filename is provided, then scan that file only, in
-                        which case a second argument specifies the network to
-                        use during insertion. Eg: -stninfo ~/station.info arg.
-                        In cases where multiple networks are being processed,
-                        the network argument will be used to desambiguate
-                        station code conflicts. Eg: pyScanArchive all -stninfo
-                        ~/station.info arg -> if a station named igm1 exists
-                        in networks 'igs' and 'arg', only 'arg.igm1' will get
-                        the station information insert. Use keyword 'stdin' to
-                        read the station information data from the pipeline.
-  -ppp [argument [argument ...]], --ppp [argument [argument ...]]
-                        Run ppp on the rinex files in the database. Append
-                        [date_start] and (optionally) [date_end] to limit the
-                        range of the processing. Allowed formats are yyyy.doy
-                        or yyyy/mm/dd. Append keyword 'hash' to the end to
-                        check the PPP hash values against the station
-                        information records. If hash doesn't match,
-                        recalculate the PPP solutions.
-  -rehash [argument [argument ...]], --rehash [argument [argument ...]]
-                        Check PPP hash against station information hash.
-                        Rehash PPP solutions to match the station information
-                        hash without recalculating the PPP solution.
-                        Optionally append [date_start] and (optionally)
-                        [date_end] to limit the rehashing time window. Allowed
-                        formats are yyyy.doy or yyyy/mm/dd.
-  -np, --noparallel     Execute command without parallelization.
 """
 
 import traceback
@@ -96,14 +41,15 @@ from pgamit import pyOptions
 from pgamit import Utils
 from pgamit import pyJobServer
 from pgamit import pyEvents
-from pgamit.Utils import (print_columns,
+from pgamit.Utils import (add_version_argument,
                           process_date,
                           ecef2lla,
                           file_append,
                           file_open,
                           file_read_all,
                           stationID,
-                          station_list_help)
+                          station_list_help,
+                          crc32)
 
 
 error_message = False
@@ -494,7 +440,9 @@ def insert_stninfo(NetworkCode, StationCode, stninfofile):
     for stn in stninfo:
         if stn.get('StationCode').lower() == StationCode:
             try:
-                stnInfo.InsertStationInfo(stn)
+                # call station info again in case there was a change from other records
+                stnobj = pyStationInfo.StationInfo(cnn, NetworkCode, StationCode, allow_empty=True)
+                stnobj.InsertStationInfo(stn)
             except pyStationInfo.pyStationInfoException as e:
                 errors.append(str(e))
 
@@ -877,14 +825,15 @@ def hash_check(cnn, master_list, sdate, edate, rehash=False, h_tolerant=0):
                                                     pyDate.Date(datetime = dd),
                                                     h_tolerance = h_tolerant)
 
-                if stninfo.currentrecord.hash != soln['hash']:
+                # DDG: now also add the value of the CRC32 of orbit
+                if stninfo.currentrecord.hash + crc32(soln['orbit']) != soln['hash']:
                     if not rehash:
                         tqdm.write(" -- Hash value for %s does not match with Station Information hash. "
                                    "PPP coordinate will be recalculated." % obs_id)
                         cnn.delete('ppp_soln', **soln)
                     else:
                         tqdm.write(" -- %s has been rehashed." % obs_id)
-                        cnn.update('ppp_soln', soln, hash = stninfo.currentrecord.hash)
+                        cnn.update('ppp_soln', {'hash': stninfo.currentrecord.hash + crc32(soln['orbit'])}, **soln)
 
         except pyStationInfo.pyStationInfoException as e:
             tqdm.write(str(e))
@@ -895,11 +844,38 @@ def hash_check(cnn, master_list, sdate, edate, rehash=False, h_tolerant=0):
         print(' -- Done rehashing PPP records.')
 
 
+def db_checks(cnn):
+    fields = cnn.get_columns('ppp_soln')
+
+    if 'orbit' not in fields.keys():
+        # New field in table ppp_soln present, no need to migrate.
+        cnn.begin_transac()
+        cnn.query("""
+                ALTER TABLE ppp_soln
+                ADD COLUMN orbit VARCHAR(100) DEFAULT '';
+                """)
+        cnn.commit_transac()
+
+    if fields['hash'].lower() != 'bigint':
+        # check the database to modify the ppp_soln table hash column from integer to bigint
+        print(' >> Converting hash column in ppp_soln to BIGINT. This operation might take a while...')
+        cnn.begin_transac()
+        cnn.query("""
+                ALTER TABLE ppp_soln
+                ALTER COLUMN hash TYPE BIGINT;
+                """)
+        cnn.commit_transac()
+
+
 def process_ppp(cnn, Config, pyArchive, archive_path, JobServer, master_list, sdate, edate, h_tolerance):
 
     print(" >> Running PPP on the RINEX files in the archive...")
 
     master_list = [item['NetworkCode'] + '.' + item['StationCode'] for item in master_list]
+
+    # DDG: new field in ppp_soln table -> orbit. It declared which orbit was used to obtain a solution
+    # DDG: check the database to modify the ppp_soln table hash column from integer to bigint
+    db_checks(cnn)
 
     # for each rinex in the db, run PPP and get a coordinate
     rs_rnx = cnn.query('SELECT rinex.* FROM rinex_proc as rinex '
@@ -1363,20 +1339,22 @@ def main():
                         help="Run ppp on the rinex files in the database. Append [date_start] and (optionally) "
                              "[date_end] to limit the range of the processing. Allowed formats are yyyy_doy, wwww-d, "
                              "fyear or yyyy/mm/dd. Append keyword 'hash' to the end to check the PPP hash values "
-                             "against the station information records. If hash doesn't match, recalculate the PPP "
-                             "solutions.")
+                             "against the station information records and used orbit. If hash doesn't match, "
+                             "recalculate the PPP solutions.")
 
     parser.add_argument('-rehash', '--rehash', nargs='*', metavar='argument',
-                        help="Check PPP hash against station information hash. Rehash PPP solutions to match the "
-                             "station information hash without recalculating the PPP solution. Optionally append "
-                             "[date_start] and (optionally) [date_end] to limit the rehashing time window. "
-                             "Allowed formats are yyyy.doy or yyyy/mm/dd.")
+                        help="Check PPP hash against station information and orbit hash. Rehash PPP solutions to match "
+                             "the station information and orbit hash without recalculating the PPP solution. "
+                             "Optionally append [date_start] and (optionally) [date_end] to limit the rehashing time "
+                             "window. Allowed formats are yyyy.doy or yyyy/mm/dd.")
 
     parser.add_argument('-tol', '--stninfo_tolerant', nargs=1, type=int, metavar='{hours}', default=[0],
                         help="Specify a tolerance (in hours) for station information gaps (only use for early "
                              "survey data). Default is zero.")
 
     parser.add_argument('-np', '--noparallel', action='store_true', help="Execute command without parallelization.")
+
+    add_version_argument(parser)
 
     args = parser.parse_args()
 
@@ -1394,8 +1372,11 @@ def main():
 
     pyArchive = pyArchiveStruct.RinexStruct(cnn)
 
-    JobServer = pyJobServer.JobServer(Config, run_parallel=not args.noparallel,
-                                      software_sync=[Config.options['ppp_remote_local']])  # type: pyJobServer.JobServer
+    if args.station_info is None:
+        JobServer = pyJobServer.JobServer(Config, run_parallel=not args.noparallel,
+                                          software_sync=[Config.options['ppp_remote_local']])
+    else:
+        JobServer = None
 
     #########################################
 
@@ -1472,7 +1453,8 @@ def main():
     # if os.path.isdir('production'):
     #    rmtree('production')
 
-    JobServer.close_cluster()
+    if JobServer is not None:
+        JobServer.close_cluster()
 
 
 if __name__ == '__main__':

@@ -171,29 +171,34 @@ class Cnn(object):
             raise dbErrConnect(err)
 
     def query(self, command):
-        self.cursor.execute(command)
+        try:
+            self.cursor.execute(command)
 
-        debug(" QUERY: command=%r" % command)
+            debug(" QUERY: command=%r" % command)
 
-        # passing a query object to match response from pygresql
-        return query_obj(self.cursor)
+            # passing a query object to match response from pygresql
+            return query_obj(self.cursor)
+        except Exception as e:
+            raise DatabaseError(e)
 
     def query_float(self, command, as_dict=False):
         # deprecated: using psycopg2 now solves the problem of returning float numbers
         # still in to maintain backwards compatibility
+        try:
+            if not as_dict:
+                cursor = self.cnn.cursor()
+                cursor.execute(command)
+                recordset = cast_array_to_float(cursor.fetchall())
+            else:
+                # return results as a dictionary
+                self.cursor.execute(command)
+                recordset = cast_array_to_float(self.cursor.fetchall())
 
-        if not as_dict:
-            cursor = self.cnn.cursor()
-            cursor.execute(command)
-            recordset = cast_array_to_float(cursor.fetchall())
-        else:
-            # return results as a dictionary
-            self.cursor.execute(command)
-            recordset = cast_array_to_float(self.cursor.fetchall())
+            return recordset
+        except Exception as e:
+            raise DatabaseError(e)
 
-        return recordset
-
-    def get(self, table, filter_fields, return_fields=None):
+    def get(self, table, filter_fields, return_fields=None, limit=None):
         """
         Selects from the given table the records that match filter_fields and returns ONE dictionary.
         Method should not be used to retrieve more than one single record.
@@ -201,6 +206,7 @@ class Cnn(object):
         table (str): The table to select from.
         filter_fields (dict): The dictionary where the keys are the field names and the values are the filter values.
         return_fields (list of str): The fields to return. If empty return all columns
+        limit (int): sets a limit for rows in case it is a query to determine if records exist
 
         Returns:
         list: A list of dictionaries, each representing a record that matches the filter.
@@ -209,10 +215,17 @@ class Cnn(object):
         if return_fields is None:
             return_fields = list(self.get_columns(table).keys())
 
-        where_clause = ' AND '.join([f'"{key}" = %s' for key in filter_fields.keys()])
+        where_clause = ' AND '.join([f'"{key}" = %s' if val is not None else f'"{key}" IS %s'
+                                     for key, val in zip(filter_fields.keys(), filter_fields.values())])
         fields_clause = ', '.join([f'"{field}"' for field in return_fields])
-        query = f'SELECT {fields_clause} FROM {table} WHERE {where_clause}'
+        if where_clause:
+            query = f'SELECT {fields_clause} FROM {table} WHERE {where_clause}'
+        else:
+            query = f'SELECT {fields_clause} FROM {table}'
         values = list(filter_fields.values())
+        # new feature to limit the results
+        if limit:
+            query += ' LIMIT %i' % limit
 
         try:
             self.cursor.execute(query, values)
@@ -222,7 +235,7 @@ class Cnn(object):
             if len(records) > 0:
                 return records[0]
             else:
-                raise DatabaseError
+                raise DatabaseError('query returned no records: ' + query)
 
         except psycopg2.Error as e:
             raise e
@@ -265,7 +278,9 @@ class Cnn(object):
         query = f'INSERT INTO {table} ("{columns}") VALUES ({placeholders})'
         try:
             self.cursor.execute(query, values)
+            self.cnn.commit()
         except psycopg2.errors.UniqueViolation as e:
+            self.cnn.rollback()
             raise dbErrInsert(e)
 
     def update(self, table, set_row, **kwargs):
@@ -283,8 +298,8 @@ class Cnn(object):
         set_clause = ', '.join([f'"{field}" = %s' for field in set_row.keys()])
 
         # Build the WHERE clause based on the row dictionary
-        where_clause = ' AND '.join([f'"{key}" = %s' for key in kwargs.keys()])
-
+        where_clause = ' AND '.join([f'"{key}" = %s' if val is not None else f'"{key}" IS %s'
+                                     for key, val in zip(kwargs.keys(), kwargs.values())])
         # Construct query
         query = f'UPDATE {table} SET {set_clause} WHERE {where_clause}'
 
@@ -313,7 +328,8 @@ class Cnn(object):
         if not kw:
             raise ValueError("No conditions provided for deletion")
 
-        where_clause = ' AND '.join([f'"{key}" = %s' for key in kw.keys()])
+        where_clause = ' AND '.join([f'"{key}" = %s' if val is not None else f'"{key}" IS %s'
+                                     for key, val in zip(kw.keys(), kw.values())])
         query = f'DELETE FROM {table} WHERE {where_clause}'
         values = list(kw.values())
 

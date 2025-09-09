@@ -28,7 +28,7 @@ from pgamit.Utils import (process_date,
                           file_readlines,
                           file_open,
                           stationID,
-                          print_columns,
+                          add_version_argument,
                           process_stnlist)
 
 
@@ -152,6 +152,8 @@ def calculate_etms(cnn, stack, JobServer, iterations, create_target=True, exclud
                 target.append([])
 
         return target
+    else:
+        return None
 
 
 def load_periodic_space(periodic_file):
@@ -264,6 +266,11 @@ def main():
     parser.add_argument('-redo', '--redo_stack', action='store_true',
                         help="Delete the stack and redo it from scratch")
 
+    parser.add_argument('-preserve', '--preserve_stack', action='store_true',
+                        help="When calling without --rede_stack, reuse the stack and apply inheritance to the stack "
+                             "as is. This is useful to try different parameters and stations during the inheritance "
+                             "process")
+
     parser.add_argument('-plot', '--plot_stack_etms', action='store_true', default=False,
                         help="Plot the stack ETMs after computation is done")
 
@@ -281,13 +288,16 @@ def main():
 
     parser.add_argument('-np', '--noparallel', action='store_true', help="Execute command without parallelization.")
 
+    add_version_argument(parser)
+
     args = parser.parse_args()
 
     cnn = dbConnection.Cnn("gnss_data.cfg")
 
     Config = pyOptions.ReadOptions("gnss_data.cfg")  # type: pyOptions.ReadOptions
 
-    JobServer = pyJobServer.JobServer(Config, run_parallel=not args.noparallel)  # type: pyJobServer.JobServer
+    JobServer = pyJobServer.JobServer(Config, check_archive=False, check_executables=False, check_atx=False,
+                                      run_parallel=not args.noparallel)  # type: pyJobServer.JobServer
 
     if args.max_iters:
         max_iters = int(args.max_iters[0])
@@ -329,6 +339,13 @@ def main():
                   'stations in the constraints file might be insufficient to align all spaces.' % len(constraints))
     else:
         constraints = None
+
+    # check if stack does not exist and redo = False
+    try:
+        _ = cnn.get('stacks', {'name': args.stack_name[0]}, limit=1)
+    except dbConnection.DatabaseError:
+        # if stack does not exist, then force a redo
+        args.redo_stack = True
 
     # create the stack object
     stack = pyStack.Stack(cnn, args.project[0], args.stack_name[0], args.redo_stack, end_date=dates[1])
@@ -379,7 +396,8 @@ def main():
         stack.transformations.append([poly.info() for poly in stack])
         qbar.close()
 
-    if args.redo_stack:
+    # todo: remove the requirement of redo_stack to enter the external constraints
+    if args.redo_stack or args.preserve_stack:
         # before removing common modes (or inheriting periodic terms), calculate ETMs with final aligned solutions
         calculate_etms(cnn, stack, JobServer, iterations=None, create_target=False)
         # only apply common mode removal if redoing the stack
@@ -396,7 +414,7 @@ def main():
     # save the json with the information about the alignment
     stack.to_json(args.stack_name[0] + '_alignment.json')
     # save polyhedrons to the database
-    stack.save()
+    stack.save(erase=args.preserve_stack)
 
     if args.plot_stack_etms:
         qbar = tqdm(total=len(stack.stations), ncols=160, disable=None)

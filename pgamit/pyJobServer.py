@@ -9,7 +9,6 @@ before sending jobs to each node
 
 import time
 import _thread
-import threading
 import queue
 import traceback
 
@@ -17,8 +16,6 @@ import traceback
 from tqdm import tqdm
 import dispy
 import dispy.httpd
-
-DELAY = 60
 
 
 def test_node(check_gamit_tables=None, check_archive=True, check_executables=True, check_atx=True, software_sync=()):
@@ -264,8 +261,8 @@ class JobServer:
             # <nah> @todo aca si job es None bug, y no está claro si con el wait() el
             # delay es realmente necesario / delay arbitrario sin reintentos?
             start_t = time.time()
-            while job is None and (time.time() - start_t) < 2:
-                time.sleep(0.05)
+            while job is None and (time.time() - start_t) < self.delay:
+                time.sleep(1)
 
             self.result.append(job.result)
 
@@ -291,6 +288,7 @@ class JobServer:
         self.result       = []
         self.jobs         = []
         self.run_parallel = Config.run_parallel and run_parallel
+        self.delay        = Config.cluster_delay
         self.verbose      = False
         self.close        = False
         # variable with ip address for multi-homed systems
@@ -322,18 +320,21 @@ class JobServer:
             # initialize the cluster
             # if explicitly declared, then we might have a multi-homed computer system
             self.cluster = dispy.JobCluster(test_node,
-                                            servers, 
+                                            servers,
                                             recover_file   = 'pg.dat',
-                                            pulse_interval = 60,
+                                            pulse_interval = 10,
+                                            ping_interval  = 10,
                                             cluster_status = self.check_cluster,
-                                            ip_addr        = self.ip_address)
+                                            host           = self.ip_address
+                                                             if type(self.ip_address) is list or self.ip_address is None
+                                                             else [self.ip_address])
 
             # discover the available nodes
             self.cluster.discover_nodes(servers)
 
             # wait for all nodes
-            tqdm.write(" >> Waiting %d seconds to discover all nodes... " % DELAY)
-            time.sleep(DELAY)
+            tqdm.write(" >> Waiting %d seconds to discover all nodes... " % self.delay)
+            time.sleep(self.delay)
 
             # if no nodes were found, stop
             if not len(self.nodes):
@@ -387,7 +388,8 @@ class JobServer:
                                             list(deps),
                                             callback,
                                             self.cluster_status,
-                                            pulse_interval=60,
+                                            pulse_interval=10,
+                                            ping_interval =10,
                                             # Note, exceptions in setup seems to be swallowed up and
                                             # never shown.
                                             setup          = node_setup or setup,
@@ -399,13 +401,13 @@ class JobServer:
                                             # disconnected node is really alive (temporal netsplit) the
                                             # job will run multiple times and maybe in parallel)
                                             reentrant      = True,
-                                            ip_addr        = self.ip_address)
+                                            host           = self.ip_address)
 
             self.http_server = dispy.httpd.DispyHTTPServer(self.cluster, poll_sec=2)
 
             # wait for all nodes to be created
-            tqdm.write(" >> Waiting %d seconds to initialize all nodes... " % DELAY)
-            time.sleep(DELAY)
+            tqdm.write(" >> Waiting %d seconds to initialize all nodes... " % self.delay)
+            time.sleep(self.delay)
 
         self.progress_bar = progress_bar
 
@@ -471,11 +473,11 @@ class JobServer:
         :return: none
         """
         if self.run_parallel:
-            tqdm.write(' -- Waiting for jobs to finish (no less than %d seconds)...' % DELAY)
+            tqdm.write(' -- Waiting for jobs to finish (no less than %d seconds)...' % self.delay)
             try:
                 self.cluster.wait()
                 # let the process trigger cluster_status before letting the calling proc close the progress bar
-                time.sleep(DELAY)
+                time.sleep(self.delay)
             except KeyboardInterrupt:
                 for job in self.jobs:
                     if job.status in (dispy.DispyJob.Running,
