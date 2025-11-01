@@ -3,8 +3,9 @@ requires = ["setuptools>=64", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pgamit"
-dynamic = ["version", "keywords"]
+name = "pgamit_test_bemb"
+version = "0.0.1"
+dynamic = ["keywords"]
 description = "A Python wrapper to parallelize GAMIT executions"
 authors = [
   { name = "Demián D. Gómez", email = "demiang@gmail.com"},
@@ -64,3 +65,4 @@ dependencies = [
 packages = ["pgamit"]
 
 [tool.setuptools_scm]
+local_scheme = "no-local-version"
