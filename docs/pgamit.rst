@@ -12,314 +12,330 @@ Subpackages
 Submodules
 ----------
 
+pgamit.ConvertRaw module
+------------------------
+
+.. automodule:: pgamit.ConvertRaw
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 pgamit.StationList module
 -------------------------
 
 .. automodule:: pgamit.StationList
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.Utils module
 -------------------
 
 .. automodule:: pgamit.Utils
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
+
+pgamit.agglomerative module
+---------------------------
+
+.. automodule:: pgamit.agglomerative
+   :members:
+   :show-inheritance:
+   :undoc-members:
 
 pgamit.cluster module
 ---------------------
 
 .. automodule:: pgamit.cluster
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.dbConnection module
 --------------------------
 
 .. automodule:: pgamit.dbConnection
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.dbConnection\_old module
 -------------------------------
 
 .. automodule:: pgamit.dbConnection_old
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
+
+pgamit.igslog module
+--------------------
+
+.. automodule:: pgamit.igslog
+   :members:
+   :show-inheritance:
+   :undoc-members:
 
 pgamit.network module
 ---------------------
 
 .. automodule:: pgamit.network
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.plots module
 -------------------
 
 .. automodule:: pgamit.plots
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.proto\_download module
 -----------------------------
 
 .. automodule:: pgamit.proto_download
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyArchiveStruct module
 -----------------------------
 
 .. automodule:: pgamit.pyArchiveStruct
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyBunch module
 ---------------------
 
 .. automodule:: pgamit.pyBunch
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyDate module
 --------------------
 
 .. automodule:: pgamit.pyDate
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyETM module
 -------------------
 
 .. automodule:: pgamit.pyETM
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyEvents module
 ----------------------
 
 .. automodule:: pgamit.pyEvents
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyGamitConfig module
 ---------------------------
 
 .. automodule:: pgamit.pyGamitConfig
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyGamitSession module
 ----------------------------
 
 .. automodule:: pgamit.pyGamitSession
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyGamitTask module
 -------------------------
 
 .. automodule:: pgamit.pyGamitTask
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyGlobkTask module
 -------------------------
 
 .. automodule:: pgamit.pyGlobkTask
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyJobServer module
 -------------------------
 
 .. automodule:: pgamit.pyJobServer
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyLeastSquares module
 ----------------------------
 
 .. automodule:: pgamit.pyLeastSquares
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyOTL module
 -------------------
 
 .. automodule:: pgamit.pyOTL
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyOkada module
 ---------------------
 
 .. automodule:: pgamit.pyOkada
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyOptions module
 -----------------------
 
 .. automodule:: pgamit.pyOptions
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyPPP module
 -------------------
 
 .. automodule:: pgamit.pyPPP
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyParseAntex module
 --------------------------
 
 .. automodule:: pgamit.pyParseAntex
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyParseZTD module
 ------------------------
 
 .. automodule:: pgamit.pyParseZTD
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyProducts module
 ------------------------
 
 .. automodule:: pgamit.pyProducts
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyRinex module
 ---------------------
 
 .. automodule:: pgamit.pyRinex
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyRinexName module
 -------------------------
 
 .. automodule:: pgamit.pyRinexName
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyRunWithRetry module
 ----------------------------
 
 .. automodule:: pgamit.pyRunWithRetry
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyStack module
 ---------------------
 
 .. automodule:: pgamit.pyStack
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyStatic1d module
 ------------------------
 
 .. automodule:: pgamit.pyStatic1d
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyStation module
 -----------------------
 
 .. automodule:: pgamit.pyStation
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyStationInfo module
 ---------------------------
 
 .. automodule:: pgamit.pyStationInfo
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyTerminal module
 ------------------------
 
 .. automodule:: pgamit.pyTerminal
    :members:
-   :undoc-members:
    :show-inheritance:
-
-pgamit.pyTrimbleT0x module
---------------------------
-
-.. automodule:: pgamit.pyTrimbleT0x
-   :members:
    :undoc-members:
-   :show-inheritance:
 
 pgamit.pyVoronoi module
 -----------------------
 
 .. automodule:: pgamit.pyVoronoi
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.pyZTD module
 -------------------
 
 .. automodule:: pgamit.pyZTD
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.snxParse module
 ----------------------
 
 .. automodule:: pgamit.snxParse
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: pgamit
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

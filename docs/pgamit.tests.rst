@@ -9,21 +9,29 @@ pgamit.tests.common module
 
 .. automodule:: pgamit.tests.common
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 pgamit.tests.test\_make\_clusters module
 ----------------------------------------
 
 .. automodule:: pgamit.tests.test_make_clusters
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
+
+pgamit.tests.test\_version module
+---------------------------------
+
+.. automodule:: pgamit.tests.test_version
+   :members:
+   :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: pgamit.tests
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

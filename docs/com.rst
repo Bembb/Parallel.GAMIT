@@ -9,8 +9,8 @@ com.AlterETM module
 
 .. automodule:: com.AlterETM
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.AlterETM
@@ -23,16 +23,16 @@ com.ApplyCountryCode module
 
 .. automodule:: com.ApplyCountryCode
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 com.ArchiveService module
 -------------------------
 
 .. automodule:: com.ArchiveService
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.ArchiveService
@@ -45,8 +45,8 @@ com.CloseStationInfo module
 
 .. automodule:: com.CloseStationInfo
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.CloseStationInfo
@@ -59,16 +59,16 @@ com.CompareDBs module
 
 .. automodule:: com.CompareDBs
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 com.ConvertDate module
 ----------------------
 
 .. automodule:: com.ConvertDate
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.ConvertDate
@@ -81,8 +81,8 @@ com.ConvertTrimble module
 
 .. automodule:: com.ConvertTrimble
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.ConvertTrimble
@@ -95,8 +95,8 @@ com.DRA module
 
 .. automodule:: com.DRA
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.DRA
@@ -109,8 +109,8 @@ com.DownloadSources module
 
 .. automodule:: com.DownloadSources
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.DownloadSources
@@ -123,8 +123,8 @@ com.DownloadSourcesFill module
 
 .. automodule:: com.DownloadSourcesFill
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.DownloadSourcesFill
@@ -137,8 +137,8 @@ com.FixPlate module
 
 .. automodule:: com.FixPlate
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.FixPlate
@@ -151,8 +151,8 @@ com.GenerateKml module
 
 .. automodule:: com.GenerateKml
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.GenerateKml
@@ -165,8 +165,8 @@ com.GenerateSinex module
 
 .. automodule:: com.GenerateSinex
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.GenerateSinex
@@ -179,8 +179,8 @@ com.IntegrityCheck module
 
 .. automodule:: com.IntegrityCheck
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.IntegrityCheck
@@ -193,8 +193,8 @@ com.LocateRinex module
 
 .. automodule:: com.LocateRinex
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.LocateRinex
@@ -202,13 +202,27 @@ com.LocateRinex module
 	:hook:
 	:prog: LocateRinex.py
 
+com.ModelProcessing module
+--------------------------
+
+.. automodule:: com.ModelProcessing
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+.. sphinx_argparse_cli::
+	:module: com.ModelProcessing
+	:func: main
+	:hook:
+	:prog: ModelProcessing.py
+
 com.NEQStack module
 -------------------
 
 .. automodule:: com.NEQStack
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.NEQStack
@@ -221,16 +235,16 @@ com.OTL\_FES2014b module
 
 .. automodule:: com.OTL_FES2014b
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 com.ParallelGamit module
 ------------------------
 
 .. automodule:: com.ParallelGamit
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.ParallelGamit
@@ -243,8 +257,8 @@ com.PlotETM module
 
 .. automodule:: com.PlotETM
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.PlotETM
@@ -257,8 +271,8 @@ com.PlotMapView module
 
 .. automodule:: com.PlotMapView
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.PlotMapView
@@ -271,8 +285,8 @@ com.QueryETM module
 
 .. automodule:: com.QueryETM
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.QueryETM
@@ -285,8 +299,8 @@ com.ReadPackage module
 
 .. automodule:: com.ReadPackage
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.ReadPackage
@@ -299,16 +313,16 @@ com.S\-score module
 
 .. automodule:: com.S-score
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 com.ScanArchive module
 ----------------------
 
 .. automodule:: com.ScanArchive
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.ScanArchive
@@ -321,8 +335,8 @@ com.Stacker module
 
 .. automodule:: com.Stacker
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.Stacker
@@ -335,8 +349,8 @@ com.StationInfoEdit module
 
 .. automodule:: com.StationInfoEdit
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.StationInfoEdit
@@ -349,8 +363,8 @@ com.SyncOrbits module
 
 .. automodule:: com.SyncOrbits
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.SyncOrbits
@@ -363,8 +377,8 @@ com.TrajectoryFit module
 
 .. automodule:: com.TrajectoryFit
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.TrajectoryFit
@@ -377,16 +391,22 @@ com.UpdateEarthquakes module
 
 .. automodule:: com.UpdateEarthquakes
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
+
+.. sphinx_argparse_cli::
+	:module: com.UpdateEarthquakes
+	:func: main
+	:hook:
+	:prog: UpdateEarthquakes.py
 
 com.WeeklyCombination module
 ----------------------------
 
 .. automodule:: com.WeeklyCombination
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.WeeklyCombination
@@ -399,8 +419,8 @@ com.Ztd2trp module
 
 .. automodule:: com.Ztd2trp
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 .. sphinx_argparse_cli::
 	:module: com.Ztd2trp
@@ -413,13 +433,13 @@ com.gamit\_stats module
 
 .. automodule:: com.gamit_stats
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: com
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

@@ -1,5 +1,5 @@
-Parallel.GAMIT
-==============
+Pgamit-TEST
+===========
 
 .. toctree::
    :maxdepth: 4

@@ -16,19 +16,40 @@ release = '1.0.0'
 import os
 import sys
 from unittest.mock import MagicMock # for mock importing for autodoc and argparse
-from unittest.mock import Mock
 sys.path.insert(0, os.path.abspath(".."))
 
 extensions = ['sphinx.ext.viewcode','sphinx.ext.autodoc', 'sphinx_argparse_cli', 'sphinx.ext.napoleon']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-# remove mock import of classes later
-MOCK_MODULES = ['numpy', 'pg', 'scandir', 'magic', 'tqdm', 'scipy','xmltodict','matplotlib','simplekml','snxParse','pgdb','dispy','country_converter','paramiko','DownloadSources','mpl_toolkits','libcomcat','hdf5storage','sklearn','seaborn','scipy.interpolate','matplotlib.pyplot','mpl_toolkits.basemap','matplotlib.dates','matplotlib.collections','scipy.spatial','sklearn.cluster','scipy.stats','matplotlib.widgets','dispy.httpd','numpy.linalg','geopy.geocoders','numpy.random', 'pyOkada','libcomcat.search','libcomcat.exceptions', 'scipy.sparse', 'sklearn.neighbors', 'sklearn.base', 'sklearn.utils', 'sklearn.utils._openmp_helpers', 'sklearn.utils._param_validation', 'sklearn.utils.extmath','sklearn.utils.validation','sklearn.cluster._k_means_common','sklearn.cluster._kmeans', 'geopy.extra','scipy.io', 'geopy.extra.rate_limiter','psycopg2','psycopg2.extras','psycopg2.extensions','networkx', 'pyOptions']
 
+# -- Mocking -----------------------------------------------------------------
+
+# mock modules 
+MOCK_MODULES = ['psycopg2', 'psycopg2.extras', 'psycopg2.extensions', 'pg','pgdb']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = MagicMock(return_value = "")
 
+# Mock file operations during documentation build
+original_open = open
+def mock_file_open(path, mode='r', **kwargs):
+    path = str(path)
+    if path.endswith('.cfg'):
+        filename = os.path.basename(path)
+        path = os.path.join('../configuration_files', filename) # assume current dir is docs
+    return original_open(path, mode, **kwargs)
+
+# Apply the mock during documentation build
+import builtins
+builtins.open = mock_file_open
+
+# -- LaTeX Unicode Fix -------------------------------------------------------
+latex_elements = {
+    'preamble': r'''
+    \usepackage[utf8]{inputenc}
+    \DeclareUnicodeCharacter{202F}{ }
+    ''',
+}
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
