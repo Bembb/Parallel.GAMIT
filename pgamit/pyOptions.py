@@ -77,6 +77,7 @@ class ReadOptions:
 
         # frames and dates
         frames = [item.strip() for item in self.options['frames'].split(',')]
+        frames=''
         atx    = [item.strip() for item in self.options['atx'].split(',')]
 
         self.Frames = []
